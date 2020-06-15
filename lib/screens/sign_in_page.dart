@@ -56,9 +56,9 @@ class _SignInState extends State<SignIn> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.4),
-                          Colors.black.withOpacity(0.5),
+                          Colors.black.withOpacity(0.1),
+                          Colors.black.withOpacity(0.1),
+                          Colors.black.withOpacity(0.1),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
                           elevation: 5,
                           color: Colors.transparent,
                           shadowColor: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(20),
                           child: FormBuilder(
                             key: _fbKey,
                             autovalidate: autoValidate,

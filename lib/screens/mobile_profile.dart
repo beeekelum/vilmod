@@ -44,9 +44,9 @@ class MobileProfile extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.black.withOpacity(0.6),
-                        Colors.black.withOpacity(0.5),
-                        Colors.black.withOpacity(0.5),
+                        Colors.black.withOpacity(0.7),
+                        Colors.black.withOpacity(0.7),
+                        Colors.black.withOpacity(0.7),
                       ],
                       //begin: Alignment.bottomLeft,
                       begin: Alignment.topCenter,
@@ -162,7 +162,7 @@ class MobileProfile extends StatelessWidget {
           title: Text(
             value,
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'OpenSans'),
@@ -170,7 +170,7 @@ class MobileProfile extends StatelessWidget {
           subtitle: Text(
             title,
             style: TextStyle(
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.w100,
                 fontFamily: 'OpenSans'),
           ),

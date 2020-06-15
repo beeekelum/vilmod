@@ -8,6 +8,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:vilmod/utils/SizeConfig.dart';
 import 'package:vilmod/widgets/styles.dart';
 import 'package:international_phone_input/international_phone_input.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignUp extends StatefulWidget {
   final Function toggleView;
@@ -24,6 +25,9 @@ class _SignUpState extends State<SignUp> {
   bool loading = false;
   bool autoValidate = false;
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'ZA';
+  PhoneNumber number = PhoneNumber(isoCode: 'ZA');
   bool passwordVisible;
 
   //text field state
@@ -45,7 +49,7 @@ class _SignUpState extends State<SignUp> {
     return loading
         ? Loading()
         : SafeArea(
-          child: Scaffold(
+            child: Scaffold(
               //resizeToAvoidBottomPadding: false,
               body: Stack(
                 children: <Widget>[
@@ -60,9 +64,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.4),
-                          Colors.black.withOpacity(0.5),
+                          Colors.black.withOpacity(0.1),
+                          Colors.black.withOpacity(0.1),
+                          Colors.black.withOpacity(0.1),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
@@ -78,7 +82,7 @@ class _SignUpState extends State<SignUp> {
                           elevation: 5,
                           color: Colors.transparent,
                           shadowColor: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(20),
                           child: FormBuilder(
                             key: _fbKey,
                             autovalidate: autoValidate,
@@ -90,9 +94,8 @@ class _SignUpState extends State<SignUp> {
                                   children: <Widget>[
                                     _buildSpaceWidget(3),
                                     Logo(),
-
                                     Text(
-                                      'Register',
+                                      'Customer Registration',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
@@ -107,8 +110,10 @@ class _SignUpState extends State<SignUp> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     attribute: "first_name",
-                                    decoration: textFormFieldDecoration.copyWith(
-                                        hintText: 'First name',  prefixIcon: Icon(Icons.person)),
+                                    decoration:
+                                        textFormFieldDecoration.copyWith(
+                                            hintText: 'First name',
+                                            prefixIcon: Icon(Icons.person)),
                                     validators: [
                                       FormBuilderValidators.required(),
                                     ],
@@ -125,8 +130,10 @@ class _SignUpState extends State<SignUp> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     attribute: "last_name",
-                                    decoration: textFormFieldDecoration.copyWith(
-                                        hintText: 'Last name', prefixIcon: Icon(Icons.person)),
+                                    decoration:
+                                        textFormFieldDecoration.copyWith(
+                                            hintText: 'Last name',
+                                            prefixIcon: Icon(Icons.person)),
                                     validators: [
                                       FormBuilderValidators.required(),
                                     ],
@@ -143,16 +150,15 @@ class _SignUpState extends State<SignUp> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     attribute: "email",
-                                    decoration: textFormFieldDecoration.copyWith(
-                                        labelText: "Enter Email",
-                                        hintText: "Email",
-                                        prefixIcon: Icon(Icons.mail)
-                                    ),
+                                    decoration:
+                                        textFormFieldDecoration.copyWith(
+                                            labelText: "Enter Email",
+                                            hintText: "Email",
+                                            prefixIcon: Icon(Icons.mail)),
                                     onChanged: (value) {
                                       setState(() {
                                         email = value;
                                       });
-
                                     },
                                     validators: [
                                       FormBuilderValidators.required(),
@@ -166,7 +172,8 @@ class _SignUpState extends State<SignUp> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     obscureText: passwordVisible,
-                                    decoration: textFormFieldDecoration.copyWith(
+                                    decoration:
+                                        textFormFieldDecoration.copyWith(
                                       hintText: 'Password',
                                       labelText: 'Enter Password',
                                       prefixIcon: Icon(Icons.lock),
@@ -201,13 +208,26 @@ class _SignUpState extends State<SignUp> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0, right: 20.0),
-                                  child: InternationalPhoneInput(
-                                      //onPhoneNumberChange: (){},
-                                    decoration: textFormFieldDecoration.copyWith( labelText: 'Phone number', prefixIcon: Icon(Icons.phone)),
-                                      initialPhoneNumber: phoneNumber,
-                                      initialSelection: 'ZA',
-                                      enabledCountries: ['+27'],
-                                      showCountryCodes: false
+                                  child: InternationalPhoneNumberInput(
+                                    onInputChanged: (PhoneNumber number) {
+                                      print(number.phoneNumber);
+                                      phoneNumber =
+                                          number.phoneNumber.toString();
+                                    },
+                                    onInputValidated: (bool value) {
+                                      print(value);
+                                    },
+                                    ignoreBlank: false,
+                                    autoValidate: false,
+                                    selectorTextStyle:
+                                        TextStyle(color: Colors.black),
+                                    initialValue: number,
+                                    textFieldController: controller,
+                                    inputBorder: OutlineInputBorder(),
+                                    inputDecoration:
+                                        textFormFieldDecoration.copyWith(
+                                            labelText: 'Phone number',
+                                            prefixIcon: Icon(Icons.phone)),
                                   ),
                                 ),
                                 _buildSpaceWidget(2),
@@ -230,10 +250,6 @@ class _SignUpState extends State<SignUp> {
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                     ),
-//                                  icon: Icon(
-//                                    Icons.person_add,
-//                                    color: Colors.white,
-//                                  ),
                                     onPressed: () async {
                                       if (_fbKey.currentState.validate()) {
                                         setState(() {
@@ -246,12 +262,18 @@ class _SignUpState extends State<SignUp> {
                                                 firstName,
                                                 lastName,
                                                 phoneNumber);
-                                        if (result == null) {
-                                          setState(() {
-                                            error = 'Please enter a valid email';
-                                            loading = false;
-                                          });
-                                        }
+                                        setState(() {
+                                          loading = false;
+                                          Navigator.pop(context);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          autoValidate = true;
+                                        });
+                                        setState(() {
+                                          autoValidate = true;
+                                          loading = false;
+                                        });
                                       }
                                     },
                                   ),
@@ -264,7 +286,8 @@ class _SignUpState extends State<SignUp> {
                                       "Already have an Account?",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 2 * SizeConfig.textMultiplier),
+                                          fontSize:
+                                              2 * SizeConfig.textMultiplier),
                                     ),
                                     SizedBox(
                                       width: 1 * SizeConfig.widthMultiplier,
@@ -275,13 +298,14 @@ class _SignUpState extends State<SignUp> {
 //                                          context,
 //                                          MaterialPageRoute(
 //                                              builder: (context) => SignIn()));
-                                      Navigator.pop(context);
+                                        Navigator.pop(context);
                                       },
                                       child: Text(
                                         "Login here",
                                         style: TextStyle(
                                             color: Colors.blue[600],
-                                            fontSize: 2 * SizeConfig.textMultiplier),
+                                            fontSize:
+                                                2 * SizeConfig.textMultiplier),
                                       ),
                                     ),
                                   ],
@@ -330,7 +354,22 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
             ),
-        );
+          );
+  }
+
+  void getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'ZA');
+
+    setState(() {
+      this.number = number;
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 
   Widget _buildSpaceWidget(int height) {

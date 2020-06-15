@@ -6,14 +6,14 @@ final textFormFieldDecoration = InputDecoration(
   enabledBorder: OutlineInputBorder(
     borderRadius: new BorderRadius.circular(10),
     borderSide: BorderSide(
-      color: Colors.black,
+      color: Colors.white,
       width: 1,
     ),
   ),
   focusedBorder: OutlineInputBorder(
     borderRadius: new BorderRadius.circular(10),
     borderSide: BorderSide(
-      color: Colors.black,
+      color: Colors.white,
       width: 1,
     ),
   ),
@@ -31,6 +31,6 @@ final textFormFieldDecoration = InputDecoration(
   ),
   border: new OutlineInputBorder(
     borderRadius: new BorderRadius.circular(10),
-    borderSide: new BorderSide(color: Colors.black, width: 1),
+    borderSide: new BorderSide(color: Colors.white, width: 1),
   ),
 );

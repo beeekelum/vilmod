@@ -120,8 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: InkResponse(
         child: new Container(
           margin: EdgeInsets.only(right: 20),
-          width: 30,
-          height: 30,
+          width: 25,
+          height: 25,
           decoration: new BoxDecoration(
             color: Colors.yellow[800],
             shape: BoxShape.circle,
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               length.toString(),
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 17,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -1147,7 +1147,7 @@ class WelcomeUser extends StatelessWidget {
                     fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
-                    fontFamily: 'Amita'),
+                    fontFamily: 'Amita',),
               ),
             ),
           ],

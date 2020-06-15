@@ -8,6 +8,7 @@ import 'package:vilmod/bloc/list_style_color_bloc.dart';
 import 'package:vilmod/models/foodItem.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/screens/forgot_password.dart';
+import 'package:vilmod/screens/home_page.dart';
 import 'package:vilmod/screens/splash_screen.dart';
 import 'package:vilmod/services/auth.dart';
 import 'package:vilmod/utils/SizeConfig.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
                         primaryColor: Colors.red[900], fontFamily: 'OpenSans'),
                     routes: {
                       '/reset_password': (context) => PasswordReset(),
+                      '/home_page': (context) => MyHomePage(),
                     },
                   );
                 },
