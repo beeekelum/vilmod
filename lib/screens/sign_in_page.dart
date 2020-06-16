@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vilmod/components/constants.dart';
 import 'package:vilmod/components/custom_icons.dart';
 import 'package:vilmod/components/loading.dart';
 import 'package:vilmod/components/logo.dart';
@@ -21,7 +20,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
+ // final _formKey = GlobalKey<FormState>();
   bool autoValidate = false;
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   bool loading = false;
@@ -109,7 +108,7 @@ class _SignInState extends State<SignIn> {
                                       prefixIcon: Icon(Icons.mail)
                                     ),
                                     onChanged: (value) {
-                                      email = value;
+                                      email = value.toString().trim();
                                     },
                                     validators: [
                                       FormBuilderValidators.required(),
@@ -123,6 +122,7 @@ class _SignInState extends State<SignIn> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     obscureText: passwordVisible,
+                                    attribute: 'password',
                                     decoration: textFormFieldDecoration.copyWith(
                                       hintText: 'Password',
                                       labelText: 'Enter Password',

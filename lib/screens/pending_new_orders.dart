@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vilmod/models/user.dart';
+import 'package:vilmod/screens/my_order_details.dart';
 import 'package:vilmod/services/database.dart';
 import 'package:vilmod/services/order_service.dart';
 import 'package:vilmod/utils/routes.dart';
@@ -81,8 +81,28 @@ class OrdersPending extends StatelessWidget {
           return Stack(
             children: <Widget>[
               Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/food.jpg'),
+                      fit: BoxFit.cover),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.7),
+                      Colors.black.withOpacity(0.7),
+                      Colors.black.withOpacity(0.7),
+                    ],
+                    //begin: Alignment.bottomLeft,
+                    begin: Alignment.topCenter,
+                  ),
+                ),
+              ),
+              Container(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: OrderService().getOrdersStream(user.uid),
+                  stream: OrderService().getOrdersStream(user?.uid),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) return new Text('${snapshot.error}');
@@ -112,10 +132,10 @@ class OrdersPending extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Material(
-                                  elevation: 5,
-                                  shadowColor: Colors.black,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  elevation: 10,
+                                  shadowColor: Colors.red[900],
+                                  color: Colors.grey[100],
+                                  borderRadius: BorderRadius.circular(20),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -125,23 +145,26 @@ class OrdersPending extends StatelessWidget {
                                       CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
-                                            Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                  DateFormat.yMMMMEEEEd()
-                                                      .format(
-                                                      item['dateOrderCreated']
-                                                          .toDate()),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.bold),
-                                                ),
-                                              ],
+                                            Text(
+                                              DateFormat.yMMMMEEEEd()
+                                                  .format(
+                                                  item['dateOrderCreated']
+                                                      .toDate()),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.bold),
+                                            ),
+                                            Text(
+                                              DateFormat.jm().format(
+                                                  item['dateOrderCreated']
+                                                      .toDate()),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -152,20 +175,20 @@ class OrdersPending extends StatelessWidget {
                                               '',
                                           title: Text(
                                             'Order #: ' +
-                                                item['orderNumber'],
+                                                item['orderNumber'], style: TextStyle(fontWeight: FontWeight.bold),
                                           ),
                                           subtitle: Row(
                                             children: <Widget>[
                                               Text(
-                                                'Order: ',
-                                                style: TextStyle(fontSize: 16),
+                                                'Total Amount: ',
+                                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                                               ),
                                               Text(
                                                 '${item['orderTotalAmount']}',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                    fontSize: 17),
                                               ),
                                             ],
                                           ),
@@ -183,22 +206,22 @@ class OrdersPending extends StatelessWidget {
                                               MainAxisAlignment.spaceAround,
                                               children: <Widget>[
                                                 FlatButton.icon(
-                                                  color: Colors.grey[300],
+                                                  color: Colors.orange[300],
                                                   onPressed: () {
-//                                                    Navigator.of(context).push(
-//                                                      new FadePageRoute(
-//                                                        builder: (c) {
-//                                                          return OrderDetailsPage(
-//                                                              user: snapshot
-//                                                                  .data
-//                                                                  .documents[
-//                                                              index]
-//                                                          );
-//                                                        },
-//                                                        settings:
-//                                                        new RouteSettings(),
-//                                                      ),
-//                                                    );
+                                                    Navigator.of(context).push(
+                                                      new FadePageRoute(
+                                                        builder: (c) {
+                                                          return OrderDetailsPage(
+                                                              details: snapshot
+                                                                  .data
+                                                                  .documents[
+                                                              index]
+                                                          );
+                                                        },
+                                                        settings:
+                                                        new RouteSettings(),
+                                                      ),
+                                                    );
                                                   },
                                                   shape:
                                                       new RoundedRectangleBorder(
@@ -213,7 +236,7 @@ class OrdersPending extends StatelessWidget {
                                                         FontWeight.bold),
                                                   ),
                                                   icon: Icon(
-                                                      Icons.remove_red_eye),
+                                                      Icons.search),
                                                 ),
                                               ],
                                             )
@@ -257,7 +280,6 @@ class OrdersPending extends StatelessWidget {
       future: _getUserProfilePicById(uid),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (!snapshot.hasData) return Text('');
-        final String userID = snapshot.data;
         return Container(
           child: CachedNetworkImage(
             imageUrl: snapshot.data,
@@ -278,5 +300,3 @@ class OrdersPending extends StatelessWidget {
   }
 }
 
-class OrderDetailsPage {
-}

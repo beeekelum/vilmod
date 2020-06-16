@@ -151,7 +151,7 @@ class MobileProfile extends StatelessWidget {
         elevation: 10,
         shadowColor: Colors.black.withOpacity(.2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
         child: ListTile(
           leading: Icon(

@@ -9,10 +9,8 @@ class MyOrders extends StatefulWidget {
 class _MyOrdersState extends State<MyOrders> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: ThemeData(fontFamily: 'OpenSans'),
-      debugShowCheckedModeBanner: false,
-      home: new DefaultTabController(
+    return new Scaffold(
+      body: DefaultTabController(
         length: 2,
         child: new Scaffold(
           appBar: new PreferredSize(
@@ -24,7 +22,10 @@ class _MyOrdersState extends State<MyOrders> {
                   children: <Widget>[
                     new Expanded(child: new Container()),
                     new TabBar(
-                      tabs: [new Text("Pending"), new Text("History")],
+                      tabs: [
+                        Tab(text: 'New and Pending\nOrders'),
+                        Tab(text: 'Completed Orders',),
+                      ],
                     ),
                   ],
                 ),
@@ -35,7 +36,7 @@ class _MyOrdersState extends State<MyOrders> {
             children: <Widget>[
               OrdersPending(),
               new Column(
-                children: <Widget>[new Text("History")],
+                children: <Widget>[new Text("Completed")],
               )
             ],
           ),

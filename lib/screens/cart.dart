@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/bloc/list_style_color_bloc.dart';
+import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/foodItem.dart';
 import 'package:vilmod/models/orders.dart';
 import 'package:vilmod/models/user.dart';
@@ -38,8 +39,11 @@ class Cart extends StatelessWidget {
               elevation: 0,
             ),
             body: SafeArea(
-              child: Container(
-                child: CartBody(foodItems),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: CartBody(foodItems),
+                ),
               ),
             ),
             bottomNavigationBar: BottomBar(foodItems),
@@ -74,14 +78,13 @@ class BottomBar extends StatefulWidget {
 
   BottomBar(this.foodItems);
 
-  static final String tokenizationKey = 'sandbox_8hxpnkht_kzdtzv2btm4p7s5j';
-
   @override
   _BottomBarState createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
   final OrderService orderService = OrderService();
+  static final String tokenizationKey = 'sandbox_8hxpnkht_kzdtzv2btm4p7s5j';
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       new FlutterLocalNotificationsPlugin();
@@ -107,8 +110,8 @@ class _BottomBarState extends State<BottomBar> {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSChannelSpecifics);
 
-    await flutterLocalNotificationsPlugin.show(
-        0, 'Vilmod Restaurant', 'Thank you. New Order Created', platformChannelSpecifics,
+    await flutterLocalNotificationsPlugin.show(0, 'Vilmod Restaurant',
+        'Thank you. New Order Created', platformChannelSpecifics,
         payload: 'test payload');
   }
 
@@ -116,7 +119,7 @@ class _BottomBarState extends State<BottomBar> {
   void initState() {
     super.initState();
     initializationSettingsAndroid =
-    new AndroidInitializationSettings('app_icon');
+        new AndroidInitializationSettings('app_icon');
     initializationSettingsIOS = new IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     initializationSettings = new InitializationSettings(
@@ -129,8 +132,8 @@ class _BottomBarState extends State<BottomBar> {
     if (payload != null) {
       debugPrint('Notification payload: $payload');
     }
-    await Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => new Notifications()));
+    await Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => new Notifications()));
   }
 
   Future onDidReceiveLocalNotification(
@@ -138,21 +141,24 @@ class _BottomBarState extends State<BottomBar> {
     await showDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(body),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text('Ok'),
-              onPressed: () async {
-                Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Notifications()));
-              },
-            )
-          ],
-        ));
+              title: Text(title),
+              content: Text(body),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () async {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Notifications()));
+                  },
+                )
+              ],
+            ));
   }
+
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
   @override
@@ -245,6 +251,7 @@ class _BottomBarState extends State<BottomBar> {
                                       SizedBox(
                                         height: 10,
                                       ),
+                                      Logo(),
                                       _buildItem('Full Name:',
                                           '${user.firstName + ' ' + user.lastName}'),
                                       Divider(),
@@ -328,75 +335,84 @@ class _BottomBarState extends State<BottomBar> {
                                   stream: bloc.listStream,
                                   builder: (context, snapshot) {
                                     List<FoodItem> foodItems = snapshot.data;
-                                  return RaisedButton(
-                                    color: Colors.red[900],
-                                    child: Text(
-                                      "Pay Now",
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                    textColor: Colors.white,
-                                    onPressed: () async {
-                                      List<String> order = new List<String>();
-                                      int totalAmount = 0;
+                                    return RaisedButton(
+                                      color: Colors.red[900],
+                                      child: Text(
+                                        "Pay Now",
+                                        style: TextStyle(fontSize: 30),
+                                      ),
+                                      textColor: Colors.white,
+                                      onPressed: () async {
+                                        List<String> order = new List<String>();
+                                        int totalAmount = 0;
 
-                                      for (int i = 0; i < widget.foodItems.length; i++) {
-                                        int itemTotal = widget.foodItems[i].quantity *
-                                            widget.foodItems[i].foodItemPrice;
-                                        totalAmount = totalAmount +
-                                            widget.foodItems[i].quantity *
-                                                widget.foodItems[i].foodItemPrice;
-                                        ;
-                                        order.add(widget.foodItems[i].quantity.toString() +
-                                            " x " +
-                                            widget.foodItems[i].foodItemName +
-                                            " = €" +
-                                            itemTotal.toString());
-                                      }
-                                      Order newOrder = Order(
-                                          orderNumber:
-                                              'VR${orderNumber.toString()}',
-                                          userUid: user.uid,
-                                          userName:
-                                              '${user.firstName + ' ' + user.lastName}',
-                                          userPhoneNumber: user.phoneNumber,
-                                          userAddress: '',
-                                          userEmail: user.emailAddress,
-                                          dateOrderCreated: DateTime.now(),
-                                          orderItems: order,
-                                          orderTotalAmount:
-                                              'R${totalAmount.toString()}',
-                                          orderStatus: 'New',
-                                          paymentStatus: 'Pending');
-                                      orderService.addOrder(newOrder);
-                                      _showNotification();
-                                      foodItems.clear();
+                                        for (int i = 0;
+                                            i < widget.foodItems.length;
+                                            i++) {
+                                          int itemTotal = widget
+                                                  .foodItems[i].quantity *
+                                              widget.foodItems[i].foodItemPrice;
+                                          totalAmount = totalAmount +
+                                              widget.foodItems[i].quantity *
+                                                  widget.foodItems[i]
+                                                      .foodItemPrice;
+                                          ;
+                                          order.add(widget.foodItems[i].quantity
+                                                  .toString() +
+                                              " x " +
+                                              widget.foodItems[i].foodItemName +
+                                              " = R" +
+                                              itemTotal.toString());
+                                        }
+                                        Order newOrder = Order(
+                                            orderNumber:
+                                                'VR${orderNumber.toString()}',
+                                            userUid: user.uid,
+                                            userName:
+                                                '${user.firstName + ' ' + user.lastName}',
+                                            userPhoneNumber: user.phoneNumber,
+                                            userAddress: '',
+                                            userEmail: user.emailAddress,
+                                            dateOrderCreated: DateTime.now(),
+                                            orderItems: order,
+                                            orderTotalAmount:
+                                                'R${totalAmount.toString()}',
+                                            orderStatus: 'New',
+                                            paymentStatus: 'Pending');
+                                        orderService.addOrder(newOrder);
+                                        _showNotification();
+                                        foodItems.clear();
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
-                                      //Navigator.pop(context);
-
-//                                  var request = BraintreeDropInRequest(
-//                                    tokenizationKey: tokenizationKey,
-//                                    collectDeviceData: true,
-//                                    googlePaymentRequest:
-//                                        BraintreeGooglePaymentRequest(
-//                                      totalPrice: '4.20',
-//                                      currencyCode: 'USD',
-//                                      billingAddressRequired: false,
-//                                    ),
-//                                    paypalRequest: BraintreePayPalRequest(
-//                                      amount: '4.20',
-//                                      displayName: 'Vilmod Restaurant',
-//                                    ),
-//                                  );
-//                                  BraintreeDropInResult result =
-//                                      await BraintreeDropIn.start(request);
-//                                  if (result != null) {
-//                                    showNonce(result.paymentMethodNonce);
-//                                  }
-                                    },
-                                  );
-                                }
-                              ),
+//                                        var request = BraintreeDropInRequest(
+//                                          tokenizationKey: tokenizationKey,
+//                                          collectDeviceData: true,
+//                                          googlePaymentRequest:
+//                                              BraintreeGooglePaymentRequest(
+//                                            totalPrice: '4.20',
+//                                            currencyCode: 'USD',
+//                                            billingAddressRequired: false,
+//                                          ),
+//                                          paypalRequest: BraintreePayPalRequest(
+//                                            amount: '4.20',
+//                                            displayName: 'Vilmod Restaurant',
+//                                          ),
+//                                        );
+//                                        BraintreeDropInResult result =
+//                                            await BraintreeDropIn.start(request)
+//                                                .then((value) => Navigator.of(
+//                                                        context)
+//                                                    .pushNamedAndRemoveUntil(
+//                                                        '/home_page',
+//                                                        (Route<dynamic>
+//                                                                route) =>
+//                                                            false));
+//                                        if (result != null) {
+//                                          showNonce(result.paymentMethodNonce);
+//                                        }
+                                      },
+                                    );
+                                  }),
                             ),
                           ),
                         ],
@@ -454,12 +470,15 @@ class _BottomBarState extends State<BottomBar> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           Material(
-            elevation: 10,
-            borderRadius: BorderRadius.circular(10),
+            elevation: 5,
+            borderRadius: BorderRadius.circular(20),
             shadowColor: Colors.black.withOpacity(.9),
-            child: Text(
-              '\R${returnTotalAmount(widget.foodItems)}',
-              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Text(
+                '\R${returnTotalAmount(widget.foodItems)}',
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
+              ),
             ),
           ),
         ],
@@ -488,7 +507,7 @@ class CartBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 5,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
@@ -541,7 +560,7 @@ class CartBody extends StatelessWidget {
                 'My Order',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: 28,
                 ),
               ),
             ],

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vilmod/components/constants.dart';
 import 'package:vilmod/components/loading.dart';
 import 'package:vilmod/components/logo.dart';
-import 'package:vilmod/screens/sign_in_page.dart';
 import 'package:vilmod/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:vilmod/utils/SizeConfig.dart';
 import 'package:vilmod/widgets/styles.dart';
-import 'package:international_phone_input/international_phone_input.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignUp extends StatefulWidget {
@@ -21,7 +18,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
+  //final _formKey = GlobalKey<FormState>();
   bool loading = false;
   bool autoValidate = false;
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
@@ -157,7 +154,7 @@ class _SignUpState extends State<SignUp> {
                                             prefixIcon: Icon(Icons.mail)),
                                     onChanged: (value) {
                                       setState(() {
-                                        email = value;
+                                        email = value.toString().trim();
                                       });
                                     },
                                     validators: [
@@ -172,6 +169,7 @@ class _SignUpState extends State<SignUp> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     obscureText: passwordVisible,
+                                    attribute: 'password',
                                     decoration:
                                         textFormFieldDecoration.copyWith(
                                       hintText: 'Password',

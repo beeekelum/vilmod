@@ -382,10 +382,6 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-//    var user = Provider.of<FirebaseUser>(context);
-//    final foodItemsProvider = Provider.of<FoodItemList>(context);
-
-    //bool loggedIn = user != null;
     return SafeArea(
       child: Stack(
         children: <Widget>[
@@ -403,9 +399,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomLeft,
                 colors: [
                   //Colors.red[900].withOpacity(.7),
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.8),
+                  Colors.black.withOpacity(.75),
+                  Colors.black.withOpacity(.75),
+                  Colors.black.withOpacity(.75),
                 ],
               ),
             ),
@@ -569,7 +565,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
             children: <Widget>[
               Icon(Icons.local_offer, color: Colors.yellow,),
               Text(
-                'Weekly Deals',
+                'Special Offers',
                 style: TextStyle(color: Colors.white),
               ),
             ],
@@ -577,7 +573,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
         ),
         Container(
           child: SizedBox(
-            height: 120,
+            height: 130,
             child: StreamBuilder<List<FoodItem>>(
               stream: db.streamFoodItems(menuType),
               builder: (context, snapshot) {
@@ -788,10 +784,10 @@ class Items extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           gradient: LinearGradient(
                             begin: Alignment.bottomRight,
-                            stops: [.1, .8],
+                            stops: [.2, .8],
                             colors: [
                               Colors.black.withOpacity(.8),
-                              Colors.black.withOpacity(.3),
+                              Colors.black.withOpacity(.2),
                             ],
                           ),
                         ),
@@ -805,7 +801,7 @@ class Items extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
-                                        Icons.favorite,
+                                        Icons.add_shopping_cart,
                                         size: 20,
                                         color: Colors.white,
                                       ),
@@ -819,7 +815,7 @@ class Items extends StatelessWidget {
                                           //"\R $foodPrice",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 14,
+                                              fontSize: 17,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
@@ -833,7 +829,7 @@ class Items extends StatelessWidget {
                                         RatingBar(
                                           initialRating: 3,
                                           minRating: 1,
-                                          itemSize: 20,
+                                          itemSize: 18,
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
                                           itemCount: 5,
@@ -854,33 +850,6 @@ class Items extends StatelessWidget {
                               )
                             ),
                   ),
-//                  Material(
-//                    color: Colors.black.withOpacity(.1),
-//                    borderRadius: BorderRadius.circular(20),
-//                    child: Container(
-//                      height: 95,
-//                      child: Column(
-//                        crossAxisAlignment: CrossAxisAlignment.start,
-//                        children: <Widget>[
-//                          Row(
-//                            children: <Widget>[
-//                              Expanded(
-//                                child: Text(
-//                                  foodIngredients,
-//                                  style: TextStyle(
-//                                      fontWeight: FontWeight.w100,
-//                                      color: Colors.white,
-//                                      fontSize: 12,
-//                                      fontFamily: 'SpectralSC'),
-//                                  textAlign: TextAlign.center,
-//                                ),
-//                              ),
-//                            ],
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
                 ],
               ),
             ))
@@ -922,8 +891,8 @@ class ItemsDeals extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height:100,
-                    width: 150,
+                    height:120,
+                    width: 160,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
@@ -968,14 +937,14 @@ class ItemsDeals extends StatelessWidget {
                                           //"\R $foodPrice",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 15,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           foodName,
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 10,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
