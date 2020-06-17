@@ -5,6 +5,7 @@ class User {
   final String emailAddress;
   final String phoneNumber;
   final String photoUrl;
+  final String userType;
 
   User(
       {this.uid,
@@ -12,5 +13,5 @@ class User {
       this.lastName,
       this.emailAddress,
       this.phoneNumber,
-      this.photoUrl});
+      this.photoUrl, this.userType});
 }

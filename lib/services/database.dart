@@ -11,7 +11,7 @@ class DatabaseService {
       Firestore.instance.collection('users');
 
   Future updateUserData(String uid, String firstName, String lastName,
-      String emailAddress, String phoneNumber, String photoUrl) async {
+      String emailAddress, String phoneNumber, String photoUrl, String userType) async {
     return await userCollection.document(uid).setData({
       'uid': uid,
       'firstName': firstName,
@@ -21,6 +21,7 @@ class DatabaseService {
       'photoUrl': photoUrl == null
           ? 'https://i.dlpng.com/static/png/6542357_preview.png'
           : photoUrl,
+      'userType': userType
     });
   }
 
