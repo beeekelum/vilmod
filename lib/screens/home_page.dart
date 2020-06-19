@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +24,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -36,6 +40,72 @@ class _MyHomePageState extends State<MyHomePage> {
   final AuthService _auth = AuthService();
   int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
+
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+  StreamSubscription iosSubscription;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (Platform.isIOS) {
+      iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+        print(data);
+        _saveDeviceToken();
+      });
+
+      _fcm.requestNotificationPermissions(IosNotificationSettings());
+    } else {
+      _saveDeviceToken();
+    }
+    _subscribeToTopic();
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        // final snackbar = SnackBar(
+        //   content: Text(message['notification']['title']),
+        //   action: SnackBarAction(
+        //     label: 'Go',
+        //     onPressed: () => null,
+        //   ),
+        // );
+
+        // Scaffold.of(context).showSnackBar(snackbar);
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.amber,
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    if (iosSubscription != null) iosSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +174,38 @@ class _MyHomePageState extends State<MyHomePage> {
         body: _getBody(_page),
       drawer: AppDrawerVilMod(),
     );
+
   }
 
+  /// Get the token, save it to the database for current user
+  _saveDeviceToken() async {
+    // Get the current user
+//    String uid = 'jeffd23';
+    FirebaseUser user = await _auth.currentUser();
+    print("Current user is : ${user.uid}");
+
+    // Get the token for this device
+    String fcmToken = await _fcm.getToken();
+
+    // Save it to Firestore
+    if (fcmToken != null) {
+      var tokens = _db
+          .collection('users')
+          .document(user.uid);
+
+      await tokens.updateData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(), // optional
+        'platform': Platform.operatingSystem // optional
+      });
+    }
+  }
+
+  /// Subscribe the user to a topic
+  _subscribeToTopic() async {
+    // Subscribe the user to a topic
+    _fcm.subscribeToTopic('vilmod');
+  }
   GestureDetector buildGestureDetector(
       int length, BuildContext context, List<FoodItem> foodItems) {
     return GestureDetector(

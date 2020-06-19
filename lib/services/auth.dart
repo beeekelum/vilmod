@@ -15,6 +15,11 @@ class AuthService {
     return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
   }
 
+  currentUser() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    return user;
+  }
+
   // sign in anonymously
   Future signInAnonymously() async {
     try {
