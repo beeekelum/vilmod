@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vilmod/screens/completed_orders.dart';
 import 'package:vilmod/screens/pending_new_orders.dart';
 
 class MyOrders extends StatefulWidget {
@@ -23,7 +24,7 @@ class _MyOrdersState extends State<MyOrders> {
                     new Expanded(child: new Container()),
                     new TabBar(
                       tabs: [
-                        Tab(text: 'New and Pending\nOrders'),
+                        Tab(text: 'New Pending Orders'),
                         Tab(text: 'Completed Orders',),
                       ],
                     ),
@@ -35,9 +36,7 @@ class _MyOrdersState extends State<MyOrders> {
           body: new TabBarView(
             children: <Widget>[
               OrdersPending(),
-              new Column(
-                children: <Widget>[new Text("Completed")],
-              )
+              CompletedOrders(),
             ],
           ),
         ),

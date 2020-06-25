@@ -44,79 +44,6 @@ class AppDrawerVilMod extends StatelessWidget {
                         backgroundImage: NetworkImage(user.photoUrl ?? ''),
                       ),
                     ),
-//                    ListTile(
-//                      leading: Icon(
-//                        Icons.account_circle,
-//                        color: Colors.red[900],
-//                      ),
-//                      title: Text(
-//                        'My Profile',
-//                        style: TextStyle(
-//                            fontSize: 15.0,
-//                            fontWeight: FontWeight.w500,
-//                            fontFamily: 'OpenSans'),
-//                      ),
-//                      onTap: () {
-//                        Navigator.pop(context);
-////                        Navigator.of(context).push(
-////                          FadePageRoute(
-////                            builder: (c) {
-////                              return MobileProfile();
-////                            },
-////                            settings: new RouteSettings(),
-////                          ),
-////                        );
-//                      },
-//                    ),
-//                    ListTile(
-//                      leading: Icon(
-//                        FontAwesomeIcons.calendarAlt,
-//                        color: Colors.red[900],
-//                      ),
-//                      title: Text(
-//                        'My Orders',
-//                        style: TextStyle(
-//                            fontSize: 15.0,
-//                            fontWeight: FontWeight.w500,
-//                            fontFamily: 'OpenSans'),
-//                      ),
-//                      onTap: () {
-////                        Navigator.pop(context);
-////                        Navigator.of(context).push(
-////                          FadePageRoute(
-////                            builder: (c) {
-////                              return UserBookedTicketsStatus();
-////                            },
-////                            settings: new RouteSettings(),
-////                          ),
-////                        );
-//                      },
-//                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.history,
-                        color: Colors.red[900],
-                      ),
-                      title: Text(
-                        'History',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'OpenSans'),
-                      ),
-                      onTap: () {
-//                        Navigator.pop(context);
-//                        Navigator.of(context).push(
-//                          FadePageRoute(
-//                            builder: (c) {
-//                              return ProfilePage();
-//                            },
-//                            settings: new RouteSettings(),
-//                          ),
-//                        );
-                      },
-                    ),
-
                     ListTile(
                       leading: Icon(
                         Icons.notifications,
@@ -141,37 +68,13 @@ class AppDrawerVilMod extends StatelessWidget {
 //                        );
                       },
                     ),
-//                    ListTile(
-//                      leading: Icon(
-//                        Icons.contacts,
-//                        color: Colors.red[900],
-//                      ),
-//                      title: Text(
-//                        'Emergency Contact',
-//                        style: TextStyle(
-//                            fontSize: 15.0,
-//                            fontWeight: FontWeight.w500,
-//                            fontFamily: 'OpenSans'),
-//                      ),
-//                      onTap: () {
-////                        Navigator.pop(context);
-////                        Navigator.of(context).push(
-////                          FadePageRoute(
-////                            builder: (c) {
-////                              return ProfilePage();
-////                            },
-////                            settings: new RouteSettings(),
-////                          ),
-////                        );
-//                      },
-//                    ),
                     ListTile(
                       leading: Icon(
                         Icons.chat,
                         color: Colors.red[900],
                       ),
                       title: Text(
-                        'User Feedback',
+                        'Feedback',
                         style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.w500,

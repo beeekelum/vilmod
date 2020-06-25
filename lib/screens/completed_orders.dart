@@ -1,3 +1,18 @@
+//import 'package:flutter/material.dart';
+//
+//class CompletedOrders extends StatefulWidget {
+//  @override
+//  _CompletedOrdersState createState() => _CompletedOrdersState();
+//}
+//
+//class _CompletedOrdersState extends State<CompletedOrders> {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Container();
+//  }
+//}
+//
+//
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +25,7 @@ import 'package:vilmod/services/database.dart';
 import 'package:vilmod/services/order_service.dart';
 import 'package:vilmod/utils/routes.dart';
 
-class OrdersPending extends StatelessWidget {
+class CompletedOrders extends StatelessWidget {
   final CollectionReference collectionReference =
   Firestore.instance.collection('orders');
 
@@ -27,10 +42,6 @@ class OrdersPending extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    Query newOrderQuery = collectionReference.where('orderStatus',
-//        isEqualTo: 'New');
-//    Query processingOrderQuery = newOrderQuery.where('orderStatus',
-//        isEqualTo: 'Being processed');
     var fUser = Provider.of<FirebaseUser>(context);
     return StreamBuilder<User>(
         stream: DatabaseService(uid: fUser?.uid).userData,
@@ -60,8 +71,7 @@ class OrdersPending extends StatelessWidget {
               ),
               Container(
                 child: StreamBuilder<QuerySnapshot>(
-                 // stream: OrderService().getOrdersStream(user?.uid),
-                  stream: collectionReference.where('userUid', isEqualTo: user?.uid).snapshots(),
+                  stream: collectionReference.where('orderStatus', isEqualTo: 'Completed').where('userUid', isEqualTo: user?.uid).snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) return new Text('${snapshot.error}');
@@ -88,8 +98,7 @@ class OrdersPending extends StatelessWidget {
                             final item = snapshot.data.documents[index];
                             return GestureDetector(
                               onTap: () {},
-                              child:
-                              item['orderStatus'] != "Completed" ?Padding(
+                              child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Material(
                                   elevation: 10,
@@ -184,11 +193,11 @@ class OrdersPending extends StatelessWidget {
                                                     );
                                                   },
                                                   shape:
-                                                      new RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .circular(
-                                                                  30.0)),
+                                                  new RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      new BorderRadius
+                                                          .circular(
+                                                          30.0)),
                                                   label: Text(
                                                     'View Order Details',
                                                     style: TextStyle(
@@ -206,7 +215,7 @@ class OrdersPending extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              ): Container(),
+                              ),
                             );
                           },
                         );
@@ -223,7 +232,7 @@ class OrdersPending extends StatelessWidget {
     return Chip(
       elevation: 2,
       backgroundColor:
-      status == "New" ? Colors.blue : Colors.orange,
+      status == "Completed" ? Colors.green : Colors.orange,
       label: Text(
         status,
         style: TextStyle(
@@ -237,21 +246,21 @@ class OrdersPending extends StatelessWidget {
 
   _buildProfileImage(String uid) {
 
-        return Container(
-          child: CachedNetworkImage(
-            imageUrl: 'https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/villogo.png?alt=media&token=2b230ad0-b5db-4aa3-8b67-33a85bc590a5',
-            imageBuilder: (context, imageProvider) => Container(
-              width: 40.0,
-              height: 40.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-              ),
-            ),
-            placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
+    return Container(
+      child: CachedNetworkImage(
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/villogo.png?alt=media&token=2b230ad0-b5db-4aa3-8b67-33a85bc590a5',
+        imageBuilder: (context, imageProvider) => Container(
+          width: 40.0,
+          height: 40.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
           ),
-        );
+        ),
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+    );
 
   }
 }

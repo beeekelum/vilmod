@@ -92,11 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
-        // TODO optional
+        Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => new MyOrders()));
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
-        // TODO optional
+        Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => new MyOrders()));
       },
     );
   }
@@ -112,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Vilmod Restaurant',style: TextStyle( fontFamily: 'Amita'),
+          'Vilmod Restaurant',
         ),
         //centerTitle: true,
         actions: <Widget>[
@@ -149,13 +151,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Column(
             children: <Widget>[
-              Icon(Icons.receipt, size: 30),
+              Icon(Icons.receipt, size: 20),
               Text('Orders')
             ],
           ),
           Column(
             children: <Widget>[
-              Icon(Icons.person, size: 30),
+              Icon(Icons.person, size: 20),
               Text('Profile')
             ],
           ),
@@ -180,9 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Get the token, save it to the database for current user
   _saveDeviceToken() async {
     // Get the current user
-//    String uid = 'jeffd23';
     FirebaseUser user = await _auth.currentUser();
-    print("Current user is : ${user.uid}");
+    //print("Current user is : ${user.uid}");
 
     // Get the token for this device
     String fcmToken = await _fcm.getToken();
@@ -200,10 +201,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-
-  /// Subscribe the user to a topic
+  // Subscribe the user to a topic
   _subscribeToTopic() async {
-    // Subscribe the user to a topic
     _fcm.subscribeToTopic('vilmod');
   }
   GestureDetector buildGestureDetector(
@@ -499,9 +498,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomLeft,
                 colors: [
                   //Colors.red[900].withOpacity(.7),
-                  Colors.black.withOpacity(.75),
-                  Colors.black.withOpacity(.75),
-                  Colors.black.withOpacity(.75),
+                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.7),
                 ],
               ),
             ),

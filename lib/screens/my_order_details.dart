@@ -150,10 +150,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   _buildOrderStatus(String status) {
+    Color color;
+    if(status == 'New'){
+      color = Colors.blue;
+    } else if(status == 'Being processed'){
+      color = Colors.orange;
+    } else {
+      color = Colors.green;
+    }
     return Chip(
       elevation: 5,
       backgroundColor:
-      status == "New" ? Colors.blue[700] : Colors.green,
+      color,
       label: Text(
         status,
         style: TextStyle(
