@@ -9,7 +9,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Notifications'),),
+      appBar: AppBar(title: Text('My Notifications'),),
     );
   }
 }

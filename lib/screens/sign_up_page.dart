@@ -113,6 +113,8 @@ class _SignUpState extends State<SignUp> {
                                             prefixIcon: Icon(Icons.person)),
                                     validators: [
                                       FormBuilderValidators.required(),
+                                      FormBuilderValidators.minLength(3,
+                                          allowEmpty: false),
                                     ],
                                     onChanged: (value) {
                                       setState(() {
@@ -133,6 +135,8 @@ class _SignUpState extends State<SignUp> {
                                             prefixIcon: Icon(Icons.person)),
                                     validators: [
                                       FormBuilderValidators.required(),
+                                      FormBuilderValidators.minLength(3,
+                                          allowEmpty: false),
                                     ],
                                     onChanged: (value) {
                                       setState(() {
@@ -159,6 +163,8 @@ class _SignUpState extends State<SignUp> {
                                     },
                                     validators: [
                                       FormBuilderValidators.required(),
+                                      FormBuilderValidators.minLength(3,
+                                          allowEmpty: false),
                                     ],
                                     //keyboardType: TextInputType.text,
                                   ),

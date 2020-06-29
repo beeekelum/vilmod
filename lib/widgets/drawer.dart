@@ -2,8 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/user.dart';
+import 'package:vilmod/screens/feedback.dart';
+import 'package:vilmod/screens/notifications.dart';
 import 'package:vilmod/services/database.dart';
+import 'package:vilmod/utils/routes.dart';
 
 class AppDrawerVilMod extends StatelessWidget {
   final auth = FirebaseAuth.instance;
@@ -57,15 +61,15 @@ class AppDrawerVilMod extends StatelessWidget {
                             fontFamily: 'OpenSans'),
                       ),
                       onTap: () {
-//                        Navigator.pop(context);
-//                        Navigator.of(context).push(
-//                          FadePageRoute(
-//                            builder: (c) {
-//                              return ProfilePage();
-//                            },
-//                            settings: new RouteSettings(),
-//                          ),
-//                        );
+                        Navigator.pop(context);
+                        Navigator.of(context).push(
+                          FadePageRoute(
+                            builder: (c) {
+                              return Notifications();
+                            },
+                            settings: new RouteSettings(),
+                          ),
+                        );
                       },
                     ),
                     ListTile(
@@ -81,15 +85,15 @@ class AppDrawerVilMod extends StatelessWidget {
                             fontFamily: 'OpenSans'),
                       ),
                       onTap: () {
-//                        Navigator.pop(context);
-//                        Navigator.of(context).push(
-//                          FadePageRoute(
-//                            builder: (c) {
-//                              return ProfilePage();
-//                            },
-//                            settings: new RouteSettings(),
-//                          ),
-//                        );
+                        Navigator.pop(context);
+                        Navigator.of(context).push(
+                          FadePageRoute(
+                            builder: (c) {
+                              return FeedbackPage();
+                            },
+                            settings: new RouteSettings(),
+                          ),
+                        );
                       },
                     ),
                     Divider(),
@@ -106,15 +110,16 @@ class AppDrawerVilMod extends StatelessWidget {
                             fontFamily: 'OpenSans'),
                       ),
                       onTap: () {
-//                        Navigator.pop(context);
-//                        Navigator.of(context).push(
-//                          FadePageRoute(
-//                            builder: (c) {
-//                              return AboutHomestay();
-//                            },
-//                            settings: new RouteSettings(),
-//                          ),
-//                        );
+                        //Navigator.pop(context);
+                        showAboutDialog(
+                            context: context,
+                            applicationName: 'VilMod',
+                            applicationVersion: '1.0.0',
+                            applicationIcon: Logo2(),
+                            children: [
+                              Text('Order food from your favorite restaurant by pressing a few buttons.'),
+                            ],
+                            applicationLegalese: 'Copyright © VilMod, 2020');
                       },
                     ),
                   ],

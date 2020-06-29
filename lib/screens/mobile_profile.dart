@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vilmod/models/user.dart';
+import 'package:vilmod/screens/update_profile_form.dart';
 import 'package:vilmod/services/database.dart';
 
 class MobileProfile extends StatelessWidget {
@@ -10,19 +11,19 @@ class MobileProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    void _showSettingsPanel() {
-//      showModalBottomSheet(
-//        context: context,
-//        builder: (context) {
-//          return Container(
-//            color: Colors.black12,
-//            padding: EdgeInsets.only(
-//                bottom: MediaQuery.of(context).viewInsets.bottom),
-//            child: UpdateProfileForm(),
-//          );
-//        },
-//      );
-//    }
+    void _showSettingsPanel() {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Colors.black12,
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: UpdateProfileForm(),
+          );
+        },
+      );
+    }
 
     var user = Provider.of<FirebaseUser>(context);
     return StreamBuilder<User>(
@@ -109,7 +110,7 @@ class MobileProfile extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       FlatButton.icon(
-                        //onPressed: () => _showSettingsPanel(),
+                        onPressed: () => _showSettingsPanel(),
                         icon: Icon(
                           Icons.edit,
                           color: Colors.white,

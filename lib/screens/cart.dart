@@ -33,7 +33,7 @@ class Cart extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 'My Cart',
-                style: TextStyle(fontFamily: 'Amita'),
+                //style: TextStyle(fontFamily: 'Amita'),
               ),
               actions: <Widget>[_shoppingCartBadge(foodItems.length)],
               elevation: 0,
@@ -220,7 +220,7 @@ class _BottomBarState extends State<BottomBar> {
                     appBar: AppBar(
                       title: Text(
                         'Confirm Order',
-                        style: TextStyle(fontFamily: 'Amita'),
+                        //style: TextStyle(fontFamily: 'Amita'),
                       ),
                     ),
                     body: SizedBox.expand(
@@ -470,8 +470,8 @@ class _BottomBarState extends State<BottomBar> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           Material(
-            elevation: 5,
-            borderRadius: BorderRadius.circular(20),
+            elevation: 1,
+            borderRadius: BorderRadius.circular(5),
             shadowColor: Colors.black.withOpacity(.9),
             child: Padding(
               padding: const EdgeInsets.all(5.0),
@@ -506,8 +506,8 @@ class CartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(20),
+      elevation: 1,
+      borderRadius: BorderRadius.circular(5),
       child: Container(
         padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(

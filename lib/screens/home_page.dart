@@ -114,9 +114,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Vilmod Restaurant',
+          'VilMod Mix Restaurant',
+          style: TextStyle(fontSize: 15),
         ),
         //centerTitle: true,
+        elevation: 0,
         actions: <Widget>[
           StreamBuilder(
             stream: bloc.listStream,
@@ -136,44 +138,44 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       key: _scaffoldKey,
       //drawer: AppDrawer(),
-      //body: _getBody(_curIndex),
-      //bottomNavigationBar: _userItemIconOnly(),
-      bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        index: 0,
-        height: 45.0,
-        items: <Widget>[
-          Column(
-            children: <Widget>[
-              Icon(Icons.restaurant, size: 20),
-              Text('Menu')
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(Icons.receipt, size: 20),
-              Text('Orders')
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(Icons.person, size: 20),
-              Text('Profile')
-            ],
-          ),
-        ],
-        color: Colors.white,
-        buttonBackgroundColor: Colors.white,
-        backgroundColor: Colors.red[900],
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 700),
-        onTap: (index) {
-          setState(() {
-            _page = index;
-          });
-        },
-      ),
-        body: _getBody(_page),
+      body: _getBody(_curIndex),
+      bottomNavigationBar: _userItemIconOnly(),
+//      bottomNavigationBar: CurvedNavigationBar(
+//        key: _bottomNavigationKey,
+//        index: 0,
+//        height: 45.0,
+//        items: <Widget>[
+//          Column(
+//            children: <Widget>[
+//              Icon(Icons.restaurant, size: 20),
+//              Text('Menu')
+//            ],
+//          ),
+//          Column(
+//            children: <Widget>[
+//              Icon(Icons.receipt, size: 20),
+//              Text('Orders')
+//            ],
+//          ),
+//          Column(
+//            children: <Widget>[
+//              Icon(Icons.person, size: 20),
+//              Text('Profile')
+//            ],
+//          ),
+//        ],
+//        color: Colors.white,
+//        buttonBackgroundColor: Colors.white,
+//        backgroundColor: Colors.red[900],
+//        animationCurve: Curves.easeInOut,
+//        animationDuration: Duration(milliseconds: 700),
+//        onTap: (index) {
+//          setState(() {
+//            _page = index;
+//          });
+//        },
+//      ),
+//        body: _getBody(_page),
       drawer: AppDrawerVilMod(),
     );
 
@@ -662,9 +664,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: <Widget>[
-              Icon(Icons.local_offer, color: Colors.yellow,),
+              Icon(Icons.local_offer, color: Colors.orange,),
               Text(
-                'Special Offers',
+                'Weekly Deals',
                 style: TextStyle(color: Colors.white),
               ),
             ],
@@ -1173,10 +1175,10 @@ class FirstHalf extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'VilMod Menu',
+              'VilMod Mix Menu',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 19,
                   //fontFamily: 'Amita',
                   color: Colors.white),
             ),
@@ -1184,8 +1186,8 @@ class FirstHalf extends StatelessWidget {
               'Order your food now',
               style: TextStyle(
                   fontWeight: FontWeight.w200,
-                  fontSize: 16,
-                  color: Colors.white),
+                  fontSize: 15,
+                  color: Colors.white70),
             ),
           ],
         ),
@@ -1206,16 +1208,17 @@ class WelcomeUser extends StatelessWidget {
       builder: (context, snapshot) {
         var user = snapshot.data;
         return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Container(
               child: Text(
                 'Hi ${user?.firstName}',
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: 'Amita',),
+                    //fontWeight: FontWeight.w900,
+                    //fontFamily: 'Amita',
+                ),
               ),
             ),
           ],
