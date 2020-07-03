@@ -7,9 +7,9 @@ import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/bloc/list_style_color_bloc.dart';
 import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/foodItem.dart';
-import 'package:vilmod/models/orders.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/screens/notifications.dart';
+import 'package:vilmod/screens/test_payment.dart';
 import 'package:vilmod/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +17,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:vilmod/services/order_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:vilmod/utils/routes.dart';
 
 class Cart extends StatelessWidget {
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
@@ -84,7 +85,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   final OrderService orderService = OrderService();
-  static final String tokenizationKey = 'sandbox_8hxpnkht_kzdtzv2btm4p7s5j';
+  //static final String tokenizationKey = 'sandbox_8hxpnkht_kzdtzv2btm4p7s5j';
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       new FlutterLocalNotificationsPlugin();
@@ -95,9 +96,9 @@ class _BottomBarState extends State<BottomBar> {
 
   var initializationSettings;
 
-  void _showNotification() async {
-    await _demoNotification();
-  }
+//  void _showNotification() async {
+//    await _demoNotification();
+//  }
 
   Future<void> _demoNotification() async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -178,25 +179,25 @@ class _BottomBarState extends State<BottomBar> {
   Widget nextButtonBar(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
     var orderNumber = Random().nextInt(900000) + 100000;
-    void showNonce(BraintreePaymentMethodNonce nonce) {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text('Payment method nonce:'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text('Nonce: ${nonce.nonce}'),
-              SizedBox(height: 16),
-              Text('Type label: ${nonce.typeLabel}'),
-              SizedBox(height: 16),
-              Text('Description: ${nonce.description}'),
-            ],
-          ),
-        ),
-      );
-    }
+//    void showNonce(BraintreePaymentMethodNonce nonce) {
+//      showDialog(
+//        context: context,
+//        builder: (_) => AlertDialog(
+//          title: Text('Payment method nonce:'),
+//          content: Column(
+//            mainAxisSize: MainAxisSize.min,
+//            crossAxisAlignment: CrossAxisAlignment.stretch,
+//            children: <Widget>[
+//              Text('Nonce: ${nonce.nonce}'),
+//              SizedBox(height: 16),
+//              Text('Type label: ${nonce.typeLabel}'),
+//              SizedBox(height: 16),
+//              Text('Description: ${nonce.description}'),
+//            ],
+//          ),
+//        ),
+//      );
+//    }
 
     return StreamBuilder<User>(
         stream: DatabaseService(uid: user.uid).userData,
@@ -334,7 +335,7 @@ class _BottomBarState extends State<BottomBar> {
                               child: StreamBuilder(
                                   stream: bloc.listStream,
                                   builder: (context, snapshot) {
-                                    List<FoodItem> foodItems = snapshot.data;
+                                   // List<FoodItem> foodItems = snapshot.data;
                                     return RaisedButton(
                                       color: Colors.red[900],
                                       child: Text(
@@ -364,52 +365,39 @@ class _BottomBarState extends State<BottomBar> {
                                               " = R" +
                                               itemTotal.toString());
                                         }
-                                        Order newOrder = Order(
-                                            orderNumber:
-                                                'VR${orderNumber.toString()}',
-                                            userUid: user.uid,
-                                            userName:
-                                                '${user.firstName + ' ' + user.lastName}',
-                                            userPhoneNumber: user.phoneNumber,
-                                            userAddress: '',
-                                            userEmail: user.emailAddress,
-                                            dateOrderCreated: DateTime.now(),
-                                            orderItems: order,
-                                            orderTotalAmount:
-                                                'R${totalAmount.toString()}',
-                                            orderStatus: 'New',
-                                            paymentStatus: 'Pending');
-                                        orderService.addOrder(newOrder);
-                                        _showNotification();
-                                        foodItems.clear();
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
-//                                        var request = BraintreeDropInRequest(
-//                                          tokenizationKey: tokenizationKey,
-//                                          collectDeviceData: true,
-//                                          googlePaymentRequest:
-//                                              BraintreeGooglePaymentRequest(
-//                                            totalPrice: '4.20',
-//                                            currencyCode: 'USD',
-//                                            billingAddressRequired: false,
-//                                          ),
-//                                          paypalRequest: BraintreePayPalRequest(
-//                                            amount: '4.20',
-//                                            displayName: 'Vilmod Restaurant',
-//                                          ),
-//                                        );
-//                                        BraintreeDropInResult result =
-//                                            await BraintreeDropIn.start(request)
-//                                                .then((value) => Navigator.of(
-//                                                        context)
-//                                                    .pushNamedAndRemoveUntil(
-//                                                        '/home_page',
-//                                                        (Route<dynamic>
-//                                                                route) =>
-//                                                            false));
-//                                        if (result != null) {
-//                                          showNonce(result.paymentMethodNonce);
-//                                        }
+//                                        Order newOrder = Order(
+//                                            orderNumber:
+//                                                'VR${orderNumber.toString()}',
+//                                            userUid: user.uid,
+//                                            userName:
+//                                                '${user.firstName + ' ' + user.lastName}',
+//                                            userPhoneNumber: user.phoneNumber,
+//                                            userAddress: '',
+//                                            userEmail: user.emailAddress,
+//                                            dateOrderCreated: DateTime.now(),
+//                                            orderItems: order,
+//                                            orderTotalAmount:
+//                                                'R${totalAmount.toString()}',
+//                                            orderStatus: 'New',
+//                                            paymentStatus: 'Pending');
+//                                        orderService.addOrder(newOrder);
+//                                        _showNotification();
+//                                        foodItems.clear();
+//                                      Navigator.of(context)
+//                                          .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
+
+                                        Navigator.of(context).push(
+                                          FadePageRoute(
+                                            builder: (c) {
+                                              return ProcessOrderPayment(
+                                                orderNumber:
+                                                    'VR${orderNumber.toString()}',
+                                                amount: totalAmount,
+                                              );
+                                            },
+                                            settings: new RouteSettings(),
+                                          ),
+                                        );
                                       },
                                     );
                                   }),

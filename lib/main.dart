@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
                   SizeConfig().init(constraints, orientation);
                   return MaterialApp(
                     debugShowCheckedModeBanner: false,
+                    //home: ProcessOrderPayment(),
                     home: VMSplashScreen(),
                     theme: ThemeData(
                         primaryColor: Colors.red[900], fontFamily: 'OpenSans'),
