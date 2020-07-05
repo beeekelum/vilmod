@@ -7,6 +7,7 @@ import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/bloc/list_style_color_bloc.dart';
 import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/foodItem.dart';
+import 'package:vilmod/models/orders.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/screens/notifications.dart';
 import 'package:vilmod/screens/test_payment.dart';
@@ -96,9 +97,9 @@ class _BottomBarState extends State<BottomBar> {
 
   var initializationSettings;
 
-//  void _showNotification() async {
-//    await _demoNotification();
-//  }
+  void _showNotification() async {
+    await _demoNotification();
+  }
 
   Future<void> _demoNotification() async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -335,7 +336,7 @@ class _BottomBarState extends State<BottomBar> {
                               child: StreamBuilder(
                                   stream: bloc.listStream,
                                   builder: (context, snapshot) {
-                                   // List<FoodItem> foodItems = snapshot.data;
+                                    List<FoodItem> foodItems = snapshot.data;
                                     return RaisedButton(
                                       color: Colors.red[900],
                                       child: Text(
@@ -365,24 +366,24 @@ class _BottomBarState extends State<BottomBar> {
                                               " = R" +
                                               itemTotal.toString());
                                         }
-//                                        Order newOrder = Order(
-//                                            orderNumber:
-//                                                'VR${orderNumber.toString()}',
-//                                            userUid: user.uid,
-//                                            userName:
-//                                                '${user.firstName + ' ' + user.lastName}',
-//                                            userPhoneNumber: user.phoneNumber,
-//                                            userAddress: '',
-//                                            userEmail: user.emailAddress,
-//                                            dateOrderCreated: DateTime.now(),
-//                                            orderItems: order,
-//                                            orderTotalAmount:
-//                                                'R${totalAmount.toString()}',
-//                                            orderStatus: 'New',
-//                                            paymentStatus: 'Pending');
-//                                        orderService.addOrder(newOrder);
-//                                        _showNotification();
-//                                        foodItems.clear();
+                                        Order newOrder = Order(
+                                            orderNumber:
+                                                'VR${orderNumber.toString()}',
+                                            userUid: user.uid,
+                                            userName:
+                                                '${user.firstName + ' ' + user.lastName}',
+                                            userPhoneNumber: user.phoneNumber,
+                                            userAddress: '',
+                                            userEmail: user.emailAddress,
+                                            dateOrderCreated: DateTime.now(),
+                                            orderItems: order,
+                                            orderTotalAmount:
+                                                'R${totalAmount.toString()}',
+                                            orderStatus: 'New',
+                                            paymentStatus: 'Pending');
+                                        orderService.addOrder(newOrder);
+                                        _showNotification();
+                                        foodItems.clear();
 //                                      Navigator.of(context)
 //                                          .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
 

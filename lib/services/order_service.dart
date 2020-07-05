@@ -10,7 +10,7 @@ class OrderService {
     return orderCollection.where('userUid', isEqualTo: userUid).snapshots();
   }
 
-  Future<DocumentReference> addOrder(Order order) {
-    return orderCollection.add(order.toJson());
+  Future<void> addOrder(Order order) {
+    return orderCollection.document(order.orderNumber).setData(order.toJson());
   }
 }
