@@ -39,7 +39,6 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
           ),
           FlatButton(
             onPressed: () => SystemNavigator.pop(),
-            /*Navigator.of(context).pop(true)*/
             child: Text('Yes'),
           ),
         ],

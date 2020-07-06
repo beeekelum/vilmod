@@ -22,7 +22,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -102,6 +101,30 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Future<bool> _logOut() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to logout of VilMod'),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('No'),
+          ),
+          FlatButton(
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.pop(context);
+            },
+            child: Text('Yes'),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
+
   @override
   void dispose() {
     if (iosSubscription != null) iosSubscription.cancel();
@@ -129,8 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           IconButton(
               icon: Icon(FontAwesomeIcons.signOutAlt),
-              onPressed: () async {
-                await _auth.signOut();
+              onPressed: () {
+                _logOut();
               })
         ],
         //elevation: 0,
@@ -1137,7 +1160,7 @@ class FirstHalf extends StatelessWidget {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: Colors.white,
                 ),
@@ -1147,8 +1170,8 @@ class FirstHalf extends StatelessWidget {
                 prefixIcon: Icon(Icons.search),
                 hintText: 'Search...',
                 border: InputBorder.none,
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+//                contentPadding:
+//                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 hintStyle: TextStyle(color: Colors.black87),
               ),
             ),

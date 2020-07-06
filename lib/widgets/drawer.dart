@@ -22,7 +22,7 @@ class AppDrawerVilMod extends StatelessWidget {
           var user = snapshot.data;
           if (user != null) {
             return Drawer(
-              elevation: 0.0,
+              //elevation: 0.0,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Column(

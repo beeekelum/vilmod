@@ -27,10 +27,6 @@ class OrdersPending extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    Query newOrderQuery = collectionReference.where('orderStatus',
-//        isEqualTo: 'New');
-//    Query processingOrderQuery = newOrderQuery.where('orderStatus',
-//        isEqualTo: 'Being processed');
     var fUser = Provider.of<FirebaseUser>(context);
     return StreamBuilder<User>(
         stream: DatabaseService(uid: fUser?.uid).userData,
@@ -49,9 +45,9 @@ class OrdersPending extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(0.7),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
                     ],
                     //begin: Alignment.bottomLeft,
                     begin: Alignment.topCenter,
@@ -61,7 +57,7 @@ class OrdersPending extends StatelessWidget {
               Container(
                 child: StreamBuilder<QuerySnapshot>(
                  // stream: OrderService().getOrdersStream(user?.uid),
-                  stream: collectionReference.where('userUid', isEqualTo: user?.uid).snapshots(),
+                  stream: collectionReference.where('userUid', isEqualTo: user?.uid).orderBy('dateOrderCreated', descending: true).snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) return new Text('${snapshot.error}');
@@ -135,7 +131,7 @@ class OrdersPending extends StatelessWidget {
                                               '',
                                           title: Text(
                                             'Order#: ' +
-                                                item['orderNumber'], style: TextStyle(),
+                                                item['orderNumber'], style: TextStyle(fontSize: 15),
                                           ),
                                           subtitle: Row(
                                             children: <Widget>[
@@ -152,54 +148,48 @@ class OrdersPending extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          trailing: _buildOrderStatus(
-                                              item['orderStatus']),
+                                          trailing: _buildPaymentStatus(
+                                              item['paymentStatus']),
                                         ),
-                                        Column(
+                                        Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                              children: <Widget>[
-                                                FlatButton.icon(
-                                                  color: Colors.grey[300],
-                                                  onPressed: () {
-                                                    Navigator.of(context).push(
-                                                      new FadePageRoute(
-                                                        builder: (c) {
-                                                          return OrderDetailsPage(
-                                                              details: snapshot
-                                                                  .data
-                                                                  .documents[
-                                                              index]
-                                                          );
-                                                        },
-                                                        settings:
-                                                        new RouteSettings(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  shape:
-                                                      new RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .circular(
-                                                                  30.0)),
-                                                  label: Text(
-                                                    'View Order Details',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.bold),
+                                            FlatButton.icon(
+                                              color: Colors.grey[300],
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  new FadePageRoute(
+                                                    builder: (c) {
+                                                      return OrderDetailsPage(
+                                                          details: snapshot
+                                                              .data
+                                                              .documents[
+                                                          index]
+                                                      );
+                                                    },
+                                                    settings:
+                                                    new RouteSettings(),
                                                   ),
-                                                  icon: Icon(
-                                                      Icons.search),
-                                                ),
-                                              ],
-                                            )
+                                                );
+                                              },
+                                              shape:
+                                                  new RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          new BorderRadius
+                                                                  .circular(
+                                                              10.0)),
+                                              label: Text(
+                                                'View Order Details',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              ),
+                                              icon: Icon(
+                                                  Icons.search),
+                                            ),
+                                            _buildOrderStatus(
+                                                item['orderStatus']),
                                           ],
                                         )
                                       ],
@@ -221,16 +211,28 @@ class OrdersPending extends StatelessWidget {
 
   _buildOrderStatus(String status) {
     return Chip(
-      elevation: 2,
+      //elevation: 2,
       backgroundColor:
       status == "New" ? Colors.blue : Colors.orange,
       label: Text(
         status,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: FontWeight.bold,
         ),
+      ),
+    );
+  }
+
+  _buildPaymentStatus(String status) {
+    return Text(
+      status,
+      style: TextStyle(
+          color: status == "Paid" ? Colors.green : Colors.red,
+//          fontSize: 11,
+          fontWeight: FontWeight.bold,
+        decoration: TextDecoration.underline
       ),
     );
   }
@@ -239,10 +241,10 @@ class OrdersPending extends StatelessWidget {
 
         return Container(
           child: CachedNetworkImage(
-            imageUrl: 'https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/villogo.png?alt=media&token=2b230ad0-b5db-4aa3-8b67-33a85bc590a5',
+            imageUrl: 'https://bit.ly/38v94pv',
             imageBuilder: (context, imageProvider) => Container(
-              width: 40.0,
-              height: 40.0,
+              width: 50.0,
+              height: 50.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(image: imageProvider, fit: BoxFit.cover),

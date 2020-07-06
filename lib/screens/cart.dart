@@ -7,6 +7,7 @@ import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/bloc/list_style_color_bloc.dart';
 import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/foodItem.dart';
+import 'package:vilmod/models/notification.dart';
 import 'package:vilmod/models/orders.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/screens/notifications.dart';
@@ -15,7 +16,7 @@ import 'package:vilmod/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:badges/badges.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
+import 'package:vilmod/services/notification_service.dart';
 import 'package:vilmod/services/order_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:vilmod/utils/routes.dart';
@@ -86,6 +87,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   final OrderService orderService = OrderService();
+  final NotificationService notificationService = NotificationService();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       new FlutterLocalNotificationsPlugin();
 
@@ -110,8 +112,11 @@ class _BottomBarState extends State<BottomBar> {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSChannelSpecifics);
 
-    await flutterLocalNotificationsPlugin.show(0, 'Vilmod Restaurant',
-        'Thank you new order created. Pay for your order.', platformChannelSpecifics,
+    await flutterLocalNotificationsPlugin.show(
+        0,
+        'Vilmod Restaurant',
+        'Thank you new order created. Pay for your order.',
+        platformChannelSpecifics,
         payload: 'test payload');
   }
 
@@ -178,25 +183,6 @@ class _BottomBarState extends State<BottomBar> {
   Widget nextButtonBar(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
     var orderNumber = Random().nextInt(900000) + 100000;
-//    void showNonce(BraintreePaymentMethodNonce nonce) {
-//      showDialog(
-//        context: context,
-//        builder: (_) => AlertDialog(
-//          title: Text('Payment method nonce:'),
-//          content: Column(
-//            mainAxisSize: MainAxisSize.min,
-//            crossAxisAlignment: CrossAxisAlignment.stretch,
-//            children: <Widget>[
-//              Text('Nonce: ${nonce.nonce}'),
-//              SizedBox(height: 16),
-//              Text('Type label: ${nonce.typeLabel}'),
-//              SizedBox(height: 16),
-//              Text('Description: ${nonce.description}'),
-//            ],
-//          ),
-//        ),
-//      );
-//    }
 
     return StreamBuilder<User>(
         stream: DatabaseService(uid: user.uid).userData,
@@ -385,6 +371,22 @@ class _BottomBarState extends State<BottomBar> {
                                             paymentStatus: 'Not Paid');
                                         orderService.addOrder(newOrder);
                                         _showNotification();
+
+                                        //store notification in the database--------------------
+                                        OrderNotification newNotification =
+                                            OrderNotification(
+                                          //notificationId: '',
+                                          userUid: user.uid,
+                                          title: 'New order',
+                                          body: 'Thank you new order created.',
+                                          isRead: false,
+                                          orderNumber:
+                                              'VR${orderNumber.toString()}',
+                                          dateCreated: DateTime.now(),
+                                        );
+                                        notificationService
+                                            .addNotification(newNotification);
+
                                         //foodItems.clear();
 //                                      Navigator.of(context)
 //                                          .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
@@ -767,39 +769,3 @@ class CustomAppBar extends StatelessWidget {
     );
   }
 }
-
-//class DragTargetWidget extends StatefulWidget {
-//  @override
-//  _DragTargetWidgetState createState() => _DragTargetWidgetState();
-//}
-//
-//class _DragTargetWidgetState extends State<DragTargetWidget> {
-//  final CartListBloc listBloc = BlocProvider.getBloc<CartListBloc>();
-//  final ColorBloc colorBloc = BlocProvider.getBloc<ColorBloc>();
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return DragTarget<FoodItem>(
-//      onWillAccept: (FoodItem foodItem) {
-//        colorBloc.setColor(Colors.red);
-//        return true;
-//      },
-////      onLeave: (FoodItem foodItem) {
-////        colorBloc.setColor(Colors.white);
-////      },
-//      onAccept: (FoodItem foodItem) {
-//        listBloc.removeFromList(foodItem);
-//        colorBloc.setColor(Colors.white);
-//      },
-//      builder: (context, incoming, rejected) {
-//        return Padding(
-//          padding: EdgeInsets.all(5),
-//          child: Icon(
-//            CupertinoIcons.delete,
-//            size: 35,
-//          ),
-//        );
-//      },
-//    );
-//  }
-//}

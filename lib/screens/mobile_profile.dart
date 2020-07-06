@@ -45,9 +45,9 @@ class MobileProfile extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.black.withOpacity(0.7),
-                        Colors.black.withOpacity(0.7),
-                        Colors.black.withOpacity(0.7),
+                        Colors.black.withOpacity(0.6),
+                        Colors.black.withOpacity(0.6),
+                        Colors.black.withOpacity(0.6),
                       ],
                       //begin: Alignment.bottomLeft,
                       begin: Alignment.topCenter,
@@ -87,7 +87,7 @@ class MobileProfile extends StatelessWidget {
                           _makeProfileItem(
                               'First Name', user.firstName ?? '', Icons.person),
                           _makeProfileItem(
-                              'Last Name', user.lastName ?? '', Icons.person),
+                              'Last Name', user.lastName ?? '', Icons.account_box),
                           _makeProfileItem('Email Address',
                               user.emailAddress ?? '', Icons.mail),
                           _makeProfileItem('Phone Number',
