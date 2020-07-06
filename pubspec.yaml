@@ -63,9 +63,9 @@ flutter:
      - family: CustomIcon
        fonts:
          - asset: assets/fonts/call.ttf
-     - family: Amita
+     - family: Comfortaa
        fonts:
-         - asset: assets/fonts/Amita-Regular.ttf
+         - asset: assets/fonts/Comfortaa-Medium.ttf
      - family: CormorantInfant
        fonts:
          - asset: assets/fonts/CormorantInfant-Regular.ttf

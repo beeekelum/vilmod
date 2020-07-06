@@ -166,14 +166,14 @@ class MobileProfile extends StatelessWidget {
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'OpenSans'),
+                fontFamily: 'Comfortaa'),
           ),
           subtitle: Text(
             title,
             style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w100,
-                fontFamily: 'OpenSans'),
+                fontFamily: 'Comfortaa'),
           ),
         ),
       ),

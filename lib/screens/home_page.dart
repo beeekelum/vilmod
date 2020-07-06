@@ -6,7 +6,6 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:vilmod/animations/FadeAnimation.dart';
 import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/foodItem.dart';
@@ -114,8 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'VilMod Mix Restaurant',
-          style: TextStyle(fontSize: 15),
+          'VilMod Mix',
+          style: TextStyle(fontSize: 17),
         ),
         //centerTitle: true,
         elevation: 0,
@@ -268,7 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black,
             ),
             title: Text(
-              "My Orders",
+              "Orders",
               style: TextStyle(
                   fontSize: 15,
                   color: _curIndex == 1 ? Colors.red[900] : Colors.black),
@@ -346,7 +345,7 @@ class ItemContainer extends StatelessWidget {
       //aroundPadding: EdgeInsets.all(10),
       borderRadius: 10,
       backgroundGradient: LinearGradient(
-        colors: [Colors.red.shade900, Colors.red.shade600],
+        colors: [Colors.green.shade900, Colors.green.shade600],
         stops: [0.6, 1],
       ),
       boxShadows: [
@@ -359,7 +358,7 @@ class ItemContainer extends StatelessWidget {
       dismissDirection: FlushbarDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
       duration: Duration(milliseconds: 1500),
-      flushbarPosition: FlushbarPosition.BOTTOM,
+      flushbarPosition: FlushbarPosition.TOP,
       icon: Icon(
         Icons.add_shopping_cart,
         color: Colors.white,
@@ -385,7 +384,6 @@ class ItemContainer extends StatelessWidget {
         foodCategory: foodItem.foodItemCategory,
         isADeal: foodItem.isDeal,
         foodItemID: foodItem.id,
-        leftAligned: (foodItem.id % 2) == 0 ? true : false,
       ),
     );
   }
@@ -411,7 +409,7 @@ class ItemContainerDeals extends StatelessWidget {
     Flushbar(
       borderRadius: 10,
       backgroundGradient: LinearGradient(
-        colors: [Colors.green.shade800, Colors.green.shade600],
+        colors: [Colors.green.shade900, Colors.green.shade600],
         stops: [0.6, 1],
       ),
       boxShadows: [
@@ -489,7 +487,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/food.jpg'),
+                  image: AssetImage('assets/images/ll.jpg'),
                   fit: BoxFit.cover),
             ),
           ),
@@ -500,9 +498,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomLeft,
                 colors: [
                   //Colors.red[900].withOpacity(.7),
-                  Colors.black.withOpacity(.7),
-                  Colors.black.withOpacity(.7),
-                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.75),
+                  Colors.black.withOpacity(.8),
+                  Colors.black.withOpacity(.9),
                 ],
               ),
             ),
@@ -514,9 +512,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
               child: Column(
                 children: <Widget>[
                   FirstHalf(),
-                  FadeAnimation(1.8, _buildCategory()),
+                   _buildCategory(),
                   SizedBox(height: 5),
-                  FadeAnimation(2.0, _buildDeals('Deal')),
+                  _buildDeals('Deal'),
                   new Container(
                     decoration: new BoxDecoration(
                       color: Colors.transparent,
@@ -528,32 +526,28 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                       controller: _tabController,
                       tabs: [
                         new Tab(
-                          child: FadeAnimation(
-                              1,
+                          child:
                               makeCategory(
-                                  isActive: false, title: 'Breakfast')),
+                                  isActive: false, title: 'Breakfast'),
                         ),
                         new Tab(
-                          child: FadeAnimation(1.3,
-                              makeCategory(isActive: false, title: 'Lunch')),
+                          child:
+                              makeCategory(isActive: false, title: 'Lunch'),
                         ),
                         new Tab(
-                          child: FadeAnimation(
-                              1.4,
+                          child:
                               makeCategory(
-                                  isActive: false, title: 'Salads & Platters')),
+                                  isActive: false, title: 'Salads & Platters'),
                         ),
                         new Tab(
-                          child: FadeAnimation(
-                              1.5,
+                          child:
                               makeCategory(
-                                  isActive: false, title: 'Hot Drinks')),
+                                  isActive: false, title: 'Hot Drinks'),
                         ),
                         new Tab(
-                          child: FadeAnimation(
-                              1.6,
+                          child:
                               makeCategory(
-                                  isActive: false, title: 'Soft Drinks')),
+                                  isActive: false, title: 'Soft Drinks'),
                         ),
                       ],
                     ),
@@ -674,7 +668,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
         ),
         Container(
           child: SizedBox(
-            height: 130,
+            height: 110,
             child: StreamBuilder<List<FoodItem>>(
               stream: db.streamFoodItems(menuType),
               builder: (context, snapshot) {
@@ -885,10 +879,10 @@ class Items extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           gradient: LinearGradient(
                             begin: Alignment.bottomRight,
-                            stops: [.2, .8],
+                            stops: [.3, .7],
                             colors: [
                               Colors.black.withOpacity(.8),
-                              Colors.black.withOpacity(.2),
+                              Colors.black.withOpacity(.3),
                             ],
                           ),
                         ),
@@ -916,7 +910,7 @@ class Items extends StatelessWidget {
                                           //"\R $foodPrice",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 17,
+                                              fontSize: 19,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
@@ -928,7 +922,7 @@ class Items extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         RatingBar(
-                                          initialRating: 3,
+                                          initialRating: 4,
                                           minRating: 1,
                                           itemSize: 18,
                                           direction: Axis.horizontal,
@@ -992,7 +986,7 @@ class ItemsDeals extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height:120,
+                    height:100,
                     width: 160,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -1008,8 +1002,8 @@ class ItemsDeals extends StatelessWidget {
                             begin: Alignment.bottomRight,
                             stops: [.1, .8],
                             colors: [
-                              Colors.black.withOpacity(.8),
-                              Colors.black.withOpacity(.3),
+                              Colors.black.withOpacity(.9),
+                              Colors.black.withOpacity(.4),
                             ],
                           ),
                         ),
@@ -1038,14 +1032,14 @@ class ItemsDeals extends StatelessWidget {
                                           //"\R $foodPrice",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 16,
+                                              fontSize: 18,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           foodName,
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 12,
+                                              fontSize: 13,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -1073,7 +1067,7 @@ class ItemsDeals extends StatelessWidget {
                                     child: Text(
                                       foodIngredients,
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w100,
+                                          fontWeight: FontWeight.w800,
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontFamily: 'SpectralSC'),
@@ -1103,10 +1097,10 @@ class FirstHalf extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
       child: Column(
         children: <Widget>[
-          FadeAnimation(1, WelcomeUser()),
-          FadeAnimation(1.3, title()),
+           WelcomeUser(),
+          title(),
           SizedBox(height: 5),
-          FadeAnimation(1.6, searchBar(context)),
+          searchBar(context),
           // _buildCategory()
         ],
       ),
@@ -1152,8 +1146,8 @@ class FirstHalf extends StatelessWidget {
                 prefixIcon: Icon(Icons.search),
                 hintText: 'Search...',
                 border: InputBorder.none,
-//                contentPadding:
-//                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 hintStyle: TextStyle(color: Colors.black87),
               ),
             ),
@@ -1169,7 +1163,7 @@ class FirstHalf extends StatelessWidget {
       children: <Widget>[
         Logo2(),
         SizedBox(
-          width: 10,
+          width: 5,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1207,21 +1201,23 @@ class WelcomeUser extends StatelessWidget {
       stream: DatabaseService(uid: user?.uid).userData,
       builder: (context, snapshot) {
         var user = snapshot.data;
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              child: Text(
-                'Hi ${user?.firstName}',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w900,
-                    //fontFamily: 'Amita',
+        return Padding(
+          padding: const EdgeInsets.only(top:12.0, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                child: Text(
+                  'Hi ${user?.firstName}',
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
