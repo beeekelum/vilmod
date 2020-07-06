@@ -19,7 +19,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       appBar: AppBar(
         title: Text(
           'Order Details: ${widget.details.data['orderNumber']}',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: Stack(
@@ -27,7 +27,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
            Container(
              decoration: BoxDecoration(
                image: DecorationImage(
-                   image: AssetImage('assets/images/food.jpg'),
+                   image: AssetImage('assets/images/ll.jpg'),
                    fit: BoxFit.cover),
              ),
            ),
@@ -35,9 +35,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
              decoration: BoxDecoration(
                gradient: LinearGradient(
                  colors: [
-                   Colors.black.withOpacity(0.7),
-                   Colors.black.withOpacity(0.7),
-                   Colors.black.withOpacity(0.7),
+                   Colors.black.withOpacity(0.6),
+                   Colors.black.withOpacity(0.6),
+                   Colors.black.withOpacity(0.6),
                  ],
                  //begin: Alignment.bottomLeft,
                  begin: Alignment.topCenter,

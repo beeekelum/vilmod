@@ -152,12 +152,12 @@ class MobileProfile extends StatelessWidget {
         elevation: 10,
         shadowColor: Colors.black.withOpacity(.2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: ListTile(
           leading: Icon(
             icon,
-            color: Colors.black,
+            color: Colors.red[900],
             size: 25,
           ),
           title: Text(
@@ -166,14 +166,14 @@ class MobileProfile extends StatelessWidget {
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Comfortaa'),
+                fontFamily: 'Comfortaa', decoration: TextDecoration.underline,),
           ),
           subtitle: Text(
             title,
             style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w100,
-                fontFamily: 'Comfortaa'),
+                fontFamily: 'Comfortaa', color: Colors.black38),
           ),
         ),
       ),

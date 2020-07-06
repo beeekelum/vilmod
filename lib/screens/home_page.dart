@@ -487,7 +487,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/ll.jpg'),
+                  image: AssetImage('assets/images/food.jpg'),
                   fit: BoxFit.cover),
             ),
           ),
@@ -498,9 +498,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomLeft,
                 colors: [
                   //Colors.red[900].withOpacity(.7),
-                  Colors.black.withOpacity(.75),
+                  Colors.black.withOpacity(.6),
+                  Colors.black.withOpacity(.7),
                   Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.9),
                 ],
               ),
             ),
@@ -661,7 +661,8 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
               Icon(Icons.local_offer, color: Colors.orange,),
               Text(
                 'Weekly Deals',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, decoration: TextDecoration.underline,),
+
               ),
             ],
           ),
@@ -709,7 +710,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
               Icon(Icons.restaurant, color: Colors.green,),
               Text(
                 'Categories',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, decoration: TextDecoration.underline,),
               ),
             ],
           ),
@@ -791,7 +792,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
           return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 2,
+                mainAxisSpacing: 4,
                 childAspectRatio: 1,
               ),
               physics: BouncingScrollPhysics(),
@@ -1181,7 +1182,7 @@ class FirstHalf extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 15,
-                  color: Colors.white70),
+                  color: Colors.white70,decoration: TextDecoration.underline,),
             ),
           ],
         ),

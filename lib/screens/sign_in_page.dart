@@ -55,9 +55,9 @@ class _SignInState extends State<SignIn> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black.withOpacity(0.1),
-                          Colors.black.withOpacity(0.1),
-                          Colors.black.withOpacity(0.1),
+                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
@@ -261,17 +261,17 @@ class _SignInState extends State<SignIn> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    SocialIcon(
-                                      colors: [
-                                        Color(0xFF102397),
-                                        Color(0xFF187adf),
-                                        Color(0xFF00eaf8),
-                                      ],
-                                      iconData: CustomIcons.facebook,
-                                      onPressed: () {
-                                        // facebookLogin();
-                                      },
-                                    ),
+//                                    SocialIcon(
+//                                      colors: [
+//                                        Color(0xFF102397),
+//                                        Color(0xFF187adf),
+//                                        Color(0xFF00eaf8),
+//                                      ],
+//                                      iconData: CustomIcons.facebook,
+//                                      onPressed: () {
+//                                        // facebookLogin();
+//                                      },
+//                                    ),
                                     SocialIcon(
                                       colors: [
                                         Color(0xFFff4f38),
@@ -280,17 +280,17 @@ class _SignInState extends State<SignIn> {
                                       iconData: CustomIcons.googlePlus,
                                       //onPressed: login,
                                     ),
-                                    SocialIcon(
-                                      colors: [
-                                        Color(0xFFD0D0D0),
-                                        Color(0xFF808080),
-                                      ],
-                                      iconData: CustomIcons.phone_iphone,
-                                      onPressed: () {
-//                            Navigator.of(context)
-//                                .pushReplacementNamed('/phonenumpage');
-                                      },
-                                    )
+//                                    SocialIcon(
+//                                      colors: [
+//                                        Color(0xFFD0D0D0),
+//                                        Color(0xFF808080),
+//                                      ],
+//                                      iconData: CustomIcons.phone_iphone,
+//                                      onPressed: () {
+////                            Navigator.of(context)
+////                                .pushReplacementNamed('/phonenumpage');
+//                                      },
+//                                    )
                                   ],
                                 ),
                                 Column(

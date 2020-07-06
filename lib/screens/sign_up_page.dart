@@ -61,9 +61,9 @@ class _SignUpState extends State<SignUp> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black.withOpacity(0.1),
-                          Colors.black.withOpacity(0.1),
-                          Colors.black.withOpacity(0.1),
+                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,

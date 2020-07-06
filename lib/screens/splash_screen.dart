@@ -14,7 +14,7 @@ class VMSplashScreen extends StatelessWidget {
       styleTextUnderTheLoader: new TextStyle(),
       photoSize: 130.0,
       onClick: () => print(""),
-      loaderColor: Colors.red,
+      loaderColor: Colors.red[900],
       loadingText: Text(
         'Loading ...',
         style: TextStyle(fontSize: 18, color: Colors.black),

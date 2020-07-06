@@ -17,7 +17,7 @@ class _MyOrdersState extends State<MyOrders> {
           appBar: new PreferredSize(
             preferredSize: Size.fromHeight(kToolbarHeight),
             child: new Container(
-              color: Colors.red[800],
+              color: Colors.red[900],
               child: new SafeArea(
                 child: Column(
                   children: <Widget>[

@@ -34,7 +34,7 @@ class Cart extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'My Cart',
+                'Cart',
                 //style: TextStyle(fontFamily: 'Amita'),
               ),
               actions: <Widget>[_shoppingCartBadge(foodItems.length)],
@@ -86,8 +86,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   final OrderService orderService = OrderService();
-  //static final String tokenizationKey = 'sandbox_8hxpnkht_kzdtzv2btm4p7s5j';
-
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       new FlutterLocalNotificationsPlugin();
 
@@ -113,7 +111,7 @@ class _BottomBarState extends State<BottomBar> {
         androidPlatformChannelSpecifics, iOSChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.show(0, 'Vilmod Restaurant',
-        'Thank you. New Order Created', platformChannelSpecifics,
+        'Thank you new order created. Pay for your order.', platformChannelSpecifics,
         payload: 'test payload');
   }
 
@@ -222,8 +220,8 @@ class _BottomBarState extends State<BottomBar> {
                     appBar: AppBar(
                       title: Text(
                         'Confirm Order',
-                        //style: TextStyle(fontFamily: 'Amita'),
                       ),
+                      elevation: 0,
                     ),
                     body: SizedBox.expand(
                       // makes widget fullscreen
@@ -234,12 +232,12 @@ class _BottomBarState extends State<BottomBar> {
                             child: SingleChildScrollView(
                               physics: BouncingScrollPhysics(),
                               child: Container(
-                                //height: MediaQuery.of(context).size.height,
+                                height: MediaQuery.of(context).size.height,
                                 decoration: new BoxDecoration(
                                   image: new DecorationImage(
                                     fit: BoxFit.cover,
                                     colorFilter: new ColorFilter.mode(
-                                        Colors.white.withOpacity(0.03),
+                                        Colors.white.withOpacity(0.02),
                                         BlendMode.dstATop),
                                     image: new AssetImage(
                                       'assets/images/logo1.png',
@@ -312,17 +310,20 @@ class _BottomBarState extends State<BottomBar> {
                                                 ))
                                             .toList(),
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          Text(
-                                            '\R${returnTotalAmount(widget.foodItems)}',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: 25),
-                                          ),
-                                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            Text(
+                                              '\R${returnTotalAmount(widget.foodItems)}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: 25),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -339,6 +340,7 @@ class _BottomBarState extends State<BottomBar> {
                                     List<FoodItem> foodItems = snapshot.data;
                                     return RaisedButton(
                                       color: Colors.red[900],
+                                      elevation: 10,
                                       child: Text(
                                         "Pay Now",
                                         style: TextStyle(fontSize: 30),
@@ -380,10 +382,10 @@ class _BottomBarState extends State<BottomBar> {
                                             orderTotalAmount:
                                                 'R${totalAmount.toString()}',
                                             orderStatus: 'New',
-                                            paymentStatus: 'Pending');
+                                            paymentStatus: 'Not Paid');
                                         orderService.addOrder(newOrder);
                                         _showNotification();
-                                        foodItems.clear();
+                                        //foodItems.clear();
 //                                      Navigator.of(context)
 //                                          .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
 
