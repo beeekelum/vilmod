@@ -1,18 +1,3 @@
-//import 'package:flutter/material.dart';
-//
-//class CompletedOrders extends StatefulWidget {
-//  @override
-//  _CompletedOrdersState createState() => _CompletedOrdersState();
-//}
-//
-//class _CompletedOrdersState extends State<CompletedOrders> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container();
-//  }
-//}
-//
-//
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,9 +45,9 @@ class CompletedOrders extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(0.7),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
                     ],
                     //begin: Alignment.bottomLeft,
                     begin: Alignment.topCenter,
@@ -161,54 +146,48 @@ class CompletedOrders extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          trailing: _buildOrderStatus(
-                                              item['orderStatus']),
+                                          trailing: _buildPaymentStatus(
+                                              item['paymentStatus']),
                                         ),
-                                        Column(
+                                        Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                              children: <Widget>[
-                                                FlatButton.icon(
-                                                  color: Colors.grey[300],
-                                                  onPressed: () {
-                                                    Navigator.of(context).push(
-                                                      new FadePageRoute(
-                                                        builder: (c) {
-                                                          return OrderDetailsPage(
-                                                              details: snapshot
-                                                                  .data
-                                                                  .documents[
-                                                              index]
-                                                          );
-                                                        },
-                                                        settings:
-                                                        new RouteSettings(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  shape:
-                                                  new RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      new BorderRadius
-                                                          .circular(
-                                                          30.0)),
-                                                  label: Text(
-                                                    'View Order Details',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight.bold),
+                                            FlatButton.icon(
+                                              color: Colors.grey[300],
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  new FadePageRoute(
+                                                    builder: (c) {
+                                                      return OrderDetailsPage(
+                                                          details: snapshot
+                                                              .data
+                                                              .documents[
+                                                          index]
+                                                      );
+                                                    },
+                                                    settings:
+                                                    new RouteSettings(),
                                                   ),
-                                                  icon: Icon(
-                                                      Icons.search),
-                                                ),
-                                              ],
-                                            )
+                                                );
+                                              },
+                                              shape:
+                                              new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  new BorderRadius
+                                                      .circular(
+                                                      30.0)),
+                                              label: Text(
+                                                'View Order Details',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              ),
+                                              icon: Icon(
+                                                  Icons.search),
+                                            ),
+                                            _buildOrderStatus(
+                                                item['orderStatus']),
                                           ],
                                         )
                                       ],
@@ -244,14 +223,26 @@ class CompletedOrders extends StatelessWidget {
     );
   }
 
+  _buildPaymentStatus(String status) {
+    return Text(
+      status,
+      style: TextStyle(
+          color: status == "Paid" ? Colors.green : Colors.red,
+//          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline
+      ),
+    );
+  }
+
   _buildProfileImage(String uid) {
 
     return Container(
       child: CachedNetworkImage(
-        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/villogo.png?alt=media&token=2b230ad0-b5db-4aa3-8b67-33a85bc590a5',
+        imageUrl: 'https://bit.ly/38v94pv',
         imageBuilder: (context, imageProvider) => Container(
-          width: 40.0,
-          height: 40.0,
+          width: 50.0,
+          height: 50.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover),

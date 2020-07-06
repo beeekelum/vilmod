@@ -54,7 +54,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     elevation: 10,
                     shadowColor: Colors.black,
                     color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,6 +95,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                 color: Colors.black,
                               ),),
                               _buildOrderStatus(widget.details.data['orderStatus']),
+                            ],
+                          ),
+                        ),
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(left:8, right: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('Payment Status: ', style: TextStyle(
+                                color: Colors.black,
+                              ),),
+                              _buildPaymentStatus(widget.details.data['paymentStatus']),
                             ],
                           ),
                         ),
@@ -149,6 +162,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     );
   }
 
+  _buildPaymentStatus(String status) {
+    return Text(
+      status,
+      style: TextStyle(
+          color: status == "Paid" ? Colors.green : Colors.red,
+//          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline
+      ),
+    );
+  }
+
   _buildOrderStatus(String status) {
     Color color;
     if(status == 'New'){
@@ -159,7 +184,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       color = Colors.green;
     }
     return Chip(
-      elevation: 5,
+      elevation: 0,
       backgroundColor:
       color,
       label: Text(

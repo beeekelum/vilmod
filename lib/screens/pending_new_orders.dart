@@ -131,7 +131,7 @@ class OrdersPending extends StatelessWidget {
                                               '',
                                           title: Text(
                                             'Order#: ' +
-                                                item['orderNumber'], style: TextStyle(fontSize: 15),
+                                                item['orderNumber'], style: TextStyle(),
                                           ),
                                           subtitle: Row(
                                             children: <Widget>[

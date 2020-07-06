@@ -136,8 +136,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'VilMod Mix',
-          style: TextStyle(fontSize: 17),
+          'VilMod Restaurant',
+         // style: TextStyle(fontSize: 17),
         ),
         //centerTitle: true,
         elevation: 0,
@@ -242,8 +242,8 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: InkResponse(
         child: new Container(
-          margin: EdgeInsets.only(right: 20),
-          width: 25,
+          margin: EdgeInsets.only(right: 5),
+          width: 23,
           height: 25,
           decoration: new BoxDecoration(
             color: Colors.yellow[800],
@@ -254,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
               length.toString(),
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -1027,7 +1027,7 @@ class ItemsDeals extends StatelessWidget {
                             stops: [.1, .8],
                             colors: [
                               Colors.black.withOpacity(.9),
-                              Colors.black.withOpacity(.4),
+                              Colors.black.withOpacity(.2),
                             ],
                           ),
                         ),
