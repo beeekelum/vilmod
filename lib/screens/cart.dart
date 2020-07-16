@@ -368,6 +368,8 @@ class _BottomBarState extends State<BottomBar> {
                                             orderTotalAmount:
                                                 'R${totalAmount.toString()}',
                                             orderStatus: 'New',
+                                            flag: 'New Order',
+                                            tAmount: totalAmount,
                                             paymentStatus: 'Not Paid');
                                         orderService.addOrder(newOrder);
                                         _showNotification();
@@ -386,10 +388,6 @@ class _BottomBarState extends State<BottomBar> {
                                         );
                                         notificationService
                                             .addNotification(newNotification);
-
-                                        //foodItems.clear();
-//                                      Navigator.of(context)
-//                                          .pushNamedAndRemoveUntil('/home_page', (Route<dynamic> route) => false);
 
                                         Navigator.of(context).push(
                                           FadePageRoute(

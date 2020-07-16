@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Order {
   String orderNumber;
   String userUid;
@@ -9,12 +10,14 @@ class Order {
   DateTime dateOrderCreated;
   var orderItems;
   String orderTotalAmount;
+  int tAmount;
+  String flag;
   String orderStatus;
   String paymentStatus;
   DocumentReference reference;
 
-  Order({
-      this.orderNumber,
+  Order(
+      {this.orderNumber,
       this.userUid,
       this.userName,
       this.userPhoneNumber,
@@ -23,8 +26,11 @@ class Order {
       this.dateOrderCreated,
       this.orderItems,
       this.orderTotalAmount,
+      this.tAmount,
+      this.flag,
       this.orderStatus,
-      this.paymentStatus, this.reference});
+      this.paymentStatus,
+      this.reference});
 
   factory Order.fromSnapshot(DocumentSnapshot snapshot) {
     Order newOrder = Order.fromJson(snapshot.data);
@@ -33,8 +39,7 @@ class Order {
   }
 
   //4
-  factory Order.fromJson(Map<dynamic, dynamic> json) =>
-      orderFromJson(json);
+  factory Order.fromJson(Map<dynamic, dynamic> json) => orderFromJson(json);
 
   //5
   Map<String, dynamic> toJson() => orderToJson(this);
@@ -54,6 +59,8 @@ Order orderFromJson(Map<dynamic, dynamic> json) {
         : (json['dateOrderCreated'] as Timestamp).toDate(),
     orderItems: json['orderItems'] as List,
     orderTotalAmount: json['orderTotalAmount'] as String,
+    tAmount: json['tAmount'] as int,
+    flag: json['flag'] as String,
     orderStatus: json['orderStatus'] as String,
     paymentStatus: json['paymentStatus'] as String,
   );
@@ -61,15 +68,17 @@ Order orderFromJson(Map<dynamic, dynamic> json) {
 
 //2
 Map<String, dynamic> orderToJson(Order instance) => <String, dynamic>{
-  'orderNumber': instance.orderNumber,
-  'userUid': instance.userUid,
-  'userName': instance.userName,
-  'userPhoneNumber': instance.userPhoneNumber,
-  'userAddress': instance.userAddress,
-  'userEmail': instance.userEmail,
-  'dateOrderCreated': instance.dateOrderCreated,
-  'orderItems': instance.orderItems,
-  'orderTotalAmount': instance.orderTotalAmount,
-  'orderStatus': instance.orderStatus,
-  'paymentStatus': instance.paymentStatus,
-};
+      'orderNumber': instance.orderNumber,
+      'userUid': instance.userUid,
+      'userName': instance.userName,
+      'userPhoneNumber': instance.userPhoneNumber,
+      'userAddress': instance.userAddress,
+      'userEmail': instance.userEmail,
+      'dateOrderCreated': instance.dateOrderCreated,
+      'orderItems': instance.orderItems,
+      'orderTotalAmount': instance.orderTotalAmount,
+      'tAmount': instance.tAmount,
+      'flag': instance.flag,
+      'orderStatus': instance.orderStatus,
+      'paymentStatus': instance.paymentStatus,
+    };
