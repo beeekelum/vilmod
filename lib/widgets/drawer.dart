@@ -117,7 +117,11 @@ class AppDrawerVilMod extends StatelessWidget {
                             applicationVersion: '1.0.0',
                             applicationIcon: Logo2(),
                             children: [
-                              Text('Order food from your favorite restaurant by pressing a few buttons.'),
+                              Text('Amazing meals & a great experience.'),
+                              Text(
+                                  '115 Paul Kruger street New Court Chamber Pretoria'),
+                              Text('073 322 6375/012 342 0608'),
+                              Text('vilmodmix@gmail.com'),
                             ],
                             applicationLegalese: 'Copyright © VilMod, 2020');
                       },

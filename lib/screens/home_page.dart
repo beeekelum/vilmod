@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             actions: <Widget>[
               FlatButton(
-                color: Colors.amber,
+                color: Colors.red[900],
                 child: Text('Ok'),
                 onPressed: () => Navigator.of(context).pop(),
               ),
@@ -140,8 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
           'VilMod Restaurant',
           // style: TextStyle(fontSize: 17),
         ),
-        //centerTitle: true,
-        elevation: 0,
         actions: <Widget>[
           StreamBuilder(
             stream: bloc.listStream,
@@ -522,7 +520,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 colors: [
                   //Colors.red[900].withOpacity(.7),
                   Colors.black.withOpacity(.5),
-                  Colors.black.withOpacity(.6),
+                  Colors.black.withOpacity(.5),
                   Colors.black.withOpacity(.5),
                 ],
               ),
@@ -728,7 +726,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
   List<String> imageLinks = [
     'https://bit.ly/3d8166B',
     'https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg',
-    'https://i.pinimg.com/originals/57/a3/93/57a393a9e6eb08bf63bc742c700b3ffa.jpg',
+    'https://www.sa-austin.com/wp-content/uploads/2018/07/bobotie.jpg',
     'https://www.recipetineats.com/wp-content/uploads/2018/05/Chicken-Stew_6.jpg',
     'https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg',
     'https://bit.ly/2ZzLV2i'

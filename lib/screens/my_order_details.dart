@@ -45,85 +45,87 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Material(
-                    elevation: 10,
-                    shadowColor: Colors.black,
-                    //color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Logo2(),
-                        Divider(),
-                        orderDetail(
-                            'Customer Name: ', widget.details.data['userName']),
-                        Divider(),
-                        orderDetail(
-                            'Order Number: ', widget.details.data['orderNumber']),
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(left:8, right: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text('Date Order:'),
-                              Text(
-                                DateFormat.yMMMMEEEEd()
-                                    .format(widget.details.data['dateOrderCreated'].toDate()),
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Material(
+                      elevation: 10,
+                      shadowColor: Colors.black,
+                      //color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Logo2(),
+                          Divider(),
+                          orderDetail(
+                              'Customer Name: ', widget.details.data['userName']),
+                          Divider(),
+                          orderDetail(
+                              'Order Number: ', widget.details.data['orderNumber']),
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.only(left:8, right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text('Date Order:'),
+                                Text(
+                                  DateFormat.yMMMMEEEEd()
+                                      .format(widget.details.data['dateOrderCreated'].toDate()),
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(left:8, right: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text('Order Status: ', style: TextStyle(
-                                color: Colors.black,
-                              ),),
-                              _buildOrderStatus(widget.details.data['orderStatus']),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(left:8, right: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text('Payment Status: ', style: TextStyle(
-                                color: Colors.black,
-                              ),),
-                              _buildPaymentStatus(widget.details.data['paymentStatus']),
-                            ],
-                          ),
-                        ),
-                        for (var item
-                        in widget.details.data['orderItems'] ?? [])
-                          ListTile(
-                            leading: Icon(Icons.radio_button_checked, color: Colors.red[900]),
-                            title: Text(
-                              item,
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                              ],
                             ),
                           ),
-                        Divider(),
-                        orderDetail(
-                            'Total Amount paid: ', widget.details.data['orderTotalAmount']),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.only(left:8, right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text('Order Status: ', style: TextStyle(
+                                  color: Colors.black,
+                                ),),
+                                _buildOrderStatus(widget.details.data['orderStatus']),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.only(left:8, right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text('Payment Status: ', style: TextStyle(
+                                  color: Colors.black,
+                                ),),
+                                _buildPaymentStatus(widget.details.data['paymentStatus']),
+                              ],
+                            ),
+                          ),
+                          for (var item
+                          in widget.details.data['orderItems'] ?? [])
+                            ListTile(
+                              leading: Icon(Icons.radio_button_checked, color: Colors.red[900]),
+                              title: Text(
+                                item,
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          Divider(),
+                          orderDetail(
+                              'Total Amount paid: ', widget.details.data['orderTotalAmount']),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
