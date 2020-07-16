@@ -44,6 +44,7 @@ dev_dependencies:
   flutter_inappwebview: ^4.0.0+4
   image_picker:
   firebase_storage:
+  carousel_slider:
 
 flutter:
   uses-material-design: true

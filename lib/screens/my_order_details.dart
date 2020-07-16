@@ -19,41 +19,38 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       appBar: AppBar(
         title: Text(
           'Order Details: ${widget.details.data['orderNumber']}',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: Stack(
          children: [
            Container(
-             decoration: BoxDecoration(
-               image: DecorationImage(
-                   image: AssetImage('assets/images/ll.jpg'),
-                   fit: BoxFit.cover),
-             ),
+             color: Colors.grey[200],
+             //height: MediaQuery.of(context).size.height,
            ),
-           Container(
-             decoration: BoxDecoration(
-               gradient: LinearGradient(
-                 colors: [
-                   Colors.black.withOpacity(0.6),
-                   Colors.black.withOpacity(0.6),
-                   Colors.black.withOpacity(0.6),
-                 ],
-                 //begin: Alignment.bottomLeft,
-                 begin: Alignment.topCenter,
-               ),
-             ),
-           ),
+//           Container(
+//             decoration: BoxDecoration(
+//               gradient: LinearGradient(
+//                 colors: [
+//                   Colors.black.withOpacity(0.6),
+//                   Colors.black.withOpacity(0.6),
+//                   Colors.black.withOpacity(0.6),
+//                 ],
+//                 //begin: Alignment.bottomLeft,
+//                 begin: Alignment.topCenter,
+//               ),
+//             ),
+//           ),
           Center(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Container(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Material(
                     elevation: 10,
                     shadowColor: Colors.black,
-                    color: Colors.grey[100],
+                    //color: Colors.grey[100],
                     borderRadius: BorderRadius.circular(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

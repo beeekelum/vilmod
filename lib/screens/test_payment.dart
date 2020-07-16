@@ -5,10 +5,13 @@ import 'dart:typed_data';
 import 'package:intl/intl.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:vilmod/bloc/cartlist_bloc.dart';
+import 'package:vilmod/models/foodItem.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 
 class ProcessOrderPayment extends StatefulWidget {
   ProcessOrderPayment({this.orderNumber, this.amount});
@@ -25,6 +28,7 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
   String url = "https://sandbox.payfast.co.za/eng/process";
   //String url = "https://www.payfast.co.za/eng/process";
   double progress = 0.0;
+  final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -150,53 +154,60 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
                       ),
                     ),
                   ),
-                  ButtonBar(
-                    alignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  StreamBuilder(
+                      stream: bloc.listStream,
+                    builder: (context, snapshot) {
+                      List<FoodItem> foodItems = snapshot.data;
+                      return ButtonBar(
+                        alignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          RaisedButton.icon(
-                            label: Text('Home'),
-                            icon: Icon(Icons.home),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            color: Colors.red[900],
-                            onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/home_page',
-                                  (Route<dynamic> route) => false);
-                            },
-                          ),
-                          RaisedButton.icon(
-                            label: Text('Reload'),
-                            icon: Icon(Icons.refresh),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            color: Colors.red[900],
-                            onPressed: () {
-                              if (webView != null) {
-                                webView.reload();
-                              }
-                            },
-                          ),
-                          RaisedButton.icon(
-                            label: Text('Exit app'),
-                            icon: Icon(Icons.cancel),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            color: Colors.red[900],
-                            onPressed: () {
-                              //SystemNavigator.pop();
-                              _onWillPop();
-                            },
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              RaisedButton.icon(
+                                label: Text('Home'),
+                                icon: Icon(Icons.home),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                color: Colors.red[900],
+                                onPressed: () {
+                                  foodItems.clear();
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      '/home_page',
+                                      (Route<dynamic> route) => false);
+                                },
+                              ),
+                              RaisedButton.icon(
+                                label: Text('Reload'),
+                                icon: Icon(Icons.refresh),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                                color: Colors.red[900],
+                                onPressed: () {
+                                  if (webView != null) {
+                                    webView.reload();
+                                  }
+                                },
+                              ),
+                              RaisedButton.icon(
+                                label: Text('Exit app'),
+                                icon: Icon(Icons.cancel),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                                color: Colors.red[900],
+                                onPressed: () {
+                                  //SystemNavigator.pop();
+                                  _onWillPop();
+                                },
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
+                      );
+                    }
                   ),
                 ].where((Object o) => o != null).toList(),
               ),

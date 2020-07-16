@@ -35,7 +35,7 @@ class Notifications extends StatelessWidget {
           var user = snapshot.data;
           return Scaffold(
             appBar: AppBar(
-              title: Text('Notifications'),
+              title: Text('Order Notifications'),
               elevation: 0,
             ),
             body: SingleChildScrollView(

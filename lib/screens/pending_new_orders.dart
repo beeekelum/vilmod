@@ -35,25 +35,27 @@ class OrdersPending extends StatelessWidget {
           return Stack(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/food.jpg'),
-                      fit: BoxFit.cover),
-                ),
+                color: Colors.grey[200],
+                //height: MediaQuery.of(context).size.height,
+//                decoration: BoxDecoration(
+//                  image: DecorationImage(
+//                      image: AssetImage('assets/images/food.jpg'),
+//                      fit: BoxFit.cover),
+//                ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.6),
-                    ],
-                    //begin: Alignment.bottomLeft,
-                    begin: Alignment.topCenter,
-                  ),
-                ),
-              ),
+//              Container(
+//                decoration: BoxDecoration(
+//                  gradient: LinearGradient(
+//                    colors: [
+//                      Colors.black.withOpacity(0.6),
+//                      Colors.black.withOpacity(0.6),
+//                      Colors.black.withOpacity(0.6),
+//                    ],
+//                    //begin: Alignment.bottomLeft,
+//                    begin: Alignment.topCenter,
+//                  ),
+//                ),
+//              ),
               Container(
                 child: StreamBuilder<QuerySnapshot>(
                  // stream: OrderService().getOrdersStream(user?.uid),
@@ -68,9 +70,9 @@ class OrdersPending extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(20),
                               child: Text(
-                                "No Orders!",
+                                "No Orders Yet!",
                                 style: TextStyle(
-                                    fontSize: 24, color: Colors.white),
+                                    fontSize: 24, color: Colors.black),
                               ),
                             ),
                           ),
@@ -89,7 +91,7 @@ class OrdersPending extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Material(
                                   elevation: 10,
-                                  shadowColor: Colors.red[900],
+                                 // shadowColor: Colors.red[900],
                                   color: Colors.grey[100],
                                   borderRadius: BorderRadius.circular(10),
                                   child: Padding(

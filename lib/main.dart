@@ -7,7 +7,7 @@ import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/bloc/list_style_color_bloc.dart';
 import 'package:vilmod/models/foodItem.dart';
 import 'package:vilmod/models/user.dart';
-import 'package:vilmod/screens/feedback.dart';
+import 'package:vilmod/screens/feedback_form.dart';
 import 'package:vilmod/screens/forgot_password.dart';
 import 'package:vilmod/screens/home_page.dart';
 import 'package:vilmod/screens/splash_screen.dart';

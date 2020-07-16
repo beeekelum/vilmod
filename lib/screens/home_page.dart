@@ -23,6 +23,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -36,8 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
   bool isActive = false;
   final AuthService _auth = AuthService();
-  int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+
+  // int _page = 0;
+  //GlobalKey _bottomNavigationKey = GlobalKey();
 
   final Firestore _db = Firestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -46,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
@@ -103,25 +104,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<bool> _logOut() {
     return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to logout of VilMod'),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No'),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to logout of VilMod'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('No'),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  await _auth.signOut();
+                  Navigator.pop(context);
+                },
+                child: Text('Yes'),
+              ),
+            ],
           ),
-          FlatButton(
-            onPressed: () async {
-              await _auth.signOut();
-              Navigator.pop(context);
-            },
-            child: Text('Yes'),
-          ),
-        ],
-      ),
-    ) ??
+        ) ??
         false;
   }
 
@@ -137,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(
           'VilMod Restaurant',
-         // style: TextStyle(fontSize: 17),
+          // style: TextStyle(fontSize: 17),
         ),
         //centerTitle: true,
         elevation: 0,
@@ -200,7 +201,6 @@ class _MyHomePageState extends State<MyHomePage> {
 //        body: _getBody(_page),
       drawer: AppDrawerVilMod(),
     );
-
   }
 
   /// Get the token, save it to the database for current user
@@ -214,9 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Save it to Firestore
     if (fcmToken != null) {
-      var tokens = _db
-          .collection('users')
-          .document(user.uid);
+      var tokens = _db.collection('users').document(user.uid);
 
       await tokens.updateData({
         'token': fcmToken,
@@ -225,10 +223,12 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+
   // Subscribe the user to a topic
   _subscribeToTopic() async {
     _fcm.subscribeToTopic('vilmod');
   }
+
   GestureDetector buildGestureDetector(
       int length, BuildContext context, List<FoodItem> foodItems) {
     return GestureDetector(
@@ -428,7 +428,7 @@ class ItemContainerDeals extends StatelessWidget {
     bloc.removeFromList(foodItem);
   }
 
-  void showFloatingFlushbar(BuildContext context, String foodItem) {
+  void showFloatingFlushBar(BuildContext context, String foodItem) {
     Flushbar(
       borderRadius: 10,
       backgroundGradient: LinearGradient(
@@ -461,7 +461,7 @@ class ItemContainerDeals extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         addToCart(foodItem);
-        showFloatingFlushbar(context, foodItem.foodItemName);
+        showFloatingFlushBar(context, foodItem.foodItemName);
       },
       child: ItemsDeals(
         foodImage: foodItem.foodItemImage,
@@ -521,9 +521,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomLeft,
                 colors: [
                   //Colors.red[900].withOpacity(.7),
+                  Colors.black.withOpacity(.5),
                   Colors.black.withOpacity(.6),
-                  Colors.black.withOpacity(.7),
-                  Colors.black.withOpacity(.8),
+                  Colors.black.withOpacity(.5),
                 ],
               ),
             ),
@@ -535,7 +535,8 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
               child: Column(
                 children: <Widget>[
                   FirstHalf(),
-                   _buildCategory(),
+                  // _buildCategory(),
+                  _buildCarousel(),
                   SizedBox(height: 5),
                   _buildDeals('Deal'),
                   new Container(
@@ -550,27 +551,22 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                       tabs: [
                         new Tab(
                           child:
-                              makeCategory(
-                                  isActive: false, title: 'Breakfast'),
+                              makeCategory(isActive: false, title: 'Breakfast'),
                         ),
                         new Tab(
-                          child:
-                              makeCategory(isActive: false, title: 'Lunch'),
+                          child: makeCategory(isActive: false, title: 'Lunch'),
                         ),
                         new Tab(
-                          child:
-                              makeCategory(
-                                  isActive: false, title: 'Salads & Platters'),
+                          child: makeCategory(
+                              isActive: false, title: 'Salads & Platters'),
                         ),
                         new Tab(
-                          child:
-                              makeCategory(
-                                  isActive: false, title: 'Hot Drinks'),
+                          child: makeCategory(
+                              isActive: false, title: 'Hot Drinks'),
                         ),
                         new Tab(
-                          child:
-                              makeCategory(
-                                  isActive: false, title: 'Soft Drinks'),
+                          child: makeCategory(
+                              isActive: false, title: 'Soft Drinks'),
                         ),
                       ],
                     ),
@@ -590,13 +586,14 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Breakfast includes (Sandwiches & croissants, Freshly baked)',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     decoration: TextDecoration.underline,
                                     fontFamily: 'SpectralSC'),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
-                              Expanded(child: _buildFoodMenuListView('Breakfast')),
+                              Expanded(
+                                  child: _buildFoodMenuListView('Breakfast')),
                             ],
                           ),
                           Column(
@@ -605,7 +602,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'All Meals to be served with a portion of starch (Pap, Rice, Samp, Dumpling, Salad or Chips) Together with 2 vegies',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     decoration: TextDecoration.underline,
                                     fontFamily: 'SpectralSC'),
                                 textAlign: TextAlign.center,
@@ -620,7 +617,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Vegetable, Salads and Platters',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     decoration: TextDecoration.underline,
                                     fontFamily: 'SpectralSC'),
                                 textAlign: TextAlign.center,
@@ -635,13 +632,14 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Hot Beverages',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     decoration: TextDecoration.underline,
                                     fontFamily: 'SpectralSC'),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
-                              Expanded(child: _buildFoodMenuListView('Hot Drinks')),
+                              Expanded(
+                                  child: _buildFoodMenuListView('Hot Drinks')),
                             ],
                           ),
                           Column(
@@ -650,13 +648,14 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Cold Beverages',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     decoration: TextDecoration.underline,
                                     fontFamily: 'SpectralSC'),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
-                              Expanded(child: _buildFoodMenuListView('Soft Drinks')),
+                              Expanded(
+                                  child: _buildFoodMenuListView('Soft Drinks')),
                             ],
                           ),
                         ],
@@ -681,11 +680,16 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: <Widget>[
-              Icon(Icons.local_offer, color: Colors.orange,),
+              Icon(
+                Icons.local_offer,
+                color: Colors.orange,
+              ),
               Text(
                 'Weekly Deals',
-                style: TextStyle(color: Colors.white, decoration: TextDecoration.underline,),
-
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ],
           ),
@@ -721,80 +725,133 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _buildCategory() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.restaurant, color: Colors.green,),
-              Text(
-                'Categories',
-                style: TextStyle(color: Colors.white, decoration: TextDecoration.underline,),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 50,
-          child: StreamBuilder(
-              stream: Firestore.instance.collection('categories').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return Text(
-                    "No Menu Items available yet",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  );
-                return ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  // shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data.documents.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    DocumentSnapshot category = snapshot.data.documents[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: Material(
-                        elevation: 10,
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.white,
-                        child: Container(
-                          width: 120,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 30,
-                                child: Center(
-                                  child: CachedNetworkImage(
-                                    imageUrl: category['image'],
-                                    fit: BoxFit.fill,
-                                    fadeInCurve: Curves.easeIn,
-                                    fadeInDuration: Duration(seconds: 2),
-                                    fadeOutCurve: Curves.easeOut,
-                                    fadeOutDuration: Duration(seconds: 2),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                category['name'],
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }),
-        ),
-      ],
+  List<String> imageLinks = [
+    'https://bit.ly/3d8166B',
+    'https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg',
+    'https://i.pinimg.com/originals/57/a3/93/57a393a9e6eb08bf63bc742c700b3ffa.jpg',
+    'https://www.recipetineats.com/wp-content/uploads/2018/05/Chicken-Stew_6.jpg',
+    'https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg',
+    'https://bit.ly/2ZzLV2i'
+  ];
+
+  Widget _buildCarousel() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 150.0,
+        //aspectRatio: 16 / 9,
+        aspectRatio: 3.0,
+        viewportFraction: 0.8,
+        initialPage: 1,
+        enableInfiniteScroll: true,
+        reverse: false,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 10),
+        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enlargeCenterPage: true,
+        scrollDirection: Axis.horizontal,
+      ),
+      items: imageLinks.map((imageLink) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomRight,
+                    stops: [.3, .7],
+                    colors: [
+                      Colors.black.withOpacity(.6),
+                      Colors.black.withOpacity(.3),
+                    ],
+                  ),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Image.network(
+                  imageLink,
+                  fit: BoxFit.cover,
+                ));
+          },
+        );
+      }).toList(),
     );
   }
+
+//  Widget _buildCategory() {
+//    return Column(
+//      mainAxisAlignment: MainAxisAlignment.start,
+//      crossAxisAlignment: CrossAxisAlignment.start,
+//      children: <Widget>[
+//        Padding(
+//          padding: const EdgeInsets.all(8.0),
+//          child: Row(
+//            children: <Widget>[
+//              Icon(Icons.restaurant, color: Colors.green,),
+//              Text(
+//                'Categories',
+//                style: TextStyle(color: Colors.white, decoration: TextDecoration.underline,),
+//              ),
+//            ],
+//          ),
+//        ),
+//        SizedBox(
+//          height: 50,
+//          child: StreamBuilder(
+//              stream: Firestore.instance.collection('categories').snapshots(),
+//              builder: (context, snapshot) {
+//                if (!snapshot.hasData)
+//                  return Text(
+//                    "No Menu Items available yet",
+//                    style: TextStyle(color: Colors.white, fontSize: 20),
+//                  );
+//                return ListView.builder(
+//                  physics: BouncingScrollPhysics(),
+//                  // shrinkWrap: true,
+//                  scrollDirection: Axis.horizontal,
+//                  itemCount: snapshot.data.documents.length,
+//                  itemBuilder: (BuildContext context, int index) {
+//                    DocumentSnapshot category = snapshot.data.documents[index];
+//                    return Padding(
+//                      padding: const EdgeInsets.only(left: 12.0),
+//                      child: Material(
+//                        elevation: 10,
+//                        borderRadius: BorderRadius.circular(30),
+//                        color: Colors.white,
+//                        child: Container(
+//                          width: 120,
+//                          child: Column(
+//                            children: <Widget>[
+//                              Container(
+//                                height: 30,
+//                                child: Center(
+//                                  child: CachedNetworkImage(
+//                                    imageUrl: category['image'],
+//                                    fit: BoxFit.fill,
+//                                    fadeInCurve: Curves.easeIn,
+//                                    fadeInDuration: Duration(seconds: 2),
+//                                    fadeOutCurve: Curves.easeOut,
+//                                    fadeOutDuration: Duration(seconds: 2),
+//                                  ),
+//                                ),
+//                              ),
+//                              Text(
+//                                category['name'],
+//                                style: TextStyle(
+//                                    fontSize: 12, fontWeight: FontWeight.bold),
+//                              ),
+//                            ],
+//                          ),
+//                        ),
+//                      ),
+//                    );
+//                  },
+//                );
+//              }),
+//        ),
+//      ],
+//    );
+//  }
 
   Widget _buildSpaceWidget(int height) {
     return SizedBox(
@@ -819,7 +876,6 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 childAspectRatio: 1,
               ),
               physics: BouncingScrollPhysics(),
-
               itemCount: snapshot.data.toList().length,
               itemBuilder: (BuildContext context, int index) {
                 return ItemContainer(foodItem: snapshot.data.toList()[index]);
@@ -892,8 +948,7 @@ class Items extends StatelessWidget {
                     width: 180,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      image:
-                      DecorationImage(
+                      image: DecorationImage(
                         image: CachedNetworkImageProvider(foodImage),
                         fit: BoxFit.cover,
                       ),
@@ -905,69 +960,66 @@ class Items extends StatelessWidget {
                             begin: Alignment.bottomRight,
                             stops: [.3, .7],
                             colors: [
-                              Colors.black.withOpacity(.8),
+                              Colors.black.withOpacity(.6),
                               Colors.black.withOpacity(.3),
                             ],
                           ),
                         ),
-                        child:  Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.add_shopping_cart,
-                                        size: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          "R" + foodPrice.toStringAsFixed(2),
-                                          //"\R $foodPrice",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 19,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          foodName,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontFamily: 'SpectralSC',
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        RatingBar(
-                                          initialRating: 4,
-                                          minRating: 1,
-                                          itemSize: 18,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemPadding: EdgeInsets.symmetric(
-                                              horizontal: 4.0),
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                          onRatingUpdate: (rating) {
-                                            print(rating);
-                                          },
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                        child: Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Icon(
+                                  Icons.add_shopping_cart,
+                                  size: 20,
+                                  color: Colors.white,
                                 ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "R" + foodPrice.toStringAsFixed(2),
+                                    //"\R $foodPrice",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    foodName,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontFamily: 'SpectralSC',
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  RatingBar(
+                                    initialRating: 4,
+                                    minRating: 1,
+                                    itemSize: 18,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding:
+                                        EdgeInsets.symmetric(horizontal: 4.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                ],
                               )
-                            ),
+                            ],
+                          ),
+                        )),
                   ),
                 ],
               ),
@@ -1010,7 +1062,7 @@ class ItemsDeals extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height:100,
+                    height: 100,
                     width: 160,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -1026,7 +1078,7 @@ class ItemsDeals extends StatelessWidget {
                             begin: Alignment.bottomRight,
                             stops: [.1, .8],
                             colors: [
-                              Colors.black.withOpacity(.9),
+                              Colors.black.withOpacity(.7),
                               Colors.black.withOpacity(.2),
                             ],
                           ),
@@ -1080,8 +1132,7 @@ class ItemsDeals extends StatelessWidget {
                       : Container(),
                   isADeal != "Deal"
                       ? Container(
-                          padding: EdgeInsets.only(
-                              ),
+                          padding: EdgeInsets.only(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -1121,10 +1172,10 @@ class FirstHalf extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
       child: Column(
         children: <Widget>[
-           WelcomeUser(),
+          WelcomeUser(),
           title(),
           SizedBox(height: 5),
-          searchBar(context),
+          //searchBar(context),
           // _buildCategory()
         ],
       ),
@@ -1197,15 +1248,16 @@ class FirstHalf extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 19,
-                  //fontFamily: 'Amita',
                   color: Colors.white),
             ),
             Text(
               'Order your food now',
               style: TextStyle(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 15,
-                  color: Colors.white70,decoration: TextDecoration.underline,),
+                fontWeight: FontWeight.w200,
+                fontSize: 15,
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ],
         ),
@@ -1226,7 +1278,7 @@ class WelcomeUser extends StatelessWidget {
       builder: (context, snapshot) {
         var user = snapshot.data;
         return Padding(
-          padding: const EdgeInsets.only(top:12.0, bottom: 5),
+          padding: const EdgeInsets.only(top: 12.0, bottom: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -1234,9 +1286,9 @@ class WelcomeUser extends StatelessWidget {
                 child: Text(
                   'Hi ${user?.firstName}',
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
               ),

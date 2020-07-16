@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:vilmod/components/logo.dart';
 import 'package:vilmod/models/user.dart';
-import 'package:vilmod/screens/feedback.dart';
+import 'package:vilmod/screens/feedback_form.dart';
 import 'package:vilmod/screens/notifications.dart';
 import 'package:vilmod/services/database.dart';
 import 'package:vilmod/utils/routes.dart';

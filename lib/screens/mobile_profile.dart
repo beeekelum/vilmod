@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/screens/update_profile_form.dart';
 import 'package:vilmod/services/database.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MobileProfile extends StatelessWidget {
   final auth = FirebaseAuth.instance;
@@ -35,25 +36,27 @@ class MobileProfile extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/food.jpg'),
-                        fit: BoxFit.cover),
-                  ),
+                  color: Colors.grey[200],
+                  //height: MediaQuery.of(context).size.height,
+//                  decoration: BoxDecoration(
+//                    image: DecorationImage(
+//                        image: AssetImage('assets/images/ll.jpg'),
+//                        fit: BoxFit.cover),
+//                  ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0.6),
-                        Colors.black.withOpacity(0.6),
-                        Colors.black.withOpacity(0.6),
-                      ],
-                      //begin: Alignment.bottomLeft,
-                      begin: Alignment.topCenter,
-                    ),
-                  ),
-                ),
+//                Container(
+//                  decoration: BoxDecoration(
+//                    gradient: LinearGradient(
+//                      colors: [
+//                        Colors.black.withOpacity(0.4),
+//                        Colors.black.withOpacity(0.4),
+//                        Colors.black.withOpacity(0.4),
+//                      ],
+//                      //begin: Alignment.bottomLeft,
+//                      begin: Alignment.topCenter,
+//                    ),
+//                  ),
+//                ),
                 ListView(
                   physics: BouncingScrollPhysics(),
                   children: <Widget>[
@@ -62,23 +65,24 @@ class MobileProfile extends StatelessWidget {
                           const EdgeInsets.only(left: 12, right: 12, top: 20),
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(user.photoUrl ?? ''),
-                                fit: BoxFit.fitWidth,
-                                alignment: FractionalOffset.topCenter,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(90),
-                              ),
-//                                boxShadow: [
-//                                  BoxShadow(blurRadius: 2, color: Colors.black)
-//                                ]
-                            ),
-                          ),
+//                          Container(
+//                            width: 100,
+//                            height: 100,
+//                            decoration: BoxDecoration(
+//                              image: DecorationImage(
+//                                image: NetworkImage(user.photoUrl ?? ''),
+//                                fit: BoxFit.fitWidth,
+//                                alignment: FractionalOffset.topCenter,
+//                              ),
+//                              borderRadius: BorderRadius.all(
+//                                Radius.circular(90),
+//                              ),
+////                                boxShadow: [
+////                                  BoxShadow(blurRadius: 2, color: Colors.black)
+////                                ]
+//                            ),
+//                          ),
+                          _buildProfileImage(user?.photoUrl),
                           SizedBox(
                             height: 10,
                           ),
@@ -137,13 +141,26 @@ class MobileProfile extends StatelessWidget {
     );
   }
 
-//  void choiceAction(String choice) {
-//    if (choice == Constants.logout) {
-//      print('Logged out');
-//    } else if (choice == Constants.edit_profile) {
-//      print('Edit Profile');
-//    }
-//  }
+  _buildProfileImage(String url) {
+
+    return Container(
+      child: CachedNetworkImage(
+        imageUrl: url,
+        imageBuilder: (context, imageProvider) => Container(
+          width: 100.0,
+          height: 100.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+          ),
+        ),
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+    );
+
+  }
+
 
   Padding _makeProfileItem(String title, String value, IconData icon) {
     return Padding(
