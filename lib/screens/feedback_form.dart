@@ -174,7 +174,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               title: title,
               description: description,
               category: category,
-              status: 'New',
+              status: 'Open',
               dateCreated: DateTime.now(),
             ),
           );

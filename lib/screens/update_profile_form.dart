@@ -10,6 +10,7 @@ import 'package:vilmod/components/constants.dart';
 import 'package:vilmod/components/loading.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/services/database.dart';
+import 'package:flushbar/flushbar.dart';
 
 class UpdateProfileForm extends StatefulWidget {
   @override
@@ -38,7 +39,7 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
   Future uploadPic() async {
     String fileName = basename(_image.path);
     StorageReference firebaseStorageRef =
-    FirebaseStorage.instance.ref().child(fileName);
+        FirebaseStorage.instance.ref().child(fileName);
     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
     StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
     var imageUrl =
@@ -76,10 +77,10 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                                 height: 100,
                                 child: (_image != null)
                                     ? Image.file(
-                                  _image,
-                                  fit: BoxFit.fitWidth,
-                                  alignment: FractionalOffset.center,
-                                )
+                                        _image,
+                                        fit: BoxFit.fitWidth,
+                                        alignment: FractionalOffset.center,
+                                      )
                                     : Image.network(userData.photoUrl ?? ''),
                               ),
                             ),
@@ -111,9 +112,10 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         initialValue: userData.firstName,
-                        decoration: textInputDecoration,
+                        decoration: textInputDecoration.copyWith(
+                            labelText: 'First name'),
                         validator: (value) =>
-                        value.isEmpty ? 'Please enter first name' : null,
+                            value.isEmpty ? 'Please enter first name' : null,
                         onChanged: (value) =>
                             setState(() => _currentFirstName = value),
                       ),
@@ -122,9 +124,10 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         initialValue: userData.lastName,
-                        decoration: textInputDecoration,
+                        decoration: textInputDecoration.copyWith(
+                            labelText: 'Last name'),
                         validator: (value) =>
-                        value.isEmpty ? 'Please enter last name' : null,
+                            value.isEmpty ? 'Please enter last name' : null,
                         onChanged: (value) =>
                             setState(() => _currentLastName = value),
                       ),
@@ -133,9 +136,10 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         initialValue: userData.phoneNumber,
-                        decoration: textInputDecoration,
+                        decoration: textInputDecoration.copyWith(
+                            labelText: 'Phone number'),
                         validator: (value) =>
-                        value.isEmpty ? 'Please enter phone number' : null,
+                            value.isEmpty ? 'Please enter phone number' : null,
                         onChanged: (value) =>
                             setState(() => _currentPhoneNumber = value),
                       ),
@@ -144,9 +148,10 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         initialValue: userData.emailAddress,
-                        decoration: textInputDecoration,
+                        decoration: textInputDecoration.copyWith(
+                            labelText: 'Email address'),
                         validator: (value) =>
-                        value.isEmpty ? 'Please enter email address' : null,
+                            value.isEmpty ? 'Please enter email address' : null,
                         onChanged: (value) =>
                             setState(() => _currentEmailAddress = value),
                       ),
@@ -171,49 +176,52 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                               if (_image == null) {
                                 await DatabaseService(uid: user?.uid)
                                     .updateUserData(
-                                    userData.uid,
-                                    userData.emailAddress,
-                                    userData.photoUrl,
-                                    _currentPhoneNumber ??
-                                        userData.phoneNumber,
-                                    _currentFirstName ?? userData.firstName,
-                                    _currentLastName ?? userData.lastName,
-                                    userData.userType);
+                                        userData.uid,
+                                        _currentFirstName ?? userData.firstName,
+                                        _currentLastName ?? userData.lastName,
+                                        _currentEmailAddress ??
+                                            userData.emailAddress,
+                                        _currentPhoneNumber ??
+                                            userData.phoneNumber,
+                                        userData.photoUrl,
+                                        'User' ?? userData.userType);
                                 Navigator.pop(context);
                               } else {
                                 String imageExt = basename(_image.path)
-                                    .split('.')[
-                                basename(_image.path).split('.').length -
-                                    1];
+                                        .split('.')[
+                                    basename(_image.path).split('.').length -
+                                        1];
                                 var rng = new Random();
                                 var code = rng.nextInt(900000) + 100000;
                                 String fileName = '${code}.$imageExt';
                                 //print(fileName);
                                 StorageReference firebaseStorageRef =
-                                FirebaseStorage.instance
-                                    .ref()
-                                    .child('VilmodProfilePics')
-                                    .child(fileName);
+                                    FirebaseStorage.instance
+                                        .ref()
+                                        .child('VilmodProfilePics')
+                                        .child(fileName);
                                 StorageUploadTask uploadTask =
-                                firebaseStorageRef.putFile(_image);
+                                    firebaseStorageRef.putFile(_image);
                                 StorageTaskSnapshot storageTaskSnapshot =
-                                await uploadTask.onComplete;
+                                    await uploadTask.onComplete;
                                 String downloadUrl = await firebaseStorageRef
                                     .getDownloadURL()
                                     .then((img) async {
                                   return await DatabaseService(uid: user.uid)
                                       .updateUserData(
-                                      userData.uid,
-                                      userData.emailAddress,
-                                      img ?? userData.photoUrl,
-                                      _currentPhoneNumber ??
-                                          userData.phoneNumber,
-                                      _currentFirstName ??
-                                          userData.firstName,
-                                      _currentLastName ?? userData.lastName,
-                                      userData.userType);
+                                          userData.uid,
+                                          _currentFirstName ??
+                                              userData.firstName,
+                                          _currentLastName ?? userData.lastName,
+                                          _currentEmailAddress ??
+                                              userData.emailAddress,
+                                          _currentPhoneNumber ??
+                                              userData.phoneNumber,
+                                          img ?? userData.photoUrl,
+                                          'User' ?? userData.userType);
                                 });
-                                Navigator.pop(context);
+                               // Navigator.pop(context);
+                                showFloatingFlushBar(context);
                               }
                             }
                           },
@@ -231,5 +239,38 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
             return Loading();
           }
         });
+  }
+
+  void showFloatingFlushBar(BuildContext context) {
+    Flushbar(
+      //aroundPadding: EdgeInsets.all(10),
+      borderRadius: 10,
+      backgroundGradient: LinearGradient(
+        colors: [Colors.green.shade900, Colors.green.shade600],
+        stops: [0.6, 1],
+      ),
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black45,
+          offset: Offset(3, 3),
+          blurRadius: 3,
+        ),
+      ],
+      dismissDirection: FlushbarDismissDirection.VERTICAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      duration: Duration(milliseconds: 1500),
+      flushbarPosition: FlushbarPosition.TOP,
+      icon: Icon(
+        Icons.add_shopping_cart,
+        color: Colors.white,
+      ),
+      shouldIconPulse: true,
+      title: 'Profile edited successfully',
+      //message: 'Thank you for the feedback.',
+    )..show(context).then(
+        (value) => Navigator.pop(context)
+//            Navigator.of(context).pushNamedAndRemoveUntil(
+//            '/home_page', (Route<dynamic> route) => false),
+      );
   }
 }

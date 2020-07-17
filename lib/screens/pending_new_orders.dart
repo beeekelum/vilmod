@@ -35,27 +35,27 @@ class OrdersPending extends StatelessWidget {
           return Stack(
             children: <Widget>[
               Container(
-                color: Colors.grey[200],
-                //height: MediaQuery.of(context).size.height,
-//                decoration: BoxDecoration(
-//                  image: DecorationImage(
-//                      image: AssetImage('assets/images/food.jpg'),
-//                      fit: BoxFit.cover),
-//                ),
+//                color: Colors.grey[200],
+//                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/food.jpg'),
+                      fit: BoxFit.cover),
+                ),
               ),
-//              Container(
-//                decoration: BoxDecoration(
-//                  gradient: LinearGradient(
-//                    colors: [
-//                      Colors.black.withOpacity(0.6),
-//                      Colors.black.withOpacity(0.6),
-//                      Colors.black.withOpacity(0.6),
-//                    ],
-//                    //begin: Alignment.bottomLeft,
-//                    begin: Alignment.topCenter,
-//                  ),
-//                ),
-//              ),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
+                    ],
+                    //begin: Alignment.bottomLeft,
+                    begin: Alignment.topCenter,
+                  ),
+                ),
+              ),
               Container(
                 child: StreamBuilder<QuerySnapshot>(
                  // stream: OrderService().getOrdersStream(user?.uid),

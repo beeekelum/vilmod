@@ -372,7 +372,7 @@ class _BottomBarState extends State<BottomBar> {
                                             tAmount: totalAmount,
                                             paymentStatus: 'Not Paid');
                                         orderService.addOrder(newOrder);
-                                        _showNotification();
+                                        //_showNotification();
 
                                         //store notification in the database--------------------
                                         OrderNotification newNotification =
