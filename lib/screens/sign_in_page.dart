@@ -233,67 +233,68 @@ class _SignInState extends State<SignIn> {
                                       child: Text(
                                         "Register here",
                                         style: TextStyle(
-                                            color: Colors.blue[600],
+                                            color: Colors.white,
                                             fontSize: 2 * SizeConfig.textMultiplier),
                                       ),
                                     ),
                                   ],
                                 ),
                                 _buildSpaceWidget(2),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    horizontalLine(),
-                                    Text(
-                                      'Social Login',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    horizontalLine()
-                                  ],
-                                ),
+//                                Row(
+//                                  mainAxisAlignment: MainAxisAlignment.center,
+//                                  children: <Widget>[
+//                                    horizontalLine(),
+//                                    Text(
+//                                      'Social Login',
+//                                      style: TextStyle(
+//                                        fontSize: 17,
+//                                        color: Colors.white,
+//                                        fontWeight: FontWeight.w500,
+//                                      ),
+//                                    ),
+//                                    horizontalLine()
+//                                  ],
+//                                ),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-//                                    SocialIcon(
-//                                      colors: [
-//                                        Color(0xFF102397),
-//                                        Color(0xFF187adf),
-//                                        Color(0xFF00eaf8),
-//                                      ],
-//                                      iconData: CustomIcons.facebook,
-//                                      onPressed: () {
-//                                        // facebookLogin();
-//                                      },
-//                                    ),
-                                    SocialIcon(
-                                      colors: [
-                                        Color(0xFFff4f38),
-                                        Color(0xFFff355d),
-                                      ],
-                                      iconData: CustomIcons.googlePlus,
-                                      //onPressed: login,
-                                    ),
-//                                    SocialIcon(
-//                                      colors: [
-//                                        Color(0xFFD0D0D0),
-//                                        Color(0xFF808080),
-//                                      ],
-//                                      iconData: CustomIcons.phone_iphone,
-//                                      onPressed: () {
-////                            Navigator.of(context)
-////                                .pushReplacementNamed('/phonenumpage');
-//                                      },
-//                                    )
-                                  ],
-                                ),
+//                                Row(
+//                                  mainAxisAlignment: MainAxisAlignment.center,
+//                                  children: <Widget>[
+////                                    SocialIcon(
+////                                      colors: [
+////                                        Color(0xFF102397),
+////                                        Color(0xFF187adf),
+////                                        Color(0xFF00eaf8),
+////                                      ],
+////                                      iconData: CustomIcons.facebook,
+////                                      onPressed: () {
+////                                        // facebookLogin();
+////                                      },
+////                                    ),
+////                                    SocialIcon(
+////                                      colors: [
+////                                        Color(0xFFff4f38),
+////                                        Color(0xFFff355d),
+////                                      ],
+////                                      iconData: CustomIcons.googlePlus,
+////                                      //onPressed: login,
+////                                    ),
+////                                    SocialIcon(
+////                                      colors: [
+////                                        Color(0xFFD0D0D0),
+////                                        Color(0xFF808080),
+////                                      ],
+////                                      iconData: CustomIcons.phone_iphone,
+////                                      onPressed: () {
+//////                            Navigator.of(context)
+//////                                .pushReplacementNamed('/phonenumpage');
+////                                      },
+////                                    )
+//                                  ],
+//                                ),
                                 Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     SizedBox(
                                       height: 20,
