@@ -8,6 +8,7 @@ import 'package:vilmod/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:vilmod/utils/SizeConfig.dart';
 import 'package:vilmod/widgets/styles.dart';
+import 'package:flushbar/flushbar.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -20,7 +21,8 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
- // final _formKey = GlobalKey<FormState>();
+
+  // final _formKey = GlobalKey<FormState>();
   bool autoValidate = false;
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   bool loading = false;
@@ -41,7 +43,7 @@ class _SignInState extends State<SignIn> {
     return loading
         ? Loading()
         : SafeArea(
-          child: Scaffold(
+            child: Scaffold(
               body: Stack(
                 children: <Widget>[
                   Container(
@@ -56,8 +58,8 @@ class _SignInState extends State<SignIn> {
                       gradient: LinearGradient(
                         colors: [
                           Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.5),
+                          Colors.black.withOpacity(0.6),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
@@ -70,9 +72,9 @@ class _SignInState extends State<SignIn> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Material(
-                          elevation: 5,
+                          //elevation: 5,
                           color: Colors.transparent,
-                          shadowColor: Colors.black,
+                          //shadowColor: Colors.black,
                           borderRadius: BorderRadius.circular(20),
                           child: FormBuilder(
                             key: _fbKey,
@@ -102,11 +104,14 @@ class _SignInState extends State<SignIn> {
                                       left: 20.0, right: 20.0),
                                   child: FormBuilderTextField(
                                     attribute: "email",
-                                    decoration: textFormFieldDecoration.copyWith(
-                                      labelText: "Enter Email",
-                                      hintText: "Email",
-                                      prefixIcon: Icon(Icons.mail)
-                                    ),
+                                    decoration:
+                                        textFormFieldDecoration.copyWith(
+                                            labelText: "Enter Email",
+                                            hintText: "Email",
+                                            prefixIcon: Icon(
+                                              Icons.mail,
+                                              color: Colors.red[900],
+                                            )),
                                     onChanged: (value) {
                                       email = value.toString().trim();
                                     },
@@ -123,10 +128,14 @@ class _SignInState extends State<SignIn> {
                                   child: FormBuilderTextField(
                                     obscureText: passwordVisible,
                                     attribute: 'password',
-                                    decoration: textFormFieldDecoration.copyWith(
+                                    decoration:
+                                        textFormFieldDecoration.copyWith(
                                       hintText: 'Password',
                                       labelText: 'Enter Password',
-                                      prefixIcon: Icon(Icons.lock),
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: Colors.red[900],
+                                      ),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           passwordVisible
@@ -156,8 +165,9 @@ class _SignInState extends State<SignIn> {
                                 ),
                                 _buildSpaceWidget(2),
                                 GestureDetector(
-                                  onTap: (){
-                                    Navigator.pushNamed(context, '/reset_password');
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/reset_password');
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -196,13 +206,15 @@ class _SignInState extends State<SignIn> {
                                         setState(() {
                                           loading = true;
                                         });
-                                        dynamic result =
-                                            await _auth.signInWithEmailAndPassword(
+                                        dynamic result = await _auth
+                                            .signInWithEmailAndPassword(
                                                 email, password);
                                         if (result == null) {
                                           setState(() {
                                             error =
-                                                'Could not sign in with those credentials';
+                                                'Could not sign in with those credentials. Please check email or password';
+                                            showFloatingFlushBar(
+                                                context, error);
                                             loading = false;
                                           });
                                         }
@@ -210,7 +222,7 @@ class _SignInState extends State<SignIn> {
                                     },
                                   ),
                                 ),
-                                _buildSpaceWidget(2),
+                                _buildSpaceWidget(3),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -218,7 +230,8 @@ class _SignInState extends State<SignIn> {
                                       "Don't have an Account?",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 2 * SizeConfig.textMultiplier),
+                                          fontSize:
+                                              2 * SizeConfig.textMultiplier),
                                     ),
                                     SizedBox(
                                       width: 1 * SizeConfig.widthMultiplier,
@@ -228,13 +241,15 @@ class _SignInState extends State<SignIn> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => SignUp()));
+                                                builder: (context) =>
+                                                    SignUp()));
                                       },
                                       child: Text(
                                         "Register here",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 2 * SizeConfig.textMultiplier),
+                                            color: Colors.blue,
+                                            fontSize:
+                                                2 * SizeConfig.textMultiplier),
                                       ),
                                     ),
                                   ],
@@ -293,20 +308,27 @@ class _SignInState extends State<SignIn> {
 ////                                    )
 //                                  ],
 //                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 20,
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, right: 20.0),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: Text(
+                                            error,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 16),
+                                            maxLines: 3,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Center(
-                                      child: Text(
-                                        error,
-                                        style: TextStyle(
-                                            color: Colors.red, fontSize: 18),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -337,7 +359,36 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-        );
+          );
+  }
+
+  void showFloatingFlushBar(BuildContext context, String error) {
+    Flushbar(
+      //aroundPadding: EdgeInsets.all(10),
+      borderRadius: 10,
+      backgroundGradient: LinearGradient(
+        colors: [Colors.red.shade900, Colors.red.shade600],
+        stops: [0.6, 1],
+      ),
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black45,
+          offset: Offset(3, 3),
+          blurRadius: 3,
+        ),
+      ],
+      dismissDirection: FlushbarDismissDirection.VERTICAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      duration: Duration(milliseconds: 3000),
+      flushbarPosition: FlushbarPosition.BOTTOM,
+      icon: Icon(
+        Icons.warning,
+        color: Colors.white,
+      ),
+      shouldIconPulse: true,
+      title: 'Error logging in',
+      message: error,
+    )..show(context);
   }
 
   Widget _buildSpaceWidget(int height) {

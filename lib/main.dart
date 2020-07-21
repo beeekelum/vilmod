@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                     //home: ProcessOrderPayment(),
                     home: VMSplashScreen(),
                     theme: ThemeData(
-                        primaryColor: Colors.red[900], fontFamily: 'Comfortaa'),
+                        primaryColor: Colors.red[900], fontFamily: 'Poppins'),
                     routes: {
                       '/reset_password': (context) => PasswordReset(),
                       '/home_page': (context) => MyHomePage(),

@@ -183,14 +183,14 @@ class MobileProfile extends StatelessWidget {
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Comfortaa', decoration: TextDecoration.underline,),
+                fontFamily: 'Poppins', decoration: TextDecoration.underline,),
           ),
           subtitle: Text(
             title,
             style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w100,
-                fontFamily: 'Comfortaa', color: Colors.black38),
+                fontFamily: 'Poppins', color: Colors.black38),
           ),
         ),
       ),

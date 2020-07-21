@@ -62,8 +62,8 @@ class _SignUpState extends State<SignUp> {
                       gradient: LinearGradient(
                         colors: [
                           Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.5),
+                          Colors.black.withOpacity(0.6),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
@@ -76,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Material(
-                          elevation: 5,
+                          //elevation: 5,
                           color: Colors.transparent,
                           shadowColor: Colors.black,
                           borderRadius: BorderRadius.circular(20),

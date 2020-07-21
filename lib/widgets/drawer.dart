@@ -36,11 +36,11 @@ class AppDrawerVilMod extends StatelessWidget {
                       ),
                       accountName: Text(
                         user.firstName + ' ' + user.lastName,
-                        style: TextStyle(fontSize: 17, fontFamily: 'Comfortaa'),
+                        style: TextStyle(fontSize: 17, fontFamily: 'Poppins'),
                       ),
                       accountEmail: Text(
                         user.emailAddress ?? '',
-                        style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'),
+                        style: TextStyle(fontSize: 15, fontFamily: 'Poppins'),
                       ),
                       currentAccountPicture: CircleAvatar(
                         radius: 40,
@@ -58,7 +58,7 @@ class AppDrawerVilMod extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'Comfortaa'),
+                            fontFamily: 'Poppins'),
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -82,7 +82,7 @@ class AppDrawerVilMod extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'Comfortaa'),
+                            fontFamily: 'Poppins'),
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -107,7 +107,7 @@ class AppDrawerVilMod extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'Comfortaa'),
+                            fontFamily: 'Poppins'),
                       ),
                       onTap: () {
                         //Navigator.pop(context);

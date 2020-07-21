@@ -1,4 +1,4 @@
-package com.precious.vilmod
+package com.digitaltreasuresa.vilmod
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

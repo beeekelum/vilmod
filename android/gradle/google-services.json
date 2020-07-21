@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "313761275550",
+    "firebase_url": "https://vilmod-534db.firebaseio.com",
+    "project_id": "vilmod-534db",
+    "storage_bucket": "vilmod-534db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313761275550:android:1eadaaaac07cbfb2e2a58f",
+        "android_client_info": {
+          "package_name": "com.digitaltreasuresa.vilmod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313761275550-25g514k02ebm4t797m86hhuse180vlnb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digitaltreasuresa.vilmod",
+            "certificate_hash": "e50a611c742048b036fb37f5093737df17930e86"
+          }
+        },
+        {
+          "client_id": "313761275550-1icv6sc9hljblgq6r37ctcs77rqkmh2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeSz7x6vxF3rP4nG5Y6hQnqQY4weBj8Sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313761275550-1icv6sc9hljblgq6r37ctcs77rqkmh2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

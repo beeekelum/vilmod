@@ -508,7 +508,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/food.jpg'),
+                  image: AssetImage('assets/images/ll.jpg'),
                   fit: BoxFit.cover),
             ),
           ),
@@ -519,9 +519,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 end: Alignment.bottomLeft,
                 colors: [
                   //Colors.red[900].withOpacity(.7),
-                  Colors.black.withOpacity(.5),
-                  Colors.black.withOpacity(.5),
-                  Colors.black.withOpacity(.5),
+                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.8),
                 ],
               ),
             ),
@@ -584,9 +584,10 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Breakfast includes (Sandwiches & croissants, Freshly baked)',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    fontFamily: 'SpectralSC'),
+                                    fontSize: 16,
+                                   // decoration: TextDecoration.underline,
+//                                    fontFamily: 'SpectralSC'
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
@@ -600,9 +601,10 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'All Meals to be served with a portion of starch (Pap, Rice, Samp, Dumpling, Salad or Chips) Together with 2 vegies',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    fontFamily: 'SpectralSC'),
+                                    fontSize: 16,
+                                   // decoration: TextDecoration.underline,
+//                                    fontFamily: 'SpectralSC',
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
@@ -615,9 +617,10 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Vegetable, Salads and Platters',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    fontFamily: 'SpectralSC'),
+                                    fontSize: 16,
+                                  //  decoration: TextDecoration.underline,
+//                                    fontFamily: 'SpectralSC',
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
@@ -630,9 +633,10 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Hot Beverages',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    fontFamily: 'SpectralSC'),
+                                    fontSize: 16,
+                                  //  decoration: TextDecoration.underline,
+                                   // fontFamily: 'SpectralSC'
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
@@ -646,14 +650,15 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                                 'Cold Beverages',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    fontFamily: 'SpectralSC'),
+                                    fontSize: 16,
+                                 //   decoration: TextDecoration.underline,
+                                 //   fontFamily: 'SpectralSC',
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               _buildSpaceWidget(2),
                               Expanded(
-                                  child: _buildFoodMenuListView('Soft Drinks')),
+                                  child: _buildFoodMenuListView('Soft Drinks'),),
                             ],
                           ),
                         ],
@@ -686,7 +691,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 'Weekly Deals',
                 style: TextStyle(
                   color: Colors.white,
-                  decoration: TextDecoration.underline,
+                  //decoration: TextDecoration.underline,
                 ),
               ),
             ],
@@ -724,21 +729,20 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
   }
 
   List<String> imageLinks = [
-    'https://bit.ly/3d8166B',
+    'https://i.ytimg.com/vi/PJ28BrZkGu4/maxresdefault.jpg',
     'https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg',
     'https://www.sa-austin.com/wp-content/uploads/2018/07/bobotie.jpg',
     'https://www.recipetineats.com/wp-content/uploads/2018/05/Chicken-Stew_6.jpg',
     'https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg',
-    'https://bit.ly/2ZzLV2i'
+    'https://www.zimbokitchen.com/wp-content/uploads/2018/02/zimbokitchen-zondo.jpg'
   ];
 
   Widget _buildCarousel() {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 150.0,
-        //aspectRatio: 16 / 9,
-        aspectRatio: 3.0,
-        viewportFraction: 0.8,
+        height: 140.0,
+        aspectRatio: 16 / 9,
+        viewportFraction: 0.5,
         initialPage: 1,
         enableInfiniteScroll: true,
         reverse: false,
@@ -753,23 +757,15 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomRight,
-                    stops: [.3, .7],
-                    colors: [
-                      Colors.black.withOpacity(.6),
-                      Colors.black.withOpacity(.3),
-                    ],
-                  ),
-                ),
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
+              width: MediaQuery.of(context).size.width,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
                 child: Image.network(
                   imageLink,
                   fit: BoxFit.cover,
-                ));
+                ),
+              ),
+            );
           },
         );
       }).toList(),
@@ -958,8 +954,8 @@ class Items extends StatelessWidget {
                             begin: Alignment.bottomRight,
                             stops: [.3, .7],
                             colors: [
-                              Colors.black.withOpacity(.6),
-                              Colors.black.withOpacity(.3),
+                              Colors.black.withOpacity(.5),
+                              Colors.black.withOpacity(.2),
                             ],
                           ),
                         ),
@@ -1245,7 +1241,7 @@ class FirstHalf extends StatelessWidget {
               'VilMod Mix Menu',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 19,
+                  fontSize: 20,
                   color: Colors.white),
             ),
             Text(
@@ -1254,7 +1250,7 @@ class FirstHalf extends StatelessWidget {
                 fontWeight: FontWeight.w200,
                 fontSize: 15,
                 color: Colors.white,
-                decoration: TextDecoration.underline,
+                //decoration: TextDecoration.underline,
               ),
             ),
           ],
@@ -1282,7 +1278,7 @@ class WelcomeUser extends StatelessWidget {
             children: <Widget>[
               Container(
                 child: Text(
-                  'Hi ${user?.firstName}',
+                  'Welcome ${user?.firstName}',
                   style: TextStyle(
                     fontSize: 17,
                     color: Colors.white,

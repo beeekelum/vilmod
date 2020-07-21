@@ -665,7 +665,7 @@ class _ItemContentState extends State<ItemContent> {
                       TextSpan(
                           text: widget.foodItem.foodItemName,
                           style: TextStyle(
-                              fontFamily: 'Comfortaa',
+                              fontFamily: 'Poppins',
                               fontSize: 15,
                               fontWeight: FontWeight.bold)),
                     ],
