@@ -36,27 +36,27 @@ class MobileProfile extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 Container(
-                  color: Colors.grey[200],
+                  //color: Colors.grey[200],
                   //height: MediaQuery.of(context).size.height,
-//                  decoration: BoxDecoration(
-//                    image: DecorationImage(
-//                        image: AssetImage('assets/images/ll.jpg'),
-//                        fit: BoxFit.cover),
-//                  ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/ll.jpg'),
+                        fit: BoxFit.cover),
+                  ),
                 ),
-//                Container(
-//                  decoration: BoxDecoration(
-//                    gradient: LinearGradient(
-//                      colors: [
-//                        Colors.black.withOpacity(0.4),
-//                        Colors.black.withOpacity(0.4),
-//                        Colors.black.withOpacity(0.4),
-//                      ],
-//                      //begin: Alignment.bottomLeft,
-//                      begin: Alignment.topCenter,
-//                    ),
-//                  ),
-//                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black.withOpacity(.7),
+                        Colors.black.withOpacity(.7),
+                        Colors.black.withOpacity(.8),
+                      ],
+                      //begin: Alignment.bottomLeft,
+                      begin: Alignment.topCenter,
+                    ),
+                  ),
+                ),
                 ListView(
                   physics: BouncingScrollPhysics(),
                   children: <Widget>[
@@ -90,8 +90,8 @@ class MobileProfile extends StatelessWidget {
 //                              'Gender', user.gender ?? '', Icons.people),
                           _makeProfileItem(
                               'First Name', user.firstName ?? '', Icons.person),
-                          _makeProfileItem(
-                              'Last Name', user.lastName ?? '', Icons.account_box),
+                          _makeProfileItem('Last Name', user.lastName ?? '',
+                              Icons.account_box),
                           _makeProfileItem('Email Address',
                               user.emailAddress ?? '', Icons.mail),
                           _makeProfileItem('Phone Number',
@@ -142,7 +142,6 @@ class MobileProfile extends StatelessWidget {
   }
 
   _buildProfileImage(String url) {
-
     return Container(
       child: CachedNetworkImage(
         imageUrl: url,
@@ -158,9 +157,7 @@ class MobileProfile extends StatelessWidget {
         errorWidget: (context, url, error) => Icon(Icons.error),
       ),
     );
-
   }
-
 
   Padding _makeProfileItem(String title, String value, IconData icon) {
     return Padding(
@@ -180,17 +177,20 @@ class MobileProfile extends StatelessWidget {
           title: Text(
             value,
             style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Poppins', decoration: TextDecoration.underline,),
+              fontSize: 17,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Poppins',
+              //decoration: TextDecoration.underline,
+            ),
           ),
           subtitle: Text(
             title,
             style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w100,
-                fontFamily: 'Poppins', color: Colors.black38),
+                fontFamily: 'Poppins',
+                color: Colors.black38),
           ),
         ),
       ),

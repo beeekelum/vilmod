@@ -37,7 +37,7 @@ class CompletedOrders extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/food.jpg'),
+                      image: AssetImage('assets/images/ll.jpg'),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -45,9 +45,9 @@ class CompletedOrders extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(.7),
+                      Colors.black.withOpacity(.7),
+                      Colors.black.withOpacity(.8),
                     ],
                     //begin: Alignment.bottomLeft,
                     begin: Alignment.topCenter,

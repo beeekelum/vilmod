@@ -138,7 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(
           'VilMod Restaurant',
-          // style: TextStyle(fontSize: 17),
         ),
         actions: <Widget>[
           StreamBuilder(
@@ -155,48 +154,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 _logOut();
               })
         ],
-        //elevation: 0,
+        elevation: 0,
       ),
       key: _scaffoldKey,
       //drawer: AppDrawer(),
       body: _getBody(_curIndex),
       bottomNavigationBar: _userItemIconOnly(),
-//      bottomNavigationBar: CurvedNavigationBar(
-//        key: _bottomNavigationKey,
-//        index: 0,
-//        height: 45.0,
-//        items: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              Icon(Icons.restaurant, size: 20),
-//              Text('Menu')
-//            ],
-//          ),
-//          Column(
-//            children: <Widget>[
-//              Icon(Icons.receipt, size: 20),
-//              Text('Orders')
-//            ],
-//          ),
-//          Column(
-//            children: <Widget>[
-//              Icon(Icons.person, size: 20),
-//              Text('Profile')
-//            ],
-//          ),
-//        ],
-//        color: Colors.white,
-//        buttonBackgroundColor: Colors.white,
-//        backgroundColor: Colors.red[900],
-//        animationCurve: Curves.easeInOut,
-//        animationDuration: Duration(milliseconds: 700),
-//        onTap: (index) {
-//          setState(() {
-//            _page = index;
-//          });
-//        },
-//      ),
-//        body: _getBody(_page),
       drawer: AppDrawerVilMod(),
     );
   }
@@ -206,14 +169,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // Get the current user
     FirebaseUser user = await _auth.currentUser();
     //print("Current user is : ${user.uid}");
-
     // Get the token for this device
     String fcmToken = await _fcm.getToken();
-
     // Save it to Firestore
     if (fcmToken != null) {
       var tokens = _db.collection('users').document(user.uid);
-
       await tokens.updateData({
         'token': fcmToken,
         'createdAt': FieldValue.serverTimestamp(), // optional
@@ -518,7 +478,6 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomLeft,
                 colors: [
-                  //Colors.red[900].withOpacity(.7),
                   Colors.black.withOpacity(.7),
                   Colors.black.withOpacity(.7),
                   Colors.black.withOpacity(.8),
@@ -564,7 +523,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                         ),
                         new Tab(
                           child: makeCategory(
-                              isActive: false, title: 'Soft Drinks'),
+                              isActive: false, title: 'Cold Drinks'),
                         ),
                       ],
                     ),
@@ -658,7 +617,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                               ),
                               _buildSpaceWidget(2),
                               Expanded(
-                                  child: _buildFoodMenuListView('Soft Drinks'),),
+                                  child: _buildFoodMenuListView('Cold Drinks'),),
                             ],
                           ),
                         ],
@@ -688,7 +647,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 color: Colors.orange,
               ),
               Text(
-                'Weekly Deals',
+                'Weekly Special',
                 style: TextStyle(
                   color: Colors.white,
                   //decoration: TextDecoration.underline,

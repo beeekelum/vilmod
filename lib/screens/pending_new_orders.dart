@@ -39,7 +39,7 @@ class OrdersPending extends StatelessWidget {
 //                height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/food.jpg'),
+                      image: AssetImage('assets/images/ll.jpg'),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -47,9 +47,9 @@ class OrdersPending extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(.7),
+                      Colors.black.withOpacity(.7),
+                      Colors.black.withOpacity(.8),
                     ],
                     //begin: Alignment.bottomLeft,
                     begin: Alignment.topCenter,
