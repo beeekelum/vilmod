@@ -14,6 +14,8 @@ class Order {
   String flag;
   String orderStatus;
   String paymentStatus;
+  String orderType;
+  String platform;
   DocumentReference reference;
 
   Order(
@@ -30,6 +32,8 @@ class Order {
       this.flag,
       this.orderStatus,
       this.paymentStatus,
+      this.orderType,
+      this.platform,
       this.reference});
 
   factory Order.fromSnapshot(DocumentSnapshot snapshot) {
@@ -63,6 +67,8 @@ Order orderFromJson(Map<dynamic, dynamic> json) {
     flag: json['flag'] as String,
     orderStatus: json['orderStatus'] as String,
     paymentStatus: json['paymentStatus'] as String,
+    orderType: json['orderType'] as String,
+    platform: json['platform'] as String,
   );
 }
 
@@ -81,4 +87,6 @@ Map<String, dynamic> orderToJson(Order instance) => <String, dynamic>{
       'flag': instance.flag,
       'orderStatus': instance.orderStatus,
       'paymentStatus': instance.paymentStatus,
+      'orderType': instance.orderType,
+      'platform': instance.platform,
     };

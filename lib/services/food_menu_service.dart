@@ -22,8 +22,7 @@ class FoodMenuServices {
       fieldName = 'foodItemCategory';
     }
     var ref =
-        _db.collection('menu').where(fieldName, isEqualTo: menuType);
-    //.orderBy('id', descending: false);
+        _db.collection('menu').where(fieldName, isEqualTo: menuType).where('status', isEqualTo: 'Available');
 
     return ref.snapshots().map((list) =>
         list.documents.map((doc) => FoodItem.fromFirestore(doc)).toList());

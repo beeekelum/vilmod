@@ -67,14 +67,14 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
             body: Container(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(2.0),
-                    child: Text(
-                      "$url",
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  ),
+//                  Container(
+//                    padding: EdgeInsets.all(2.0),
+//                    child: Text(
+//                      "$url",
+//                      overflow: TextOverflow.ellipsis,
+//                      maxLines: 1,
+//                    ),
+//                  ),
                   (progress != 1.0)
                       ? LinearProgressIndicator(value: progress)
                       : null,
@@ -98,7 +98,7 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
                           output +=
                               "cancel_url=${Uri.encodeComponent("https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/cancelled_page.html?alt=media&token=91058d64-1092-469c-ad99-2e04f8f01709")}&";
                           output +=
-                              "notify_url=${Uri.encodeComponent("https://us-central1-vilmod-534db.cloudfunctions.net/processPayment/")}&";
+                              "notify_url=${Uri.encodeComponent("https://us-central1-vilmod-a6f63.cloudfunctions.net/processPayment/")}&";
                           output +=
                               "name_first=${Uri.encodeComponent(user?.firstName.toString())}&";
                           output +=
