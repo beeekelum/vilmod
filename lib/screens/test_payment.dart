@@ -25,8 +25,8 @@ class ProcessOrderPayment extends StatefulWidget {
 
 class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
   InAppWebViewController webView;
-  String url = "https://sandbox.payfast.co.za/eng/process";
-  //String url = "https://www.payfast.co.za/eng/process";
+  //String url = "https://sandbox.payfast.co.za/eng/process";
+  String url = "https://www.payfast.co.za/eng/process";
   double progress = 0.0;
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
@@ -90,9 +90,11 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
                             (InAppWebViewController controller) async {
                           webView = controller;
                           String output =
-                              "merchant_id=${Uri.encodeComponent("10013380")}&";
+                              //"merchant_id=${Uri.encodeComponent("10013380")}&";
+                              "merchant_id=${Uri.encodeComponent("14004753")}&";
                           output +=
-                              "merchant_key=${Uri.encodeComponent("chs8iasdjv0f9")}&";
+                              //"merchant_key=${Uri.encodeComponent("chs8iasdjv0f9")}&";
+                              "merchant_key=${Uri.encodeComponent("rhlrhybjd6j2n")}&";
                           output +=
                               "return_url=${Uri.encodeComponent("https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/success_page.html?alt=media&token=110a4933-3556-4496-ac78-7d5a1eafa487")}&";
                           output +=

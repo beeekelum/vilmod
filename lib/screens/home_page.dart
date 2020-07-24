@@ -644,7 +644,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
             children: <Widget>[
               Icon(
                 Icons.local_offer,
-                color: Colors.orange,
+                color: Colors.green,
               ),
               Text(
                 'Weekly Special',
@@ -701,12 +701,12 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
       options: CarouselOptions(
         height: 140.0,
         aspectRatio: 16 / 9,
-        viewportFraction: 0.5,
+        viewportFraction: 0.6,
         initialPage: 1,
         enableInfiniteScroll: true,
         reverse: false,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 10),
+        autoPlayInterval: Duration(seconds: 7),
         autoPlayAnimationDuration: Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: true,
@@ -833,15 +833,6 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
               itemBuilder: (BuildContext context, int index) {
                 return ItemContainer(foodItem: snapshot.data.toList()[index]);
               });
-//          return ListView.builder(
-//            physics: NeverScrollableScrollPhysics(),
-//            shrinkWrap: true,
-//            scrollDirection: Axis.vertical,
-//            itemCount: snapshot.data.toList().length,
-//            itemBuilder: (BuildContext context, int index) {
-//              return ItemContainer(foodItem: snapshot.data.toList()[index]);
-//            },
-//          );
         },
       ),
     );
@@ -1191,23 +1182,23 @@ class FirstHalf extends StatelessWidget {
       children: <Widget>[
         Logo2(),
         SizedBox(
-          width: 5,
+          width: 2,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'VilMod Mix Menu',
+              'Vilmod Mix Menu',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 19,
                   color: Colors.white),
             ),
             Text(
               'Order your food now',
               style: TextStyle(
                 fontWeight: FontWeight.w200,
-                fontSize: 15,
+                fontSize: 14,
                 color: Colors.white,
                 //decoration: TextDecoration.underline,
               ),

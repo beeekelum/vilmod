@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUp> {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/food.jpg'),
+                          image: AssetImage('assets/images/ll.jpg'),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -63,7 +63,7 @@ class _SignUpState extends State<SignUp> {
                         colors: [
                           Colors.black.withOpacity(0.3),
                           Colors.black.withOpacity(0.5),
-                          Colors.black.withOpacity(0.6),
+                          Colors.black.withOpacity(0.7),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
@@ -110,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration:
                                         textFormFieldDecoration.copyWith(
                                             hintText: 'First name',
-                                            prefixIcon: Icon(Icons.person)),
+                                            prefixIcon: Icon(Icons.person, color: Colors.red[900],)),
                                     validators: [
                                       FormBuilderValidators.required(),
                                       FormBuilderValidators.minLength(3,
@@ -132,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration:
                                         textFormFieldDecoration.copyWith(
                                             hintText: 'Last name',
-                                            prefixIcon: Icon(Icons.person)),
+                                            prefixIcon: Icon(Icons.account_circle, color: Colors.red[900],)),
                                     validators: [
                                       FormBuilderValidators.required(),
                                       FormBuilderValidators.minLength(3,
@@ -155,7 +155,7 @@ class _SignUpState extends State<SignUp> {
                                         textFormFieldDecoration.copyWith(
                                             labelText: "Enter Email",
                                             hintText: "Email",
-                                            prefixIcon: Icon(Icons.mail)),
+                                            prefixIcon: Icon(Icons.mail, color: Colors.red[900],)),
                                     onChanged: (value) {
                                       setState(() {
                                         email = value.toString().trim();
@@ -180,7 +180,7 @@ class _SignUpState extends State<SignUp> {
                                         textFormFieldDecoration.copyWith(
                                       hintText: 'Password',
                                       labelText: 'Enter Password',
-                                      prefixIcon: Icon(Icons.lock),
+                                      prefixIcon: Icon(Icons.lock, color: Colors.red[900],),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           passwordVisible

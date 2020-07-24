@@ -49,7 +49,8 @@ class _SignInState extends State<SignIn> {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/food.jpg'),
+                          image: AssetImage('assets/images/ll.jpg'),
+                          //image: AssetImage('assets/images/food.jpg'),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -59,7 +60,7 @@ class _SignInState extends State<SignIn> {
                         colors: [
                           Colors.black.withOpacity(0.3),
                           Colors.black.withOpacity(0.5),
-                          Colors.black.withOpacity(0.6),
+                          Colors.black.withOpacity(0.7),
                         ],
                         //begin: Alignment.bottomLeft,
                         begin: Alignment.topCenter,
