@@ -25,29 +25,30 @@ class ProcessOrderPayment extends StatefulWidget {
 
 class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
   InAppWebViewController webView;
-  //String url = "https://sandbox.payfast.co.za/eng/process";
-  String url = "https://www.payfast.co.za/eng/process";
+  String url = "https://sandbox.payfast.co.za/eng/process";
+
+//  String url = "https://www.payfast.co.za/eng/process";
   double progress = 0.0;
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
 
   Future<bool> _onWillPop() {
     return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to exit VilMod app'),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No'),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to exit Vilmod app'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('No'),
+              ),
+              FlatButton(
+                onPressed: () => SystemNavigator.pop(),
+                child: Text('Yes'),
+              ),
+            ],
           ),
-          FlatButton(
-            onPressed: () => SystemNavigator.pop(),
-            child: Text('Yes'),
-          ),
-        ],
-      ),
-    ) ??
+        ) ??
         false;
   }
 
@@ -90,11 +91,11 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
                             (InAppWebViewController controller) async {
                           webView = controller;
                           String output =
-                              //"merchant_id=${Uri.encodeComponent("10013380")}&";
-                              "merchant_id=${Uri.encodeComponent("14004753")}&";
+                              "merchant_id=${Uri.encodeComponent("10013380")}&";
+//                              "merchant_id=${Uri.encodeComponent("14004753")}&";
                           output +=
-                              //"merchant_key=${Uri.encodeComponent("chs8iasdjv0f9")}&";
-                              "merchant_key=${Uri.encodeComponent("rhlrhybjd6j2n")}&";
+                              "merchant_key=${Uri.encodeComponent("chs8iasdjv0f9")}&";
+//                              "merchant_key=${Uri.encodeComponent("rhlrhybjd6j2n")}&";
                           output +=
                               "return_url=${Uri.encodeComponent("https://firebasestorage.googleapis.com/v0/b/vilmod-534db.appspot.com/o/success_page.html?alt=media&token=110a4933-3556-4496-ac78-7d5a1eafa487")}&";
                           output +=
@@ -112,8 +113,7 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
                                     user?.emailAddress.toString()) +
                                 "&";
                           }
-                          if (!('0817486443' == null ||
-                              '0817486443'.isEmpty)) {
+                          if (!('0817486443' == null || '0817486443'.isEmpty)) {
                             String cellNumber =
                                 '0817486443'.replaceFirst("+", "00").trim();
                             if (cellNumber.startsWith("0027")) {
@@ -140,15 +140,14 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
 
                           Uint8List uint8List =
                               new Uint8List.fromList((output).codeUnits);
-                          await webView.postUrl(
-                              url: url, postData: uint8List);
+                          await webView.postUrl(url: url, postData: uint8List);
                         },
                         onLoadStart:
                             (InAppWebViewController controller, String url) {
                           setState(() => this.url = url);
                         },
-                        onProgressChanged: (InAppWebViewController controller,
-                            int progress) {
+                        onProgressChanged:
+                            (InAppWebViewController controller, int progress) {
                           setState(() {
                             this.progress = progress / 100.0;
                           });
@@ -158,59 +157,58 @@ class _ProcessOrderPaymentState extends State<ProcessOrderPayment> {
                   ),
                   StreamBuilder(
                       stream: bloc.listStream,
-                    builder: (context, snapshot) {
-                      List<FoodItem> foodItems = snapshot.data;
-                      return ButtonBar(
-                        alignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              RaisedButton.icon(
-                                label: Text('Home'),
-                                icon: Icon(Icons.home),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                      builder: (context, snapshot) {
+                        List<FoodItem> foodItems = snapshot.data;
+                        return ButtonBar(
+                          alignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                RaisedButton.icon(
+                                  label: Text('Home'),
+                                  icon: Icon(Icons.home),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  color: Colors.red[900],
+                                  onPressed: () {
+                                    foodItems.clear();
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil('/home_page',
+                                            (Route<dynamic> route) => false);
+                                  },
                                 ),
-                                color: Colors.red[900],
-                                onPressed: () {
-                                  foodItems.clear();
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      '/home_page',
-                                      (Route<dynamic> route) => false);
-                                },
-                              ),
-                              RaisedButton.icon(
-                                label: Text('Reload'),
-                                icon: Icon(Icons.refresh),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                RaisedButton.icon(
+                                  label: Text('Reload'),
+                                  icon: Icon(Icons.refresh),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  color: Colors.red[900],
+                                  onPressed: () {
+                                    if (webView != null) {
+                                      webView.reload();
+                                    }
+                                  },
                                 ),
-                                color: Colors.red[900],
-                                onPressed: () {
-                                  if (webView != null) {
-                                    webView.reload();
-                                  }
-                                },
-                              ),
-                              RaisedButton.icon(
-                                label: Text('Exit app'),
-                                icon: Icon(Icons.cancel),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                RaisedButton.icon(
+                                  label: Text('Exit app'),
+                                  icon: Icon(Icons.cancel),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  color: Colors.red[900],
+                                  onPressed: () {
+                                    //SystemNavigator.pop();
+                                    _onWillPop();
+                                  },
                                 ),
-                                color: Colors.red[900],
-                                onPressed: () {
-                                  //SystemNavigator.pop();
-                                  _onWillPop();
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    }
-                  ),
+                              ],
+                            ),
+                          ],
+                        );
+                      }),
                 ].where((Object o) => o != null).toList(),
               ),
             ),

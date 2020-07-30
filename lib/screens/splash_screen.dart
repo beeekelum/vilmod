@@ -6,7 +6,7 @@ class VMSplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      seconds: 2,
+      seconds: 10,
       navigateAfterSeconds: new Wrapper(),
       image: Image.asset(
         'assets/images/logo1.png',
@@ -14,24 +14,16 @@ class VMSplashScreen extends StatelessWidget {
       styleTextUnderTheLoader: new TextStyle(),
       photoSize: 130.0,
       onClick: () => print(""),
-      loaderColor: Colors.red[900],
+      loaderColor: Colors.white,
       loadingText: Text(
         'Loading ...',
-        style: TextStyle(fontSize: 18, color: Colors.black),
+        style: TextStyle(fontSize: 18, color: Colors.white),
       ),
-      gradientBackground: LinearGradient(
-        // Where the linear gradient begins and ends
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        // Add one stop for each color. Stops should increase from 0 to 1
-        stops: [0.1, 0.5, 0.7, 0.9],
-        colors: [
-          Colors.white,
-          Colors.white,
-          Colors.white,
-          Colors.white,
-        ],
-      ),
+      gradientBackground:LinearGradient(
+        colors: [Colors.white,Colors.red[900], Colors.black],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomRight,
+      )
     );
   }
 }

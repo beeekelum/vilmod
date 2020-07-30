@@ -72,22 +72,23 @@ class _MyHomePageState extends State<MyHomePage> {
         // );
 
         // Scaffold.of(context).showSnackBar(snackbar);
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: ListTile(
-              title: Text(message['notification']['title']),
-              subtitle: Text(message['notification']['body']),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                color: Colors.red[900],
-                child: Text('Ok'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          ),
-        );
+//        showDialog(
+//          context: context,
+//          builder: (context) => AlertDialog(
+//            content: ListTile(
+//              title: Text(message['notification']['title']),
+//              subtitle: Text(message['notification']['body']),
+//            ),
+//            actions: <Widget>[
+//              FlatButton(
+//                color: Colors.red[900],
+//                child: Text('Ok'),
+//                onPressed: () => Navigator.of(context).pop(),
+//              ),
+//            ],
+//          ),
+//        );
+        showFloatingFlushBar(context, message['notification']['title'], message['notification']['title']);
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
@@ -102,22 +103,58 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void showFloatingFlushBar(BuildContext context, String title, String description) {
+    Flushbar(
+      //aroundPadding: EdgeInsets.all(10),
+      borderRadius: 10,
+      backgroundGradient: LinearGradient(
+        colors: [Colors.green.shade600, Colors.green.shade500],
+        stops: [0.6, 1],
+      ),
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black45,
+          offset: Offset(3, 3),
+          blurRadius: 3,
+        ),
+      ],
+      dismissDirection: FlushbarDismissDirection.VERTICAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      duration: Duration(milliseconds: 1500),
+      flushbarPosition: FlushbarPosition.TOP,
+      icon: Icon(
+        Icons.add_shopping_cart,
+        color: Colors.white,
+      ),
+      shouldIconPulse: true,
+      title: title,
+      message: description,
+    )..show(context).then((value) => Navigator.of(context)
+        .pushNamedAndRemoveUntil(
+        '/home_page', (Route<dynamic> route) => false));
+  }
+
   Future<bool> _logOut() {
     return showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
             title: Text('Are you sure?'),
-            content: Text('Do you want to logout of VilMod'),
+            content: Text('Do you want to logout of Vilmod'),
             actions: <Widget>[
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text('No'),
+                color: Colors.green,
               ),
               FlatButton(
                 onPressed: () async {
                   await _auth.signOut();
                   Navigator.pop(context);
                 },
+                color: Colors.red,
                 child: Text('Yes'),
               ),
             ],
@@ -706,7 +743,7 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
         enableInfiniteScroll: true,
         reverse: false,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 7),
+        autoPlayInterval: Duration(seconds: 10),
         autoPlayAnimationDuration: Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: true,

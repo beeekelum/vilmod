@@ -11,6 +11,7 @@ class OrderService {
   }
 
   Future<void> addOrder(Order order) {
+//    return orderCollection.add(order.toJson());
     return orderCollection.document(order.orderNumber).setData(order.toJson());
   }
 }
