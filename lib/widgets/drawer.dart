@@ -31,7 +31,7 @@ class AppDrawerVilMod extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.red[900],
                         image: DecorationImage(
-                            image: AssetImage("assets/images/food.jpg"),
+                            image: AssetImage("assets/images/ll.jpg"),
                             fit: BoxFit.cover),
                       ),
                       accountName: Text(

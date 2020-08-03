@@ -515,8 +515,8 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Colors.black.withOpacity(.7),
-                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.8),
+                  Colors.black.withOpacity(.8),
                   Colors.black.withOpacity(.8),
                 ],
               ),

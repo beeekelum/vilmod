@@ -24,25 +24,30 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       body: Stack(
          children: [
            Container(
-             color: Colors.grey[200],
+             //color: Colors.grey[200],
              //height: MediaQuery.of(context).size.height,
+             decoration: BoxDecoration(
+               image: DecorationImage(
+                   image: AssetImage('assets/images/ll.jpg'),
+                   fit: BoxFit.cover),
+             ),
            ),
-//           Container(
-//             decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 colors: [
-//                   Colors.black.withOpacity(0.6),
-//                   Colors.black.withOpacity(0.6),
-//                   Colors.black.withOpacity(0.6),
-//                 ],
-//                 //begin: Alignment.bottomLeft,
-//                 begin: Alignment.topCenter,
-//               ),
-//             ),
-//           ),
+           Container(
+             decoration: BoxDecoration(
+               gradient: LinearGradient(
+                 colors: [
+                   Colors.black.withOpacity(.7),
+                   Colors.black.withOpacity(.7),
+                   Colors.black.withOpacity(.8),
+                 ],
+                 //begin: Alignment.bottomLeft,
+                 begin: Alignment.topCenter,
+               ),
+             ),
+           ),
           Center(
             child: Container(
-              height: MediaQuery.of(context).size.height,
+              //height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Center(
