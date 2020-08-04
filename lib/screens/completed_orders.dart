@@ -177,9 +177,7 @@ class CompletedOrders extends StatelessWidget {
                                                       30.0)),
                                               label: Text(
                                                 'View Order Details',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                    FontWeight.bold),
+                                                style: TextStyle(),
                                               ),
                                               icon: Icon(
                                                   Icons.search),
@@ -214,7 +212,7 @@ class CompletedOrders extends StatelessWidget {
         status,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: FontWeight.bold,
         ),
       ),

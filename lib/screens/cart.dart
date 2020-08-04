@@ -231,7 +231,7 @@ class _BottomBarState extends State<BottomBar> {
                           title: Text(
                             'Confirm Order',
                           ),
-                          elevation: 0,
+                          elevation: 10,
                         ),
                         body: SizedBox.expand(
                           // makes widget fullscreen
@@ -495,14 +495,14 @@ class _BottomBarState extends State<BottomBar> {
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Color(0xfffeb324),
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'Checkout',
-                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
                   ),
                 ],
               ),
@@ -535,10 +535,10 @@ class _BottomBarState extends State<BottomBar> {
         children: <Widget>[
           Text(
             'Total:',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
           ),
           Material(
-            elevation: 1,
+            elevation: 0,
             borderRadius: BorderRadius.circular(5),
             shadowColor: Colors.black.withOpacity(.9),
             child: Padding(
@@ -574,7 +574,7 @@ class CartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 1,
+      elevation: 10,
       borderRadius: BorderRadius.circular(5),
       child: Container(
         padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
@@ -627,7 +627,7 @@ class CartBody extends StatelessWidget {
               Text(
                 'My Order',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+//                  fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
               ),

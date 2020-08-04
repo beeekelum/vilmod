@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flushbar/flushbar.dart';
@@ -8,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:vilmod/bloc/cartlist_bloc.dart';
 import 'package:vilmod/components/logo.dart';
+import 'package:vilmod/models/carousel_data.dart';
 import 'package:vilmod/models/foodItem.dart';
 import 'package:vilmod/models/user.dart';
 import 'package:vilmod/screens/cart.dart';
@@ -746,14 +748,22 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
     );
   }
 
-  List<String> imageLinks = [
-    'https://i.ytimg.com/vi/PJ28BrZkGu4/maxresdefault.jpg',
-    'https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg',
-    'https://www.sa-austin.com/wp-content/uploads/2018/07/bobotie.jpg',
-    'https://www.recipetineats.com/wp-content/uploads/2018/05/Chicken-Stew_6.jpg',
-    'https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg',
-    'https://www.zimbokitchen.com/wp-content/uploads/2018/02/zimbokitchen-zondo.jpg'
+  List carouselData = [
+    CarouselData('https://i.ytimg.com/vi/PJ28BrZkGu4/maxresdefault.jpg','Lunch'),
+    CarouselData('https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg','Breakfast'),
+    CarouselData('https://cdn.cdnparenting.com/articles/2018/07/361921454-H.jpg','Cold drinks'),
+    CarouselData('https://fullcirclecoaching.com/wp-content/uploads/2019/01/coffee-alternatives-1000x667.jpg','Hot Drinks'),
+    CarouselData('https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg','Salads'),
+    CarouselData('https://www.foodplatters.co.za/wp-content/uploads/2018/03/Banting-Platter.jpg','Platters'),
   ];
+//  List<String> imageLinks = [
+//    'https://i.ytimg.com/vi/PJ28BrZkGu4/maxresdefault.jpg',
+//    'https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg',
+//    'https://www.sa-austin.com/wp-content/uploads/2018/07/bobotie.jpg',
+//    'https://www.recipetineats.com/wp-content/uploads/2018/05/Chicken-Stew_6.jpg',
+//    'https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg',
+//    'https://www.zimbokitchen.com/wp-content/uploads/2018/02/zimbokitchen-zondo.jpg'
+//  ];
 
   Widget _buildCarousel() {
     return CarouselSlider(
@@ -771,19 +781,49 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
         enlargeCenterPage: true,
         scrollDirection: Axis.horizontal,
       ),
-      items: imageLinks.map((imageLink) {
+      items: carouselData.map((imageLink) {
+        //print(imageLink);
         return Builder(
           builder: (BuildContext context) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              child: ClipRRect(
+            return
+              ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
-                child: Image.network(
-                  imageLink,
-                  fit: BoxFit.cover,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(imageLink.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: ClipRRect( // make sure we apply clip it properly
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: Colors.black.withOpacity(0.4),
+                      child: Text(
+                        imageLink.name,
+                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'CormorantInfant'),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            );
+              );
+//              Stack(
+//              children: [
+//                Container(
+//                  width: MediaQuery.of(context).size.width,
+//                  child: ClipRRect(
+//                    borderRadius: BorderRadius.circular(20.0),
+//                    child: Image.network(
+//                      imageLink.imageUrl,
+//                      fit: BoxFit.cover,
+//                    ),
+//                  ),
+//                ),
+//                Text(imageLink.name),
+//              ],
+//            );
           },
         );
       }).toList(),
@@ -998,7 +1038,7 @@ class Items extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
-                                        fontFamily: 'SpectralSC',
+//                                        fontFamily: 'CormorantInfant',
                                         fontWeight: FontWeight.bold),
                                   ),
                                   RatingBar(
@@ -1148,7 +1188,8 @@ class ItemsDeals extends StatelessWidget {
                                           fontWeight: FontWeight.w800,
                                           color: Colors.white,
                                           fontSize: 18,
-                                          fontFamily: 'SpectralSC'),
+                                          //fontFamily: 'CormorantInfant'
+                                      ),
                                     ),
                                   ),
                                 ],
