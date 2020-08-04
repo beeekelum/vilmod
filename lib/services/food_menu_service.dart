@@ -9,10 +9,10 @@ class FoodMenuServices {
     return ref.getDocuments();
   }
 
-  Stream<QuerySnapshot> streamDataCollection() {
-    var ref = _db.collection('menu');
-    return ref.snapshots();
-  }
+//  Stream<QuerySnapshot> streamDataCollection() {
+//    var ref = _db.collection('menu');
+//    return ref.snapshots();
+//  }
 
   Stream<List<FoodItem>> streamFoodItems(String menuType) {
     String fieldName;

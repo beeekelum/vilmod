@@ -114,7 +114,7 @@ class OrdersPending extends StatelessWidget {
                                                       .toDate()),
                                               style: TextStyle(
                                                   fontWeight:
-                                                  FontWeight.bold),
+                                                  FontWeight.w400),
                                             ),
                                             Text(
                                               DateFormat.jm().format(
@@ -132,8 +132,8 @@ class OrdersPending extends StatelessWidget {
                                               item['userUid']) ??
                                               '',
                                           title: Text(
-                                            'Order#: ' +
-                                                item['orderNumber'], style: TextStyle(),
+                                            'Order: ' +
+                                                item['orderNumber'], style: TextStyle(fontSize: 15),
                                           ),
                                           subtitle: Row(
                                             children: <Widget>[
@@ -184,8 +184,7 @@ class OrdersPending extends StatelessWidget {
                                               label: Text(
                                                 'View Order Details',
                                                 style: TextStyle(
-                                                    fontWeight:
-                                                    FontWeight.bold),
+                                                    ),
                                               ),
                                               icon: Icon(
                                                   Icons.search),
@@ -215,13 +214,13 @@ class OrdersPending extends StatelessWidget {
     return Chip(
       //elevation: 2,
       backgroundColor:
-      status == "New" ? Colors.blue : Colors.orange,
+      status == "New" ? Colors.blue[400] : Colors.orange[400],
       label: Text(
         status,
         style: TextStyle(
           color: Colors.white,
           fontSize: 11,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -240,7 +239,6 @@ class OrdersPending extends StatelessWidget {
   }
 
   _buildProfileImage(String uid) {
-
         return Container(
           child: CachedNetworkImage(
             imageUrl: 'https://bit.ly/38v94pv',

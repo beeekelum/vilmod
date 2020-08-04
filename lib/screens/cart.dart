@@ -63,8 +63,10 @@ class Cart extends StatelessWidget {
 
   Widget _shoppingCartBadge(int itemsCount) {
     return Badge(
-      position: BadgePosition.topRight(top: 0, right: 3),
+      position: BadgePosition.topRight(top: 0, right: 0),
       badgeColor: Colors.green,
+      padding: EdgeInsets.all(8),
+      elevation: 5,
       animationDuration: Duration(milliseconds: 300),
       animationType: BadgeAnimationType.slide,
       badgeContent: Text(

@@ -24,6 +24,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:badges/badges.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -121,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
       dismissDirection: FlushbarDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
       duration: Duration(milliseconds: 1500),
-      flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: FlushbarPosition.BOTTOM,
       icon: Icon(
         Icons.add_shopping_cart,
         color: Colors.white,
@@ -174,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'VilMod Restaurant',
+          'Vilmod Restaurant', style: TextStyle(fontSize: 17),
         ),
         actions: <Widget>[
           StreamBuilder(
@@ -236,24 +237,44 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       },
       child: InkResponse(
-        child: new Container(
-          margin: EdgeInsets.only(right: 5),
-          width: 23,
-          height: 25,
-          decoration: new BoxDecoration(
-            color: Colors.yellow[800],
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(
-              length.toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
+        child: _shoppingCartBadge(length),
+//        new Container(
+//          margin: EdgeInsets.only(right: 5),
+//          width: 23,
+//          height: 25,
+//          decoration: new BoxDecoration(
+//            color: Colors.yellow[800],
+//            shape: BoxShape.circle,
+//          ),
+//          child: Center(
+//            child: Text(
+//              length.toString(),
+//              style: TextStyle(
+//                  color: Colors.white,
+//                  fontSize: 14,
+//                  fontWeight: FontWeight.bold),
+//            ),
+//          ),
+//        ),
+      ),
+    );
+  }
+
+  Widget _shoppingCartBadge(int itemsCount) {
+    return Badge(
+      position: BadgePosition.topRight(top: 0, right: 0),
+      badgeColor: Colors.green,
+      padding: EdgeInsets.all(8),
+      elevation: 5,
+      animationDuration: Duration(milliseconds: 300),
+      animationType: BadgeAnimationType.slide,
+      badgeContent: Text(
+        itemsCount.toString(),
+        style: TextStyle(color: Colors.white),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}),
       ),
     );
   }
@@ -376,7 +397,7 @@ class ItemContainer extends StatelessWidget {
       dismissDirection: FlushbarDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
       duration: Duration(milliseconds: 1500),
-      flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: FlushbarPosition.BOTTOM,
       icon: Icon(
         Icons.add_shopping_cart,
         color: Colors.white,
@@ -440,7 +461,7 @@ class ItemContainerDeals extends StatelessWidget {
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,
       forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
       duration: Duration(milliseconds: 1000),
-      flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: FlushbarPosition.BOTTOM,
       icon: Icon(
         Icons.add_shopping_cart,
         color: Colors.white,
@@ -695,14 +716,15 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
         ),
         Container(
           child: SizedBox(
-            height: 110,
+            height: 100,
             child: StreamBuilder<List<FoodItem>>(
               stream: db.streamFoodItems(menuType),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
                   return Text(
-                    "No Menu Items available yet",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    "No specials available.",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    textAlign: TextAlign.center,
                   );
                 return ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -1043,7 +1065,7 @@ class ItemsDeals extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 100,
+                    height: 90,
                     width: 160,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),

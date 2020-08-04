@@ -108,9 +108,7 @@ class CompletedOrders extends StatelessWidget {
                                                   .format(
                                                   item['dateOrderCreated']
                                                       .toDate()),
-                                              style: TextStyle(
-                                                  fontWeight:
-                                                  FontWeight.bold),
+                                              style: TextStyle(),
                                             ),
                                             Text(
                                               DateFormat.jm().format(
@@ -128,8 +126,8 @@ class CompletedOrders extends StatelessWidget {
                                               item['userUid']) ??
                                               '',
                                           title: Text(
-                                            'Order#: ' +
-                                                item['orderNumber'], style: TextStyle(),
+                                            'Order: ' +
+                                                item['orderNumber'], style: TextStyle(fontSize: 15),
                                           ),
                                           subtitle: Row(
                                             children: <Widget>[
@@ -211,7 +209,7 @@ class CompletedOrders extends StatelessWidget {
     return Chip(
       elevation: 2,
       backgroundColor:
-      status == "Completed" ? Colors.green : Colors.orange,
+      status == "Completed" ? Colors.green[400] : Colors.orange,
       label: Text(
         status,
         style: TextStyle(
