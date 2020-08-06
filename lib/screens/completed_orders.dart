@@ -56,7 +56,7 @@ class CompletedOrders extends StatelessWidget {
               ),
               Container(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: collectionReference.where('orderStatus', isEqualTo: 'Completed').where('userUid', isEqualTo: user?.uid).snapshots(),
+                  stream: collectionReference.where('orderStatus', isEqualTo: 'Completed').where('userUid', isEqualTo: user?.uid).limit(5).snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) return new Text('${snapshot.error}');

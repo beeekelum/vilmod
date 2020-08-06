@@ -59,7 +59,7 @@ class OrdersPending extends StatelessWidget {
               Container(
                 child: StreamBuilder<QuerySnapshot>(
                  // stream: OrderService().getOrdersStream(user?.uid),
-                  stream: collectionReference.where('userUid', isEqualTo: user?.uid).orderBy('dateOrderCreated', descending: true).snapshots(),
+                  stream: collectionReference.where('userUid', isEqualTo: user?.uid).orderBy('dateOrderCreated', descending: true).limit(5).snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) return new Text('${snapshot.error}');
