@@ -538,9 +538,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.8),
+                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.7),
+                  Colors.black.withOpacity(.7),
                 ],
               ),
             ),
@@ -751,8 +751,8 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
   List carouselData = [
     CarouselData('https://i.ytimg.com/vi/PJ28BrZkGu4/maxresdefault.jpg','Lunch'),
     CarouselData('https://whereismyspoon.co/wp-content/uploads/2018/07/english-breakfast-4.jpg','Breakfast'),
-    CarouselData('https://cdn.cdnparenting.com/articles/2018/07/361921454-H.jpg','Cold drinks'),
-    CarouselData('https://fullcirclecoaching.com/wp-content/uploads/2019/01/coffee-alternatives-1000x667.jpg','Hot Drinks'),
+    CarouselData('https://socialbeancafe.co.za/wp-content/uploads/2018/07/Social-Bean-Cafe-COLD-BEVERAGES.jpg','Cold Beverages'),
+    CarouselData('https://fullcirclecoaching.com/wp-content/uploads/2019/01/coffee-alternatives-1000x667.jpg','Hot Beverages'),
     CarouselData('https://naturalfitfoodie.com/wp-content/uploads/2016/07/Mixed-Green-Summer-Salad-6.jpg','Salads'),
     CarouselData('https://www.foodplatters.co.za/wp-content/uploads/2018/03/Banting-Platter.jpg','Platters'),
   ];
@@ -768,9 +768,9 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
   Widget _buildCarousel() {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 140.0,
+        height: 120.0,
         aspectRatio: 16 / 9,
-        viewportFraction: 0.6,
+        viewportFraction: 0.7,
         initialPage: 1,
         enableInfiniteScroll: true,
         reverse: false,
@@ -800,10 +800,10 @@ class _ExploreState extends State<Explore> with SingleTickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(20.0),
                     child: Container(
                       alignment: Alignment.center,
-                      color: Colors.black.withOpacity(0.4),
+                      color: Colors.black.withOpacity(0.2),
                       child: Text(
                         imageLink.name,
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'CormorantInfant'),
+                        style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'CormorantInfant'),
                       ),
                     ),
                   ),

@@ -212,9 +212,9 @@ class OrdersPending extends StatelessWidget {
 
   _buildOrderStatus(String status) {
     return Chip(
-      elevation: 2,
+//      elevation: 2,
       backgroundColor:
-      status == "New" ? Colors.blue[400] : Colors.orange[400],
+      status == "New" ? Colors.blue : Colors.orange,
       label: Text(
         status,
         style: TextStyle(

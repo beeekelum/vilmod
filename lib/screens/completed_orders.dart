@@ -205,9 +205,9 @@ class CompletedOrders extends StatelessWidget {
 
   _buildOrderStatus(String status) {
     return Chip(
-      elevation: 2,
+//      elevation: 2,
       backgroundColor:
-      status == "Completed" ? Colors.green[400] : Colors.orange,
+      status == "Completed" ? Colors.green : Colors.orange,
       label: Text(
         status,
         style: TextStyle(
