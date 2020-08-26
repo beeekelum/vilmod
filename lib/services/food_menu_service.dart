@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vilmod/models/foodItem.dart';
+import 'package:http/http.dart' as http;
 
 class FoodMenuServices {
   final Firestore _db = Firestore.instance;
@@ -28,13 +31,15 @@ class FoodMenuServices {
         list.documents.map((doc) => FoodItem.fromFirestore(doc)).toList());
   }
 
-//  Future<List<FoodItem>> fetchMenu() async {
-//    var url = 'http://192.168.8.106/vilmod/fetch_menu_items.php';
+  Future<List<FoodItem>> fetchMenu(String menuType) async {
+    var url = 'http://64.227.18.73:3000/api/v1/meals';
 //    var response = await http
 //        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-////    http.Response response =
-////        await http.get('http://192.168.8.106/vilmod/fetch_menu_items.php');
-//    List responseJson = json.decode(response.body);
-//    return responseJson.map((m) => new FoodItem.fromJson(m)).toList();
-//  }
+    //print(response.body);
+    http.Response response =
+        await http.get('http://64.227.18.73:3000/api/v1/meals');
+    List responseJson = json.decode(response.body);
+    print(responseJson);
+    return responseJson.map((m) => new FoodItem.fromJson(m)).toList();
+  }
 }

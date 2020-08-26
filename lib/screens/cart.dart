@@ -20,9 +20,9 @@ import 'package:vilmod/services/notification_service.dart';
 import 'package:vilmod/services/order_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:vilmod/utils/routes.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:vilmod/widgets/styles.dart';
+import 'package:flushbar/flushbar.dart';
 
 class Cart extends StatelessWidget {
   final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
@@ -39,10 +39,8 @@ class Cart extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 'Cart',
-                //style: TextStyle(fontFamily: 'Amita'),
               ),
               actions: <Widget>[_shoppingCartBadge(foodItems.length)],
-              elevation: 0,
             ),
             body: SafeArea(
               child: Padding(
@@ -204,7 +202,7 @@ class _BottomBarState extends State<BottomBar> {
     var orderNumber = Random().nextInt(900000) + 100000;
     final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
     String _orderType;
-    String _userDeliveryLocation= '';
+    String _userDeliveryLocation = '';
 
     return StreamBuilder<User>(
         stream: DatabaseService(uid: user.uid).userData,
@@ -225,8 +223,8 @@ class _BottomBarState extends State<BottomBar> {
                 pageBuilder: (_, __, ___) {
                   // your widget implementation
                   return StatefulBuilder(
-                    builder: (context, setState){
-                      return  Scaffold(
+                    builder: (context, setState) {
+                      return Scaffold(
                         appBar: AppBar(
                           title: Text(
                             'Confirm Order',
@@ -260,79 +258,84 @@ class _BottomBarState extends State<BottomBar> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Column(
                                           children: <Widget>[
-                                            SizedBox(
-                                              height: 10,
-                                            ),
                                             Logo(),
                                             _buildItem('Full Name:',
                                                 '${user.firstName + ' ' + user.lastName}'),
                                             Divider(),
-                                            _buildItem('Email:', user.emailAddress),
+                                            _buildItem(
+                                                'Email:', user.emailAddress),
+                                            Divider(),
+                                            _buildItem('Phone Number:',
+                                                user.phoneNumber),
                                             Divider(),
                                             _buildItem(
-                                                'Phone Number:', user.phoneNumber),
-                                            Divider(),
-                                            _buildItem('Items Ordered:',
-                                                widget.foodItems.length.toString()),
+                                                'Items Ordered:',
+                                                widget.foodItems.length
+                                                    .toString()),
                                             Divider(),
                                             Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                                  MainAxisAlignment.start,
                                               children: widget.foodItems
                                                   .map((item) => Padding(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 12.0,
-                                                    right: 12,
-                                                    top: 4,
-                                                    bottom: 4),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      children: <Widget>[
-                                                        Text(
-                                                            '${item.quantity.toString()} X '),
-                                                        Container(
-                                                          width: 200,
-                                                          child: Text(
-                                                            item.foodItemName,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w600,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 12.0,
+                                                                right: 12,
+                                                                top: 4,
+                                                                bottom: 4),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: <Widget>[
+                                                            Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(
+                                                                    '${item.quantity.toString()} X '),
+                                                                Container(
+                                                                  width: 200,
+                                                                  child: Text(
+                                                                    item.foodItemName,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                        'R${item.foodItemPrice.toString()}'),
-                                                    Text(
-                                                      'R${(item.quantity * item.foodItemPrice).toString()}',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
-                                                    ),
+                                                            Text(
+                                                                'R${item.foodItemPrice.toString()}'),
+                                                            Text(
+                                                              'R${(item.quantity * item.foodItemPrice).toString()}',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
 //
-                                                  ],
-                                                ),
-                                              ))
+                                                          ],
+                                                        ),
+                                                      ))
                                                   .toList(),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                    MainAxisAlignment.end,
                                                 children: <Widget>[
                                                   Text(
                                                     '\R${returnTotalAmount(widget.foodItems)}',
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.w900,
+                                                        fontWeight:
+                                                            FontWeight.w900,
                                                         fontSize: 25),
                                                   ),
                                                 ],
@@ -340,43 +343,61 @@ class _BottomBarState extends State<BottomBar> {
                                             ),
                                             FormBuilderRadio(
                                               decoration:
-                                              textFormFieldDecoration.copyWith(
-                                                  labelText: "Order Type"),
+                                                  textFormFieldDecoration
+                                                      .copyWith(
+                                                          labelText:
+                                                              "Order Type"),
                                               attribute: "order_type",
-                                              validators: [FormBuilderValidators.required()],
+                                              validators: [
+                                                FormBuilderValidators.required()
+                                              ],
                                               options: [
                                                 "Pick up",
                                                 "Delivery",
                                               ]
-                                                  .map((lang) => FormBuilderFieldOption(value: lang))
+                                                  .map((lang) =>
+                                                      FormBuilderFieldOption(
+                                                          value: lang))
                                                   .toList(growable: false),
-                                              onChanged: (value){
+                                              onChanged: (value) {
                                                 setState(() {
                                                   _orderType = value;
                                                 });
                                               },
                                             ),
-                                            SizedBox(height: 10,),
-                                            _orderType == "Delivery" ? FormBuilderTextField(
-                                              attribute: 'delivery_address',
-                                              decoration:
-                                              textFormFieldDecoration.copyWith(
-                                                  labelText: "Delivery address",
-                                                  hintText: "Enter the delivery address",
-                                                  prefixIcon: Icon(
-                                                    Icons.location_on,
-                                                    color: Colors.red[900],
-                                                  )),
-                                              onChanged: (value){
-                                                _userDeliveryLocation = value;
-                                              },
-                                              validators: [
-                                                FormBuilderValidators.required(),
-                                                FormBuilderValidators.minLength(5, allowEmpty: true),
-                                              ],
-                                              keyboardType: TextInputType.text,
-                                            ): Container(),
-
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            _orderType == "Delivery"
+                                                ? FormBuilderTextField(
+                                                    attribute:
+                                                        'delivery_address',
+                                                    decoration: textFormFieldDecoration
+                                                        .copyWith(
+                                                            labelText:
+                                                                "Delivery address",
+                                                            hintText:
+                                                                "Enter the delivery address",
+                                                            prefixIcon: Icon(
+                                                              Icons.location_on,
+                                                              color: Colors
+                                                                  .red[900],
+                                                            )),
+                                                    onChanged: (value) {
+                                                      _userDeliveryLocation =
+                                                          value;
+                                                    },
+                                                    validators: [
+                                                      FormBuilderValidators
+                                                          .required(),
+                                                      FormBuilderValidators
+                                                          .minLength(5,
+                                                              allowEmpty: true),
+                                                    ],
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                  )
+                                                : Container(),
                                           ],
                                         ),
                                       ),
@@ -389,92 +410,237 @@ class _BottomBarState extends State<BottomBar> {
                                     child: StreamBuilder(
                                         stream: bloc.listStream,
                                         builder: (context, snapshot) {
-                                          List<FoodItem> foodItems = snapshot.data;
-                                          return RaisedButton(
-                                            color: Colors.red[900],
-                                            elevation: 10,
-                                            child: Text(
-                                              "Pay Now",
-                                              style: TextStyle(fontSize: 30),
-                                            ),
-                                            textColor: Colors.white,
-                                            onPressed: () async {
-                                              if (_fbKey.currentState.saveAndValidate()) {
-                                                List<String> order = new List<String>();
-                                                int totalAmount = 0;
+                                          List<FoodItem> foodItems =
+                                              snapshot.data;
+                                          return Column(
+                                            children: [
+                                              RaisedButton(
+                                                color: Colors.red[900],
+                                                shape:
+                                                new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    new BorderRadius
+                                                        .circular(
+                                                        30.0)),
+                                                elevation: 5,
+                                                child: Text(
+                                                  "Pay Now Online",
+                                                  style: TextStyle(fontSize: 25),
+                                                ),
+                                                textColor: Colors.white,
+                                                onPressed: () async {
+                                                  if (_fbKey.currentState
+                                                      .saveAndValidate()) {
+                                                    List<String> order =
+                                                        new List<String>();
+                                                    int totalAmount = 0;
 
-                                                for (int i = 0;
-                                                i < widget.foodItems.length;
-                                                i++) {
-                                                  int itemTotal = widget
-                                                      .foodItems[i].quantity *
-                                                      widget.foodItems[i].foodItemPrice;
-                                                  totalAmount = totalAmount +
-                                                      widget.foodItems[i].quantity *
+                                                    for (int i = 0;
+                                                        i < widget.foodItems.length;
+                                                        i++) {
+                                                      int itemTotal = widget
+                                                              .foodItems[i]
+                                                              .quantity *
                                                           widget.foodItems[i]
                                                               .foodItemPrice;
-                                                  ;
-                                                  order.add(widget.foodItems[i].quantity
-                                                      .toString() +
-                                                      " x " +
-                                                      widget.foodItems[i].foodItemName +
-                                                      " = R" +
-                                                      itemTotal.toString());
-                                                }
-                                                Order newOrder = Order(
+                                                      totalAmount = totalAmount +
+                                                          widget.foodItems[i]
+                                                                  .quantity *
+                                                              widget.foodItems[i]
+                                                                  .foodItemPrice;
+                                                      ;
+                                                      order.add(widget
+                                                              .foodItems[i].quantity
+                                                              .toString() +
+                                                          " x " +
+                                                          widget.foodItems[i]
+                                                              .foodItemName +
+                                                          " = R" +
+                                                          itemTotal.toString());
+                                                    }
+                                                    Order newOrder = Order(
+                                                        orderNumber:
+                                                            'VR${orderNumber.toString()}',
+                                                        userUid: user.uid,
+                                                        userName:
+                                                            '${user.firstName + ' ' + user.lastName}',
+                                                        userPhoneNumber:
+                                                            user.phoneNumber,
+                                                        userAddress:
+                                                            _userDeliveryLocation,
+                                                        userEmail:
+                                                            user.emailAddress,
+                                                        dateOrderCreated:
+                                                            DateTime.now(),
+                                                        orderItems: order,
+                                                        orderTotalAmount:
+                                                            'R${totalAmount.toString()}',
+                                                        orderStatus: 'New',
+                                                        flag: 'New Order',
+                                                        tAmount: totalAmount,
+                                                        paymentStatus: 'Not Paid',
+                                                        orderType: _orderType,
+                                                        platform: 'MOBILE');
+                                                    orderService.addOrder(newOrder);
+                                                    //_showNotification();
+
+                                                    //store notification in the database--------------------
+                                                    OrderNotification
+                                                        newNotification =
+                                                        OrderNotification(
+                                                      //notificationId: '',
+                                                      userUid: user.uid,
+                                                      title: 'New order',
+                                                      body:
+                                                          'Thank you new order created.',
+                                                      isRead: false,
+                                                      orderNumber:
+                                                          'VR${orderNumber.toString()}',
+                                                      dateCreated: DateTime.now(),
+                                                    );
+                                                    notificationService
+                                                        .addNotification(
+                                                            newNotification);
+                                                    Navigator.of(context).push(
+                                                      FadePageRoute(
+                                                        builder: (c) {
+                                                          return ProcessOrderPayment(
+                                                            orderNumber:
+                                                                'VR${orderNumber.toString()}',
+                                                            amount: totalAmount,
+                                                          );
+                                                        },
+                                                        settings:
+                                                            new RouteSettings(),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    print(
+                                                        _fbKey.currentState.value);
+                                                    print('validation failed');
+                                                  }
+                                                },
+                                              ),
+
+                                              RaisedButton(onPressed: () async{
+                                                if (_fbKey.currentState
+                                                    .saveAndValidate()) {
+                                                  List<String> order =
+                                                  new List<String>();
+                                                  int totalAmount = 0;
+
+                                                  for (int i = 0;
+                                                  i < widget.foodItems.length;
+                                                  i++) {
+                                                    int itemTotal = widget
+                                                        .foodItems[i]
+                                                        .quantity *
+                                                        widget.foodItems[i]
+                                                            .foodItemPrice;
+                                                    totalAmount = totalAmount +
+                                                        widget.foodItems[i]
+                                                            .quantity *
+                                                            widget.foodItems[i]
+                                                                .foodItemPrice;
+                                                    ;
+                                                    order.add(widget
+                                                        .foodItems[i].quantity
+                                                        .toString() +
+                                                        " x " +
+                                                        widget.foodItems[i]
+                                                            .foodItemName +
+                                                        " = R" +
+                                                        itemTotal.toString());
+                                                  }
+                                                  Order newOrder = Order(
+                                                      orderNumber:
+                                                      'VR${orderNumber.toString()}',
+                                                      userUid: user.uid,
+                                                      userName:
+                                                      '${user.firstName + ' ' + user.lastName}',
+                                                      userPhoneNumber:
+                                                      user.phoneNumber,
+                                                      userAddress:
+                                                      _userDeliveryLocation,
+                                                      userEmail:
+                                                      user.emailAddress,
+                                                      dateOrderCreated:
+                                                      DateTime.now(),
+                                                      orderItems: order,
+                                                      orderTotalAmount:
+                                                      'R${totalAmount.toString()}',
+                                                      orderStatus: 'New',
+                                                      flag: 'New Order',
+                                                      tAmount: totalAmount,
+                                                      paymentStatus: 'Not Paid',
+                                                      orderType: _orderType,
+                                                      platform: 'MOBILE');
+                                                  orderService.addOrder(newOrder);
+                                                  //_showNotification();
+
+                                                  //store notification in the database--------------------
+                                                  OrderNotification
+                                                  newNotification =
+                                                  OrderNotification(
+                                                    //notificationId: '',
+                                                    userUid: user.uid,
+                                                    title: 'New order',
+                                                    body:
+                                                    'Thank you new order created.',
+                                                    isRead: false,
                                                     orderNumber:
                                                     'VR${orderNumber.toString()}',
-                                                    userUid: user.uid,
-                                                    userName:
-                                                    '${user.firstName + ' ' + user.lastName}',
-                                                    userPhoneNumber: user.phoneNumber,
-                                                    userAddress: _userDeliveryLocation,
-                                                    userEmail: user.emailAddress,
-                                                    dateOrderCreated: DateTime.now(),
-                                                    orderItems: order,
-                                                    orderTotalAmount:
-                                                    'R${totalAmount.toString()}',
-                                                    orderStatus: 'New',
-                                                    flag: 'New Order',
-                                                    tAmount: totalAmount,
-                                                    paymentStatus: 'Not Paid',
-                                                    orderType: _orderType,
-                                                    platform: 'MOBILE');
-                                                orderService.addOrder(newOrder);
-                                                //_showNotification();
-
-                                                //store notification in the database--------------------
-                                                OrderNotification newNotification =
-                                                OrderNotification(
-                                                  //notificationId: '',
-                                                  userUid: user.uid,
-                                                  title: 'New order',
-                                                  body: 'Thank you new order created.',
-                                                  isRead: false,
-                                                  orderNumber:
-                                                  'VR${orderNumber.toString()}',
-                                                  dateCreated: DateTime.now(),
-                                                );
-                                                notificationService
-                                                    .addNotification(newNotification);
-                                                Navigator.of(context).push(
-                                                  FadePageRoute(
-                                                    builder: (c) {
-                                                      return ProcessOrderPayment(
-                                                        orderNumber:
-                                                        'VR${orderNumber.toString()}',
-                                                        amount: totalAmount,
-                                                      );
-                                                    },
-                                                    settings: new RouteSettings(),
-                                                  ),
-                                                );
-                                              } else {
-                                                print(_fbKey.currentState.value);
-                                                print('validation failed');
-                                              }
-
-                                            },
+                                                    dateCreated: DateTime.now(),
+                                                  );
+                                                  notificationService
+                                                      .addNotification(
+                                                      newNotification).then((value) => Flushbar(
+                                                      //aroundPadding: EdgeInsets.all(10),
+                                                      borderRadius: 10,
+                                                      backgroundGradient: LinearGradient(
+                                                        colors: [Colors.green.shade600, Colors.green.shade500],
+                                                        stops: [0.6, 1],
+                                                      ),
+                                                      boxShadows: [
+                                                        BoxShadow(
+                                                          color: Colors.black45,
+                                                          offset: Offset(3, 3),
+                                                          blurRadius: 3,
+                                                        ),
+                                                      ],
+                                                      dismissDirection: FlushbarDismissDirection.VERTICAL,
+                                                      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+                                                      duration: Duration(milliseconds: 4000),
+                                                      flushbarPosition: FlushbarPosition.TOP,
+                                                      icon: Icon(
+                                                        Icons.add_shopping_cart,
+                                                        color: Colors.white,
+                                                      ),
+                                                      shouldIconPulse: true,
+                                                      title: 'New Order',
+                                                      message: 'New Order created payment to be done at the restaurant.',
+                                                    )..show(context).then((value) => Navigator.of(context)
+                                                      .pushNamedAndRemoveUntil('/home_page',
+                                                          (Route<dynamic> route) => false)));
+                                                } else {
+                                                  print(
+                                                      _fbKey.currentState.value);
+                                                  print('validation failed');
+                                                }
+                                              },  color: Colors.red[900],
+                                                elevation: 10,
+                                                shape:
+                                                new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    new BorderRadius
+                                                        .circular(
+                                                        30.0)),
+                                                textColor: Colors.white,
+                                                child: Text(
+                                                  "Pay at the Restaurant",
+                                                  style: TextStyle(fontSize: 25),
+                                                ),)
+                                            ],
                                           );
                                         }),
                                   ),
@@ -495,14 +661,14 @@ class _BottomBarState extends State<BottomBar> {
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Color(0xfffeb324),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'Checkout',
-                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                   ),
                 ],
               ),

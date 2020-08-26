@@ -421,7 +421,7 @@ class ItemContainer extends StatelessWidget {
         foodImage: foodItem.foodItemImage,
         foodName: foodItem.foodItemName,
         foodPrice: foodItem.foodItemPrice,
-        foodIngredients: foodItem.foodItemDescription,
+//        foodIngredients: foodItem.foodItemDescription,
         foodCategory: foodItem.foodItemCategory,
         isADeal: foodItem.isDeal,
         foodItemID: foodItem.id,
@@ -958,7 +958,7 @@ class Items extends StatelessWidget {
     @required this.foodImage,
     @required this.foodName,
     @required this.foodPrice,
-    @required this.foodIngredients,
+//    @required this.foodIngredients,
     @required this.foodCategory,
     @required this.isADeal,
     @required this.foodItemID,
@@ -968,7 +968,7 @@ class Items extends StatelessWidget {
   final String foodImage;
   final String foodName;
   final int foodPrice;
-  final String foodIngredients;
+//  final String foodIngredients;
   final String foodCategory;
   final String isADeal;
   final int foodItemID;

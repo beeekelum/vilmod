@@ -44,6 +44,7 @@ class FoodItem {
   FoodItem.fromJson(Map<String, dynamic> parsedJson)
       : id = parsedJson['id'],
         foodItemName = parsedJson['foodItemName'],
+        foodItemImage = parsedJson['foodItemImage'],
         foodItemPrice = parsedJson['foodItemPrice'],
         foodItemDescription = parsedJson['foodItemDescription'],
         foodItemCategory = parsedJson['foodItemCategory'],
