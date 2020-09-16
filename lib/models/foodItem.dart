@@ -16,8 +16,6 @@ class FoodItem {
   var foodItemDescription;
   var foodItemCategory;
   var isDeal;
-
-  //DateTime dateCreated;
   var quantity;
 
   FoodItem(
@@ -30,7 +28,6 @@ class FoodItem {
       @required this.foodItemDescription,
       @required this.foodItemCategory,
       @required this.isDeal,
-      //@required this.dateCreated,
       this.quantity = 1});
 
   void incrementQuantity() {

@@ -5,7 +5,7 @@ import 'package:vilmod/services/database.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //create user object based on FirebaseUser  -- return USer object
+  //create user object based on FirebaseUser  -- return User object
   User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;
   }
